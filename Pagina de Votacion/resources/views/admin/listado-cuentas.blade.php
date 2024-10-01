@@ -43,11 +43,16 @@
                 <td>{{ $admin->CORREO }}</td>
                 <td>{{ $admin->TIPO == \App\Models\Admin::TIPO_SUPERADMIN ? 'Tipo 1' : 'Tipo 2' }}</td>
                 <td>
-                    <form class="btn1" action="{{ route('admin.modificar-cuenta', $admin->ID) }}" method="GET">
-                        <button type="submit">
+                    <div class="btn1"  method="GET">
+                        <!-- <button type="submit">
+                            Modificar
+                        </button> -->
+
+                        <button type="button" class="edit-button" data-id="{{ $admin->ID }}" data-nombre="{{ $admin->NOMBRE }}" data-correo="{{ $admin->CORREO }}">
                             Modificar
                         </button>
-                    </form>
+
+                    </div>
                 </td>
                 <td>
                     <form class="btn2" action="{{ route('admin.eliminar-cuenta', $admin->ID) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta cuenta?');">
@@ -67,9 +72,24 @@
 
         </table>
     </div>
+
+
+    <!-- Modal para editar administrador -->
+    <div id="editModal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Editar Administrador</h2>
+            <form id="editForm" method="POST" action="{{ route('admin.update') }}">
+                @csrf
+                <input type="hidden" name="id" id="admin-id">
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" id="admin-nombre" required>
+                <label for="correo">Correo:</label>
+                <input type="email" name="correo" id="admin-correo" required>
+                <button type="submit">Actualizar</button>
+            </form>
+        </div>
     </div>
-
-
 </body>
 
 </html>
@@ -193,4 +213,59 @@
         width: 25px;
         height: 25px;
     }
+
+
+    /* Estilo del modal */
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        width: 40%;
+        height:20%;
+        margin: auto;
+        margin-top: 10%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+    }
+
+    #editModal {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .close-button {
+        cursor: pointer;
+    }
+
 </style>
+
+<script>
+    document.querySelectorAll('.edit-button').forEach(button => {
+        button.addEventListener('click', function() {
+            // Rellenar el formulario con los datos del administrador
+            document.getElementById('admin-id').value = this.getAttribute('data-id');
+            document.getElementById('admin-nombre').value = this.getAttribute('data-nombre');
+            document.getElementById('admin-correo').value = this.getAttribute('data-correo');
+            // Mostrar el modal
+            document.getElementById('editModal').style.display = 'block';
+        });
+    });
+
+    document.querySelector('.close-button').addEventListener('click', function() {
+        document.getElementById('editModal').style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target === document.getElementById('editModal')) {
+            document.getElementById('editModal').style.display = 'none';
+        }
+    });
+</script>

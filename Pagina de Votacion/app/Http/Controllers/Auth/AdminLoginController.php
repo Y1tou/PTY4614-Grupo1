@@ -80,4 +80,38 @@ class AdminLoginController extends Controller
         return redirect()->route('admin.listado-cuentas')->with('success', 'Cuenta creada exitosamente');
     }    
 
+    
+    public function actualizarCuenta(Request $request, $id)
+    {
+        $admin = Admin::findOrFail($id);
+
+        // Validar los datos de entrada
+        $request->validate([
+            'NOMBRE' => 'required|string|max:40',
+            'CORREO' => 'required|email|max:30|unique:admin,CORREO,' . $admin->ID,
+            'CONTRASENIA' => 'nullable|string|min:6',
+            'TIPO' => 'required|integer',
+        ]);
+
+        // Actualizar los campos
+        $admin->NOMBRE = $request->input('NOMBRE');
+        $admin->CORREO = $request->input('CORREO');
+        if ($request->filled('CONTRASENIA')) {
+            $admin->CONTRASENIA = bcrypt($request->input('CONTRASENIA')); // Encriptar la nueva contraseña si se proporciona
+        }
+        $admin->TIPO = $request->input('TIPO');
+
+        $admin->save(); // Guardar cambios
+
+        return redirect()->route('admin.listado-cuentas')->with('success', 'Administrador actualizado con éxito.');
+    }
+
+    public function eliminarCuenta($id)
+    {
+        $admin = Admin::findOrFail($id);
+        $admin->delete(); // Eliminar el administrador
+
+        return redirect()->route('admin.listado-cuentas')->with('success', 'Administrador eliminado con éxito.');
+    }
+
 }
