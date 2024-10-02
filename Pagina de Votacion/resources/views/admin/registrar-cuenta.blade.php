@@ -22,8 +22,8 @@
     </header>
     <div class="content">
         <div class="sec1">
-            <a href="">Registrar Cuenta</a>
-            <a href="">Listado de Cuentas</a>
+            <a href="{{ route('admin.registrar-cuenta') }}">Registrar Cuenta</a>
+            <a href="{{ route('admin.listado-cuentas') }}">Listado de Cuentas</a>
         </div>
         <hr>
         <form class="sec2" action="{{ route('admin.registrar-cuenta') }}" method="POST">

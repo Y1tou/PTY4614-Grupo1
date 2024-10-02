@@ -23,9 +23,10 @@
     
     <div class="content">
         <div class="sec1">
-            <a href="">Registrar Cuenta</a>
-            <a href="">Listado de Cuentas</a>
+            <a href="{{ route('admin.registrar-cuenta') }}">Registrar Cuenta</a>
+            <a href="{{ route('admin.listado-cuentas') }}">Listado de Cuentas</a>
         </div>
+
         <hr>
         <table class="sec2">
             <tr>
@@ -44,10 +45,6 @@
                 <td>{{ $admin->TIPO == \App\Models\Admin::TIPO_SUPERADMIN ? 'Tipo 1' : 'Tipo 2' }}</td>
                 <td>
                     <div class="btn1"  method="GET">
-                        <!-- <button type="submit">
-                            Modificar
-                        </button> -->
-
                         <button type="button" class="edit-button" data-id="{{ $admin->ID }}" data-nombre="{{ $admin->NOMBRE }}" data-correo="{{ $admin->CORREO }}">
                             Modificar
                         </button>
@@ -63,10 +60,6 @@
                         </button>
                     </form>
                 </td>
-
-                <!-- <td style="display: flex; justify-content: center;">
-                    <img src="C:\Users\angel\Desktop\Nueva carpeta\img\eliminar.png" alt="">
-                </td> -->
             </tr>
             @endforeach
 
@@ -83,7 +76,7 @@
                 @csrf
                 <input type="hidden" name="id" id="admin-id">
                 <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" id="admin-nombre" required>
+                <input type="text" name="nombre" id="admin-nombre">
                 <label for="correo">Correo:</label>
                 <input type="email" name="correo" id="admin-correo" required>
                 <button type="submit">Actualizar</button>

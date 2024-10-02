@@ -15,12 +15,6 @@ class AdminLoginController extends Controller
         return view('admin/login');
     }
 
-    //Redirección al login (Prueba)
-    // protected function unauthenticated($request, array $guards)
-    // {
-    //     return redirect()->guest(route('admin.login'));
-    // }
-
     public function login(Request $request)
     {
         $credentials = $request->only('CORREO', 'CONTRASENIA');
@@ -80,31 +74,17 @@ class AdminLoginController extends Controller
         return redirect()->route('admin.listado-cuentas')->with('success', 'Cuenta creada exitosamente');
     }    
 
-    
-    public function actualizarCuenta(Request $request, $id)
+        //Actualizar datos Admin
+    public function update(Request $request)
     {
-        $admin = Admin::findOrFail($id);
-
-        // Validar los datos de entrada
-        $request->validate([
-            'NOMBRE' => 'required|string|max:40',
-            'CORREO' => 'required|email|max:30|unique:admin,CORREO,' . $admin->ID,
-            'CONTRASENIA' => 'nullable|string|min:6',
-            'TIPO' => 'required|integer',
-        ]);
-
-        // Actualizar los campos
-        $admin->NOMBRE = $request->input('NOMBRE');
-        $admin->CORREO = $request->input('CORREO');
-        if ($request->filled('CONTRASENIA')) {
-            $admin->CONTRASENIA = bcrypt($request->input('CONTRASENIA')); // Encriptar la nueva contraseña si se proporciona
-        }
-        $admin->TIPO = $request->input('TIPO');
-
-        $admin->save(); // Guardar cambios
-
-        return redirect()->route('admin.listado-cuentas')->with('success', 'Administrador actualizado con éxito.');
+        $admin = Admin::find($request->id);
+        $admin->NOMBRE = $request->nombre;
+        $admin->CORREO = $request->correo;
+        $admin->save();
+    
+        return redirect()->route('admin.listado-cuentas')->with('success', 'Administrador actualizado exitosamente.');
     }
+    
 
     public function eliminarCuenta($id)
     {
