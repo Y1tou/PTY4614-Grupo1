@@ -6,6 +6,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\Auth\AdminLoginController;
 
 Route::get('/', function () {
     return view('welcome'); // Página de login al iniciar
@@ -55,3 +56,20 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::prefix('admin')->group(function () {
+    // Rutas de autenticación para admins
+    Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AdminLoginController::class, 'login']);
+    Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+
+    // Rutas protegidas por autenticación para administradores
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('/registrar-cuenta', [AdminLoginController::class, 'mostrarPaginaRegistrar'])->name('admin.registrar-cuenta');
+        Route::post('/registrar-cuenta', [AdminLoginController::class, 'registrarCuenta'])->name('admin.registrar-cuenta.post');
+        Route::get('/listado-cuentas', [AdminLoginController::class, 'mostrarListado'])->name('admin.listado-cuentas');
+        Route::post('/update', [AdminLoginController::class, 'update'])->name('admin.update');
+        Route::delete('/eliminar-cuenta/{id}', [AdminLoginController::class, 'eliminarCuenta'])->name('admin.eliminar-cuenta');
+    });
+
+});
