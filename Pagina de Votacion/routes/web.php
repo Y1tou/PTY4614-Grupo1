@@ -41,10 +41,6 @@ Route::get('/auth/google/callback', function () {
     return redirect('/')->withErrors(['msg' => 'Tu cuenta no esta registrada en esta plataforma. No puede ingresar a la página.']);
 });
 
-
-
-
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
