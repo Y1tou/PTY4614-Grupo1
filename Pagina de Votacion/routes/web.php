@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\Auth\AdminLoginController;
@@ -12,16 +13,22 @@ Route::get('/', function () {
     return view('welcome'); // Página de login al iniciar
 });
 
+Route::get('/admin', function () {
+    return view('/admin/login'); // Página de login al iniciar
+});
+
 Route::get('/google-auth/redirect', function () {
     return Socialite::driver('google')->redirect();
 });
- 
+
 Route::get('/auth/google/callback', function () {
     // Obtener el usuario desde Google
     $user_google = Socialite::driver('google')->stateless()->user();
 
     // Buscar el usuario en la base de datos por el correo electrónico
     $user = User::where('email', $user_google->email)->first();
+
+    $admin = Admin::where('CORREO', $user_google->email)->first();
 
     // Verificar si el usuario existe
     if ($user) {
@@ -35,6 +42,19 @@ Route::get('/auth/google/callback', function () {
 
         // Redirigir al dashboard
         return redirect('/dashboard');
+    }
+
+    if ($admin) {
+        // Crear o actualizar el usuario en la base de datos
+        $admin->google_id = $user_google->id; // Solo actualizar google_id si es necesario
+        $admin->name = $user_google->name;
+        $admin->save(); // Guarda los cambios en la base de datos
+
+        // Iniciar sesión
+        Auth::login($admin);
+
+        // Redirigir al dashboard
+        return redirect('/admin/ae-home');
     }
 
     // Si el usuario no está registrado, redirigir a una página de error o al login
@@ -58,6 +78,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'login']);
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+    Route::get('/ae-home', [AdminLoginController::class, 'showAEHome'])->name('admin.ae-home');
 
     // Rutas protegidas por autenticación para administradores
     Route::middleware('auth:admin')->group(function () {

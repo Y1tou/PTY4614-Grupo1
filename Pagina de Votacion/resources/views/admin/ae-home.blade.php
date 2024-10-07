@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador - Registro</title>
+    <title>A.E. Home</title>
 </head>
 
 <body>
@@ -193,10 +193,6 @@
     .sec2>button:hover {
         background-color: #FFBD58;
         color: #FFFFFF;
-    }
-
-    .logout{
-        margin-right: 30px;
     }
 
     .logout>button{

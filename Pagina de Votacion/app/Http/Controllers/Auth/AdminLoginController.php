@@ -15,6 +15,12 @@ class AdminLoginController extends Controller
         return view('admin/login');
     }
 
+    public function showAEHome()
+    {
+        // return view('auth.admin-login');
+        return view('admin/ae-home');
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->only('CORREO', 'CONTRASENIA');
@@ -43,13 +49,13 @@ class AdminLoginController extends Controller
 
     public function mostrarPaginaRegistrar()
     {
-        return view('admin.registrar-cuenta');  
+        return view('admin.registrar-cuenta');
     }
 
     public function mostrarListado()
     {
         $admins = Admin::all(); // Obtener todos los administradores
-        return view('admin.listado-cuentas', compact('admins'));  
+        return view('admin.listado-cuentas', compact('admins'));
     }
 
     public function registrarCuenta(Request $request)
@@ -57,11 +63,11 @@ class AdminLoginController extends Controller
         // Validar los datos del formulario
         $validatedData = $request->validate([
             'NOMBRE' => '',
-            'CORREO' => 'required|email|max:30|unique:admin,CORREO',
+            'CORREO' => 'required|email|unique:admin,CORREO',
             'CONTRASENIA' => '',
             'TIPO' => 'required|integer',
         ]);
-    
+
         // Crear el nuevo admin
         Admin::create([
             'NOMBRE' => $validatedData['NOMBRE'],
@@ -69,10 +75,10 @@ class AdminLoginController extends Controller
             'CONTRASENIA' => bcrypt($validatedData['CONTRASENIA']), // Encriptar la contraseña
             'TIPO' => $validatedData['TIPO'],
         ]);
-    
+
         // Redirigir a una página de confirmación o al listado de cuentas
         return redirect()->route('admin.listado-cuentas')->with('success', 'Cuenta creada exitosamente');
-    }    
+    }
 
         //Actualizar datos Admin
     public function update(Request $request)
@@ -81,10 +87,10 @@ class AdminLoginController extends Controller
         $admin->NOMBRE = $request->nombre;
         $admin->CORREO = $request->correo;
         $admin->save();
-    
+
         return redirect()->route('admin.listado-cuentas')->with('success', 'Administrador actualizado exitosamente.');
     }
-    
+
 
     public function eliminarCuenta($id)
     {

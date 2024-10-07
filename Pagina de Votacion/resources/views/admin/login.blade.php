@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Administrador</title>
 </head>
 
 <body>
@@ -15,14 +15,13 @@
             <p style="color: #F1F1F1;">Consejeros</p>
         </div>
 
-      <button>   <a href="/google-auth/redirect"
-        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-        Iniciar sesion
-    </a>
-    </button>
+        <a href="/">
+            Login Users
+        </a>
+
     </header>
 
-<!-- Verificar el uso correcto del form action --> 
+<!-- Verificar el uso correcto del form action -->
     <form action="{{ url('/admin/login') }}" method="post">
         @csrf
         <div class="header_form">
@@ -66,7 +65,16 @@
         height: 10vh;
         width: 100%;
         background-color: #163D64;
-     }
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    a{
+        color: #FFFFFF;
+        text-decoration: inherit;
+        margin-right:50px;
+    }
 
     .logo {
         width: 22%;

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Administrador - Listado</title>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
             <button type="submit">Cerrar sesión</button>
         </form>
     </header>
-    
+
     <div class="content">
         <div class="sec1">
             <a href="{{ route('admin.registrar-cuenta') }}">Registrar Cuenta</a>
@@ -40,7 +40,7 @@
             @foreach ($admins as $admin)
             <tr>
                 <td>{{ $admin->ID }}</td>
-                <td>{{ $admin->NOMBRE }}</td>
+                <td>{{ $admin->name }}</td>
                 <td>{{ $admin->CORREO }}</td>
                 <td>{{ $admin->TIPO == \App\Models\Admin::TIPO_SUPERADMIN ? 'Tipo 1' : 'Tipo 2' }}</td>
                 <td>
@@ -98,7 +98,7 @@
         display:flex;
         justify-content:center;
     }
-    
+
     header {
         height: 10vh;
         width: 100%;
@@ -106,6 +106,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .logout{
+        margin-right: 30px;
     }
 
     .logout>button{
@@ -118,7 +122,7 @@
         width: 100%;
         font-size: 18px;
     }
-    
+
     .logout>button:hover {
         background-color: #FFBD58;
         color: #FFFFFF;
