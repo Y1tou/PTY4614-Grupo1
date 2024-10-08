@@ -11,8 +11,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // // Registrar el middleware CheckSuperAdmin
         // $middleware->append(\App\Http\Middleware\CheckSuperAdmin::class);
+        // $middleware->append(\App\Http\Middleware\CheckAdmin::class);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

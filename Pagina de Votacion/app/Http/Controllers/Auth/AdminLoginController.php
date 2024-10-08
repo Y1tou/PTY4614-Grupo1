@@ -15,11 +15,17 @@ class AdminLoginController extends Controller
         return view('admin/login');
     }
 
-    public function showAEHome()
-    {
-        // return view('auth.admin-login');
-        return view('admin/ae-home');
-    }
+    // public function showAEHome()
+    // {
+    //     // return view('auth.admin-login');
+    //     return view('admin/ae-home');
+    // }
+
+    // public function showAEListado()
+    // {
+    //     // return view('auth.admin-login');
+    //     return view('admin/ae-listado-cuentas');
+    // }
 
     public function login(Request $request)
     {
@@ -31,7 +37,13 @@ class AdminLoginController extends Controller
             'password' => $credentials['CONTRASENIA'], // Laravel verificará la contraseña encriptada
         ])) {
             // Autenticación exitosa
-            return redirect()->intended('admin/registrar-cuenta'); // Cambiar esta ruta según sea necesario
+            $user = Auth::guard('admin')->user(); // Obtén el usuario autenticado
+            // Redirigir según el tipo de admin
+            if ($user->TIPO === 1) {
+                return redirect()->route('admin.registrar-cuenta');
+            } elseif ($user->TIPO === 2) {
+                return redirect()->route('admin.ae-home');
+            }
         }
 
         // Autenticación fallida

@@ -22,47 +22,38 @@
     </header>
     <div class="content">
         <div class="sec1">
-            <a href="{{ route('admin.registrar-cuenta') }}">Registrar Cuenta</a>
-            <a href="{{ route('admin.listado-cuentas') }}">Listado de Cuentas</a>
+            <a href="{{ route('admin.ae-home') }}">Registrar Cuenta Consejero</a>
+            <a href="{{ route('admin.ae-listado-cuentas') }}">Listado de Cuentas</a>
         </div>
         <hr>
-        <form class="sec2" action="{{ route('admin.registrar-cuenta') }}" method="POST">
+        @if ($errors->any())
+            <div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form class="sec2" action="{{ route('register') }}" method="POST">
+            <b>Registro de Usuario</b>
             @csrf
-            <b>Datos</b>
-
-            <label for="NOMBRE"><b>Nombre</b></label>
-            <input type="text" placeholder="Ingresar Nombre" name="NOMBRE">
-
-            <label for="CORREO"><b>Correo *</b></label>
-            <input type="email" placeholder="Ingresar Correo" name="CORREO" required>
-
-            <label for="CONTRASENIA"><b>Contrase&ntilde;a</b></label>
-            <input type="password" placeholder="Ingresar Contrase&ntilde;a" name="CONTRASENIA">
-
-
-            <label for="voto-select"><b>Elige una opción:</b></label>
-
-            <select name="TIPO" id="voto-select" required>
-                <option value="">Opciones</option>
-                <option value="1">Tipo 1</option>
-                <option value="2">Tipo 2</option>
+            <input type="number" name="run" placeholder="RUT (Sin punto y/o gui&oacute;n )" maxlength="8">
+            <input type="text" name="name" placeholder="Nombre">
+            <input type="email" name="email" placeholder="Correo electrónico *" required>
+            <!-- <input type="password" name="password" placeholder="Contraseña" required>
+            <input type="password" name="password_confirmation" placeholder="Confirmar contraseña" required> -->
+            <input type="text" name="carrera" placeholder="Carrera">
+            <input type="number" name="edad" placeholder="Edad">
+            <select name="sexo">
+                <option value="">Selecciona Sexo</option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
             </select>
-
             <button type="submit">Registrar</button>
-            @if ($errors->any())
-                <div>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
         </form>
     </div>
-    </div>
-
 
 </body>
 
@@ -123,9 +114,9 @@
     }
 
     .sec1>a {
-        margin: 8% 20% 0 20%;
+        margin: 12% 10% 0 10%;
         text-decoration: none;
-        font-size: 30px;
+        font-size: 28px;
         /* background-color: #f4f4f4; */
         color: #000;
         padding: 0px 12px 0px 12px;
