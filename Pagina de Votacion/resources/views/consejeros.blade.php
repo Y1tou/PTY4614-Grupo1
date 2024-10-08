@@ -25,8 +25,11 @@
             <input type="email" placeholder="Ingresar Correo" name="email" required>
             <!-- <input type="password" placeholder="Ingresar Contrase&ntilde;a" name="psw" required> -->
 
-            <button type="submit">Ingresar al portal</button>
-        </div>
+            <button type="submit"   >Ingresar al portal</button>
+
+
+          
+        </div> 
 
     </form>
 

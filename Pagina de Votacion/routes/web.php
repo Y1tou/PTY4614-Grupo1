@@ -47,7 +47,7 @@ Route::get('/auth/google/callback', function () {
     if ($admin) {
         // Crear o actualizar el usuario en la base de datos
         $admin->google_id = $user_google->id; // Solo actualizar google_id si es necesario
-        $admin->name = $user_google->name;
+        $admin->NOMBRE = $user_google->NOMBRE;
         $admin->save(); // Guarda los cambios en la base de datos
 
         // Iniciar sesión

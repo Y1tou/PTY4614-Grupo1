@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesion</title>
-        <!-- Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 </head>
@@ -19,22 +19,22 @@
         </div>
 
         <div>
-        @if (Route::has('login'))
-            <nav>
-                @auth
-                    <a href="{{ url('/dashboard') }}">
-                        Dashboard
-                    </a>
-                @else
-                    <a href="/admin">
-                        Administrador
-                    </a>
-                    <a href="/google-auth/redirect">
-                        Iniciar sesion
-                    </a>
-                @endauth
-            </nav>
-        @endif
+            @if (Route::has('login'))
+                <nav>
+                    @auth
+                        <a href="{{ url('/dashboard') }}">
+                            Dashboard
+                        </a>
+                    @else
+                        <a href="/admin">
+                            Administrador
+                        </a>
+                        <a href="/google-auth/redirect">
+                            Iniciar sesion
+                        </a>
+                    @endauth
+                </nav>
+            @endif
         </div>
     </header>
 
@@ -47,7 +47,9 @@
             <input type="email" placeholder="Ingresar Correo" name="email" required>
             <!-- <input type="password" placeholder="Ingresar Contrase&ntilde;a" name="psw" required> -->
 
-            <button type="submit">Ingresar al portal</button>
+            <button type="submit"> <a href="/google-auth/redirect">
+                    Ingresar al portal 11
+                </a></button>
         </div>
 
     </form>
@@ -72,10 +74,10 @@
         align-items: center;
     }
 
-    a{
+    a {
         color: #FFFFFF;
         text-decoration: inherit;
-        margin-right:50px;
+        margin-right: 50px;
     }
 
     .logo {
@@ -86,7 +88,8 @@
         margin-left: 1vh;
         align-items: center;
     }
-    .logo>strong{
+
+    .logo>strong {
         font-size: 40px;
         text-decoration: none;
         font-family: 'Roboto';
@@ -108,7 +111,7 @@
     }
 
     input[type=email],
-    input[type=password]{
+    input[type=password] {
         width: 100%;
         padding: 20px 20px;
         margin: 8px 0;
@@ -142,7 +145,8 @@
     .container {
         padding: 16px;
     }
-    b{
+
+    b {
         font-size: 20px;
     }
 </style>
