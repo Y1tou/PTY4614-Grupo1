@@ -24,6 +24,9 @@
         <div class="sec1">
             <a href="{{ route('admin.ae-home') }}">Registrar Cuenta Consejero</a>
             <a href="{{ route('admin.ae-listado-cuentas') }}">Listado de Cuentas</a>
+            <a href="{{ route('admin.votacion.create') }}">Crear votacion</a>
+
+            
         </div>
         <hr>
         @if ($errors->any())

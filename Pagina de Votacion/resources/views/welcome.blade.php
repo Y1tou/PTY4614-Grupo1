@@ -48,7 +48,7 @@
             <!-- <input type="password" placeholder="Ingresar Contrase&ntilde;a" name="psw" required> -->
 
             <button type="submit"> <a href="/google-auth/redirect">
-                    Ingresar al portal 11
+                    Ingresar al portal 
                 </a></button>
         </div>
 

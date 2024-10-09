@@ -5,12 +5,14 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use App\Models\Admin;
+use App\Http\Controllers\Auth\VotacionController;
 use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\AEAdminController;
 use App\Http\Middleware\CheckSuperAdmin;
 use App\Http\Middleware\CheckAdmin;
+
 
 Route::get('/', function () {
     return view('welcome'); // Página de login al iniciar
@@ -105,6 +107,13 @@ Route::prefix('admin')->group(function () {
             Route::post('/update', [AEAdminController::class, 'update'])->name('admin.update');
             Route::delete('/eliminar-cuenta/{id}', [AEAdminController::class, 'eliminarCuenta'])->name('admin.eliminar-cuenta');
         });
+
     });
 
-});
+    Route::get('/votacion', [VotacionController::class, 'create'])->name('admin.votacion.create');
+
+    });
+    
+
+
+
