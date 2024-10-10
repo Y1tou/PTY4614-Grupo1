@@ -26,6 +26,8 @@
             <a href="{{ route('admin.ae-listado-cuentas') }}">Listado de Cuentas</a>
             <a href="{{ route('admin.votacion.create') }}">Crear votacion</a>
 
+            <a href="javascript:void(0);" onclick="mostrarFormularioVotacion()">Iniciar Votación</a>
+
             
         </div>
         <hr>
@@ -59,6 +61,51 @@
     </div>
 
 </body>
+
+
+
+<hr>
+
+<!-- Formulario de votación, inicialmente oculto -->
+<div class="container" id="formularioVotacion" style="display:none;">
+    <div class="sec2" style="width: 80%; margin: auto;">
+        <h2 class="text-center mb-4" style="font-size: 40px; text-align: center;">Datos de la Votación</h2>
+        <form>
+            <div class="form-group">
+                <label for="tema"><b>Tema de la Votación:</b></label>
+                <input type="text" class="form-control" id="tema" placeholder="Ingrese el tema">
+            </div>
+            <div class="form-group">
+                <label for="descripcion"><b>Descripción:</b></label>
+                <textarea class="form-control" id="descripcion" rows="3" placeholder="Ingrese la descripción"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="opcion1"><b>Opción 1:</b></label>
+                <input type="text" class="form-control" id="opcion1" placeholder="Ingrese la opción 1">
+            </div>
+            <div class="form-group">
+                <label for="opcion2"><b>Opción 2:</b></label>
+                <input type="text" class="form-control" id="opcion2" placeholder="Ingrese la opción 2">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Iniciar Votación</button>
+            <button type="button" class="btn btn-secondary mt-2">+</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    function mostrarFormularioVotacion() {
+        var formulario = document.getElementById("formularioVotacion");
+        // Mostrar u ocultar el formulario de votación
+        if (formulario.style.display === "none") {
+            formulario.style.display = "block";
+        } else {
+            formulario.style.display = "none";
+        }
+    }
+</script>
+
 
 </html>
 
@@ -204,4 +251,65 @@
         background-color: #FFBD58;
         color: #FFFFFF;
     }
+
+
+
+    .sec2 {
+    height: auto; /* Ajustar altura para acomodar contenido variable */
+    width: 50%; /* Tamaño similar al del registro */
+    margin: 5%;
+    padding: 5% 10%;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #000;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #FFFFFF;
+}
+
+/* Títulos y etiquetas */
+.sec2>b, .sec2 h2 {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+label>b {
+    font-size: 20px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+/* Botones del formulario */
+.sec2>button, .sec2 .btn {
+    background-color: #FFFFFF;
+    color: #000;
+    padding: 14px 20px;
+    margin: 25px 0;
+    border-radius: 10px;
+    border-color: #000;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+.sec2>button:hover, .sec2 .btn:hover {
+    background-color: #FFBD58;
+    color: #FFFFFF;
+}
+
+textarea {
+    resize: none;
+}
+
+
 </style>
