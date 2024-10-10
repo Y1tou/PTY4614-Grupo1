@@ -14,7 +14,6 @@ class AEAdminController extends Controller
 
     public function showAEHome()
     {
-        // return view('auth.admin-login');
         return view('admin/ae-home');
     }
     
@@ -22,6 +21,16 @@ class AEAdminController extends Controller
     {
         $users = User::all(); // Obtener todos los administradores
         return view('admin.ae-listado-cuentas', compact('users'));
+    }
+
+    public function mostrarVotacionAct()
+    {
+        return view('admin/ae-votaciones-activas');
+    }
+
+    public function mostrarVotacionHist()
+    {
+        return view('admin/ae-historial-votaciones');
     }
 
     // Actualizar datos Consejero

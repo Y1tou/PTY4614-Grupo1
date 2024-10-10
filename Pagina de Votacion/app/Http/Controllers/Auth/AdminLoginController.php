@@ -15,18 +15,6 @@ class AdminLoginController extends Controller
         return view('admin/login');
     }
 
-    // public function showAEHome()
-    // {
-    //     // return view('auth.admin-login');
-    //     return view('admin/ae-home');
-    // }
-
-    // public function showAEListado()
-    // {
-    //     // return view('auth.admin-login');
-    //     return view('admin/ae-listado-cuentas');
-    // }
-
     public function login(Request $request)
     {
         $credentials = $request->only('CORREO', 'CONTRASENIA');

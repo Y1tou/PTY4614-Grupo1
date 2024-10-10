@@ -8,19 +8,8 @@
 </head>
 
 <body>
-<header>
-        <div class="logo">
-            <strong style="color: #F1F1F1;">Duoc</strong>
-            <strong style="color: #FFBD58;">UC</strong>
-            <p style="color: #F1F1F1;">Consejeros</p>
-        </div>
-
-        <form class="logout" action="{{ route('admin.logout') }}" method="POST" style="display:inline;">
-            @csrf
-            <button type="submit">Cerrar sesión</button>
-        </form>
-    </header>
-
+    <!-- Header -->
+    @include('admin.partials.header')
     <div class="content">
         <div class="sec1">
             <a href="{{ route('admin.registrar-cuenta') }}">Registrar Cuenta</a>
