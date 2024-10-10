@@ -17,26 +17,63 @@
     <div class="container">
         <div class="card p-4" style="margin-top: 50px;">
             <h2 class="text-center mb-4">Datos de la Votación</h2>
-            <form>
+            <form action="{{ route('votacion.store') }}" method="POST">
+                @csrf <!-- Token de seguridad para formularios en Laravel -->
+                
+                <!-- Campo para el tema de la votación -->
                 <div class="form-group">
                     <label for="tema">Tema de la Votación:</label>
-                    <input type="text" class="form-control" id="tema" placeholder="Ingrese el tema">
+                    <input type="text" class="form-control" id="tema" name="tema" placeholder="Ingrese el tema" required>
                 </div>
+                
+
+                <div class="form-group">
+                    <label for="sigla">SIGLA:</label>
+                    <input type="text" class="form-control" id="sigla" name="sigla" placeholder="Ingrese la SIGLA" required>
+                </div>
+
+
+                <!-- Campo para la descripción -->
                 <div class="form-group">
                     <label for="descripcion">Descripción:</label>
-                    <textarea class="form-control" id="descripcion" rows="3" placeholder="Ingrese la descripción"></textarea>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Ingrese la descripción" required></textarea>
                 </div>
+                
+                <!-- Campo para la opción 1 -->
                 <div class="form-group">
                     <label for="opcion1">Opción 1:</label>
-                    <input type="text" class="form-control" id="opcion1" placeholder="Ingrese la opción 1">
+                    <input type="text" class="form-control" id="opcion1" name="opcion1" placeholder="Ingrese la opción 1" required>
                 </div>
+                
+                <!-- Campo para la opción 2 -->
                 <div class="form-group">
                     <label for="opcion2">Opción 2:</label>
-                    <input type="text" class="form-control" id="opcion2" placeholder="Ingrese la opción 2">
+                    <input type="text" class="form-control" id="opcion2" name="opcion2" placeholder="Ingrese la opción 2" required>
                 </div>
+                
+                <!-- Campo para la opción 3 -->
+                <div class="form-group">
+                    <label for="opcion3">Opción 3:</label>
+                    <input type="text" class="form-control" id="opcion3" name="opcion3" placeholder="Ingrese la opción 3">
+                </div>
+                
+                <!-- Campo para la opción 4 -->
+                <div class="form-group">
+                    <label for="opcion4">Opción 4:</label>
+                    <input type="text" class="form-control" id="opcion4" name="opcion4" placeholder="Ingrese la opción 4">
+                </div>
+
+                <!-- Botón para enviar el formulario -->
                 <button type="submit" class="btn btn-primary btn-block">Iniciar Votación</button>
                 <button type="button" class="btn btn-secondary mt-2">+</button>
             </form>
+
+            <!-- Mensaje de éxito -->
+            @if(session('success'))
+                <div class="alert alert-success mt-3">
+                    {{ session('success') }}
+                </div>
+            @endif
         </div>
     </div>
 
@@ -69,11 +106,11 @@
         align-items: center;
     }
 
-    .logo>strong {
+    .logo > strong {
         font-size: 40px;
     }
 
-    .logo>p {
+    .logo > p {
         font-size: 45px;
         font-family: 'Brush Script MT', cursive;
     }

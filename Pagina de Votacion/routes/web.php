@@ -60,7 +60,7 @@ Route::get('/auth/google/callback', function () {
 
 
         // Redirigir al dashboard
-        return redirect()->route('admin.ae-home'); 
+        return redirect()->route('admin.ae-home');
     }
 
     // Si el usuario no está registrado, redirigir a una página de error o al login
@@ -77,7 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::prefix('admin')->group(function () {
     // Rutas de autenticación para admins
@@ -102,13 +102,9 @@ Route::prefix('admin')->group(function () {
             Route::get('/ae-votaciones-activas', [AEAdminController::class, 'mostrarVotacionAct'])->name('admin.ae-votaciones-activas');
             Route::get('/ae-historial-votaciones', [AEAdminController::class, 'mostrarVotacionHist'])->name('admin.ae-historial-votaciones');
             Route::get('/votacion', [VotacionController::class, 'create'])->name('admin.votacion.create');
+
+            Route::get('/admin/votacion', [VotacionController::class, 'create'])->name('votacion.create');
+            Route::post('/admin/votacion', [VotacionController::class, 'store'])->name('votacion.store');
         });
-
     });
-
-
-    });
-    
-
-
-
+});
