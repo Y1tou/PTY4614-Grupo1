@@ -11,9 +11,14 @@
     <!-- Header -->
     @include('admin.partials.header')
     <div class="content">
-        <!-- Links -->
-        @include('admin.partials.ae-navigation')
+        <div class="sec1">
+            <a href="{{ route('admin.ae-home') }}">Registrar Cuenta Consejero</a>
+            <a href="{{ route('admin.ae-listado-cuentas') }}">Listado de Cuentas</a>
+            <a href="{{ route('admin.votacion.create') }}">Crear votacion</a>
+            <a href="javascript:void(0);" onclick="mostrarFormularioVotacion()">Iniciar Votación</a>
 
+            
+        </div>
         <hr>
         @if ($errors->any())
             <div>
@@ -43,6 +48,51 @@
     </div>
 
 </body>
+
+
+
+<hr>
+
+<!-- Formulario de votación, inicialmente oculto -->
+<div class="container" id="formularioVotacion" style="display:none;">
+    <div class="sec2" style="width: 80%; margin: auto;">
+        <h2 class="text-center mb-4" style="font-size: 40px; text-align: center;">Datos de la Votación</h2>
+        <form>
+            <div class="form-group">
+                <label for="tema"><b>Tema de la Votación:</b></label>
+                <input type="text" class="form-control" id="tema" placeholder="Ingrese el tema">
+            </div>
+            <div class="form-group">
+                <label for="descripcion"><b>Descripción:</b></label>
+                <textarea class="form-control" id="descripcion" rows="3" placeholder="Ingrese la descripción"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="opcion1"><b>Opción 1:</b></label>
+                <input type="text" class="form-control" id="opcion1" placeholder="Ingrese la opción 1">
+            </div>
+            <div class="form-group">
+                <label for="opcion2"><b>Opción 2:</b></label>
+                <input type="text" class="form-control" id="opcion2" placeholder="Ingrese la opción 2">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Iniciar Votación</button>
+            <button type="button" class="btn btn-secondary mt-2">+</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    function mostrarFormularioVotacion() {
+        var formulario = document.getElementById("formularioVotacion");
+        // Mostrar u ocultar el formulario de votación
+        if (formulario.style.display === "none") {
+            formulario.style.display = "block";
+        } else {
+            formulario.style.display = "none";
+        }
+    }
+</script>
+
 
 </html>
 
@@ -122,4 +172,19 @@
         color: #FFFFFF;
     }
 
+    .logout>button{
+        background-color: #FFFFFF;
+        color: #000;
+        padding: 14px 20px;
+        border-radius: 10px;
+        border-color: #000;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .logout>button:hover {
+        background-color: #FFBD58;
+        color: #FFFFFF;
+    }
 </style>
