@@ -9,6 +9,7 @@ class Votacion extends Model
     protected $table = 'votacion'; // Nombre correcto de la tabla en la base de datos
 
     protected $fillable = [
+        'SIGLA',
         'NOMBRE',
         'DESCRIPCION',
         'OPC_1',

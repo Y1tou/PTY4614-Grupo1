@@ -27,6 +27,8 @@
                 </div>
                 
 
+                    <!-- Campo para SIGLA -->
+                
                 <div class="form-group">
                     <label for="sigla">SIGLA:</label>
                     <input type="text" class="form-control" id="sigla" name="sigla" placeholder="Ingrese la SIGLA" required>
