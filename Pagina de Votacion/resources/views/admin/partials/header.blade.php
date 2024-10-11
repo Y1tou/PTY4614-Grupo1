@@ -1,4 +1,5 @@
 <!-- resources/views/admin/partials/header.blade.php -->
+<!-- @vite(['resources/css/header.css']) -->
 
 <header>
         <div class="logo">
@@ -12,7 +13,7 @@
             <button type="submit">Cerrar sesión</button>
         </form>
 </header>
-
+<!-- 
 <style>
     
     header {
@@ -66,4 +67,4 @@
     }
 
 
-</style>
+</style> -->
