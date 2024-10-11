@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A.E. Home</title>
+    @vite(['resources/css/app.css'])
 </head>
 
 <body>
@@ -13,7 +14,7 @@
     <div class="content">
         <!-- Links -->
         @include('admin.partials.ae-navigation')
-        <hr>
+        <div class="hr"></div>
         @if ($errors->any())
             <div>
                 <ul>
@@ -24,7 +25,7 @@
             </div>
         @endif
 
-        <form class="sec2" action="{{ route('register') }}" method="POST">
+        <form class="sec2 card" action="{{ route('register') }}" method="POST">
             <b>Registro de Usuario</b>
             @csrf
             <input type="number" name="run" placeholder="RUT (Sin punto y/o gui&oacute;n )" maxlength="8">
@@ -60,15 +61,6 @@
         justify-content: center;
     }
 
-    hr {
-        width: 3px;
-        margin-top: 1%;
-        margin-bottom: 1%;
-        height: 98% auto;
-        background-color: #000;
-        border-radius: 10px;
-    }
-
     .sec2 {
         height: 60%;
         width: 50%;
@@ -102,7 +94,6 @@
         box-sizing: border-box;
         font-size: 20px;
     }
-
 
     .sec2>button {
         background-color: #FFFFFF;
