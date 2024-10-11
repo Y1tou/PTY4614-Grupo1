@@ -16,7 +16,6 @@
             <a href="{{ route('admin.listado-cuentas') }}">Listado de Cuentas</a>
         </div>
 
-        <hr>
         <table class="sec2">
             <tr>
                 <th>ID</th>
@@ -162,15 +161,6 @@
         color: #000;
         padding: 0px 12px 0px 12px;
 
-    }
-
-    hr {
-        width: 3px;
-        margin-top: 1%;
-        margin-bottom: 1%;
-        height: 98% auto;
-        background-color: #000;
-        border-radius: 10px;
     }
 
     table {

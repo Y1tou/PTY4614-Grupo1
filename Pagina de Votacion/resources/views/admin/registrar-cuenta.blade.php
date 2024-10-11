@@ -15,7 +15,7 @@
             <a href="{{ route('admin.registrar-cuenta') }}">Registrar Cuenta</a>
             <a href="{{ route('admin.listado-cuentas') }}">Listado de Cuentas</a>
         </div>
-        <hr>
+
         <form class="sec2" action="{{ route('admin.registrar-cuenta') }}" method="POST">
             @csrf
             <b>Datos</b>
@@ -120,15 +120,6 @@
         /* border-radius: 10px;
         border-color: #ccc;
         border-style: solid; */
-    }
-
-    hr {
-        width: 3px;
-        margin-top: 1%;
-        margin-bottom: 1%;
-        height: 98% auto;
-        background-color: #000;
-        border-radius: 10px;
     }
 
     .sec2 {

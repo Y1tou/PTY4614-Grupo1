@@ -13,7 +13,6 @@
     <div class="content">
         <!-- Links -->
         @include('admin.partials.ae-navigation')
-        <hr>
 
         <table>
             <tr>
@@ -114,16 +113,6 @@
         display: flex;
         justify-content: center;
     }
-
-    hr {
-        width: 3px;
-        margin-top: 1%;
-        margin-bottom: 1%;
-        height: 98% auto;
-        background-color: #000;
-        border-radius: 10px;
-    }
-
     
     table {
         font-family: arial, sans-serif;

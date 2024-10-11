@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A.E. Home</title>
-    @vite(['resources/css/app.css'])
 </head>
 
 <body>
@@ -14,7 +13,6 @@
     <div class="content">
         <!-- Links -->
         @include('admin.partials.ae-navigation')
-        <div class="hr"></div>
         @if ($errors->any())
             <div>
                 <ul>
@@ -24,22 +22,23 @@
                 </ul>
             </div>
         @endif
-
-        <form class="sec2 card" action="{{ route('register') }}" method="POST">
-            <b>Registro de Usuario</b>
-            @csrf
-            <input type="number" name="run" placeholder="RUT (Sin punto y/o gui&oacute;n )" maxlength="8">
-            <input type="text" name="name" placeholder="Nombre">
-            <input type="email" name="email" placeholder="Correo electrónico *" required>
-            <input type="text" name="carrera" placeholder="Carrera">
-            <input type="number" name="edad" placeholder="Edad">
-            <select name="sexo">
-                <option value="">Selecciona Sexo</option>
-                <option value="M">Masculino</option>
-                <option value="F">Femenino</option>
-            </select>
-            <button type="submit">Registrar</button>
-        </form>
+        <!-- <div class="sec2 card a"> -->
+            <form class="sec2" action="{{ route('register') }}" method="POST">
+                <b>Registro de Usuario</b>
+                @csrf
+                <input type="number" name="run" placeholder="RUT (Sin punto y/o gui&oacute;n )" maxlength="8">
+                <input type="text" name="name" placeholder="Nombre">
+                <input type="email" name="email" placeholder="Correo electrónico *" required>
+                <input type="text" name="carrera" placeholder="Carrera">
+                <input type="number" name="edad" placeholder="Edad">
+                <select name="sexo">
+                    <option value="">Selecciona Sexo</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
+                <button type="submit">Registrar</button>
+            </form>
+        <!-- </div> -->
     </div>
 
 </body>
@@ -61,14 +60,20 @@
         justify-content: center;
     }
 
+    /* .a{
+        background-color:red;
+        width: 50px;
+        height: 50px;
+        border:solid green;
+    } */
+
     .sec2 {
         height: 60%;
         width: 50%;
         margin: 5%;
         padding: 5% 10%;
         border-radius: 10px;
-        border-style: solid;
-        border-color: #000;
+        border: solid #000;
         display: flex;
         justify-content: center;
         flex-direction: column;

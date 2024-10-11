@@ -8,6 +8,8 @@
     <a href="{{ route('admin.ae-listado-cuentas') }}">Listado de Cuentas</a>
 </div>
 
+<div class="hr"></div>
+
 <style>
 
     .sec1 {

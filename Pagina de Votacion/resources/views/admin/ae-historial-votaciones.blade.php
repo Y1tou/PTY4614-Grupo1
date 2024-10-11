@@ -13,7 +13,6 @@
     <div class="content">
         <!-- Links -->
         @include('admin.partials.ae-navigation')
-        <hr>
 
         <div class="sec2">
             <b>Historial de Votaciones</b>
@@ -60,15 +59,6 @@
         background-color: #F1F1F1;
         display: flex;
         justify-content: center;
-    }
-
-    hr {
-        width: 3px;
-        margin-top: 1%;
-        margin-bottom: 1%;
-        height: 98% auto;
-        background-color: #000;
-        border-radius: 10px;
     }
 
     .sec2 {
