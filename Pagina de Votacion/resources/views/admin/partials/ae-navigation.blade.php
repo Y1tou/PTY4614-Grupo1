@@ -26,4 +26,12 @@
         padding: 0px 12px 0px 12px;
     }
 
+    .hr {
+        width: 3px;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        height: 98% auto;
+        background-color: #000;
+        border-radius: 10px;
+    }
 </style>

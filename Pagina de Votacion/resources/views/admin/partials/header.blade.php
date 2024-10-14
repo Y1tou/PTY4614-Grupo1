@@ -1,4 +1,5 @@
 <!-- resources/views/admin/partials/header.blade.php -->
+<!-- @vite(['resources/css/app.css']) -->
 
 <header>
         <div class="logo">
