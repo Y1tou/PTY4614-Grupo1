@@ -91,7 +91,6 @@ Route::middleware('auth')->group(function () {
 // Cargar rutas de autenticación
 require __DIR__ . '/auth.php';
 
-// Rutas del administrador
 Route::prefix('admin')->group(function () {
     // Rutas de autenticación para admins
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
@@ -107,18 +106,18 @@ Route::prefix('admin')->group(function () {
             Route::post('/update', [AdminLoginController::class, 'update'])->name('admin.update');
             Route::delete('/eliminar-cuenta/{id}', [AdminLoginController::class, 'eliminarCuenta'])->name('admin.eliminar-cuenta');
         });
-        
         Route::middleware([CheckAdmin::class])->group(function () {
             Route::get('/ae-home', [AEAdminController::class, 'showAEHome'])->name('admin.ae-home');
             Route::get('/ae-listado-cuentas', [AEAdminController::class, 'mostrarListadoAE'])->name('admin.ae-listado-cuentas');
             Route::post('/update', [AEAdminController::class, 'update'])->name('admin.update');
             Route::delete('/eliminar-cuenta/{id}', [AEAdminController::class, 'eliminarCuenta'])->name('admin.eliminar-cuenta');
-            Route::get('/ae-votaciones-activas', [AEAdminController::class, 'mostrarVotacionAct'])->name('admin.ae-votaciones-activas');
-            Route::get('/ae-historial-votaciones', [AEAdminController::class, 'mostrarVotacionHist'])->name('admin.ae-historial-votaciones');
+            Route::get('/ae-votaciones-activas', [VotacionController::class, 'mostrarVotacionAct'])->name('admin.ae-votaciones-activas');
+            Route::get('/ae-historial-votaciones', [VotacionController::class, 'mostrarVotacionHist'])->name('admin.ae-historial-votaciones');
+            Route::post('/ae-detalles-votacion/{sigla}', [VotacionController::class, 'detallesVotacion'])->name('admin.ae-detalles-votacion');
             Route::get('/votacion', [VotacionController::class, 'create'])->name('admin.votacion.create');
-
             Route::get('/admin/votacion', [VotacionController::class, 'create'])->name('votacion.create');
             Route::post('/admin/votacion', [VotacionController::class, 'store'])->name('votacion.store');
+            Route::post('/admin/finalizar-votacion/{sigla}', [VotacionController::class, 'finalizarVotacion'])->name('admin.finalizar-votacion');
         });
     });
-}); 
+});

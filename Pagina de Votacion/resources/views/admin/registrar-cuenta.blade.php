@@ -11,10 +11,8 @@
     <!-- Header -->
     @include('admin.partials.header')
     <div class="content">
-        <div class="sec1">
-            <a href="{{ route('admin.registrar-cuenta') }}">Registrar Cuenta</a>
-            <a href="{{ route('admin.listado-cuentas') }}">Listado de Cuentas</a>
-        </div>
+        <!--Links -->
+        @include('admin.partials.navegation')
 
         <form class="sec2" action="{{ route('admin.registrar-cuenta') }}" method="POST">
             @csrf
@@ -27,7 +25,7 @@
             <input type="email" placeholder="Ingresar Correo" name="CORREO" required>
 
             <label for="CONTRASENIA"><b>Contrase&ntilde;a</b></label>
-            <input type="password" placeholder="Ingresar Contrase&ntilde;a" name="CONTRASENIA">
+            <input type="password" placeholder="Ingresar Contrase&ntilde;a" name="CONTRASENIA" id="CONTRASENIA" required>
 
 
             <label for="voto-select"><b>Elige una opción:</b></label>
@@ -57,82 +55,27 @@
 </html>
 
 <style>
-    * {
-        padding: 0%;
-        margin: 0%;
-        font-family: 'Roboto';
-    }
-
-    header {
-        height: 10vh;
-        width: 100%;
-        background-color: #163D64;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        }
-
-    .logo {
-        width: 22%;
-        height: 100%;
-        display: flex;
-        text-align: start;
-        margin-left: 1vh;
-        align-items: center;
-    }
-
-    .logo>strong {
-        font-size: 40px;
-        text-decoration: none;
-        font-family: 'Roboto';
-    }
-
-    .logo>p {
-        font-size: 45px;
-        font-family: 'Brush Script MT', cursive;
-        text-decoration: none;
-    }
 
     .content {
-        height: 90vh;
+        height: auto;
         width: 100%;
         background-color: #F1F1F1;
         display: flex;
         justify-content: center;
     }
-
-    .sec1 {
-        height: 100% auto;
-        width: 20%;
-        /* background-color: rgb(77, 255, 0); */
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .sec1>a {
-        margin: 8% 20% 0 20%;
-        text-decoration: none;
-        font-size: 30px;
-        /* background-color: #f4f4f4; */
-        color: #000;
-        padding: 0px 12px 0px 12px;
-        /* border-radius: 10px;
-        border-color: #ccc;
-        border-style: solid; */
-    }
-
+    
     .sec2 {
-        height: 60%;
-        width: 50%;
+        height: auto;
+        width: 80%;
         margin: 5%;
-        padding: 5% 10%;
+        padding: 5% 12%;
         border-radius: 10px;
-        border-style: solid;
+        border: solid;
         border-color: #000;
         display: flex;
         justify-content: center;
         flex-direction: column;
+        background-color: #F1F1F1;
     }
 
     .sec2>b {
@@ -174,23 +117,20 @@
         color: #FFFFFF;
     }
 
-    .logout{
-        margin-right: 30px;
-    }
-
-    .logout>button{
-        background-color: #FFFFFF;
-        color: #000;
-        padding: 14px 20px;
-        border-radius: 10px;
-        border-color: #000;
-        cursor: pointer;
-        width: 100%;
-        font-size: 18px;
-    }
-
-    .logout>button:hover {
-        background-color: #FFBD58;
-        color: #FFFFFF;
-    }
 </style>
+
+<script>
+    document.getElementById('voto-select').addEventListener('change', function () {
+        const passwordInput = document.getElementById('CONTRASENIA');
+        if (this.value === '2') {
+            passwordInput.disabled = true; 
+            passwordInput.value = ''; 
+            passwordInput.placeholder = "Contraseña no requerida"; 
+            passwordInput.removeAttribute('required'); 
+        } else {
+            passwordInput.disabled = false;
+            passwordInput.placeholder = "Ingresar Contraseña";
+            passwordInput.setAttribute('required', 'required');
+        }
+    });
+</script>

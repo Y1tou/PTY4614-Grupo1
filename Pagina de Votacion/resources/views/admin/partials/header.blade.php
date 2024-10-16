@@ -18,13 +18,22 @@
 <style>
     
     header {
-        height: 10vh;
+        position: fixed; /* Fija el header en la parte superior */
+        top: 0; /* Ubicación en la parte superior */
+        left: 0; /* Se asegura de que cubra todo el ancho */
         width: 100%;
+        height: 10vh;
         background-color: #163D64;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        }
+        z-index: 1000; /* Asegura que esté sobre otros elementos */
+        padding: 0 20px; /* Espaciado interno para que no se corte el contenido */
+    }
+
+    body {
+        padding-top: 10vh; /* Asegura que el contenido no quede oculto bajo el header */
+    }
 
     .logo {
         width: 22%;
@@ -67,5 +76,31 @@
         color: #FFFFFF;
     }
 
+    * {
+        padding: 0;
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+    }
 
+    @media (max-width: 768px) {
+
+        body{
+            padding-top: 18vh;
+        }    
+
+        .logout{
+        margin-right: 0px;
+        }
+
+        .logout>button{
+            background-color: #FFFFFF;
+            color: #000;
+            padding: 10px 16px;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 12px;
+        }
+    }
 </style>
+
+
