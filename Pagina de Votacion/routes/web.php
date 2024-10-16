@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\AEAdminController;
 use App\Http\Middleware\CheckSuperAdmin;
 use App\Http\Middleware\CheckAdmin;
+use App\Http\Controllers\Auth\VerificarCorreoController;
 
 // Página de inicio (login)
 Route::get('/', function () {
@@ -21,6 +22,9 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('/admin/login'); 
 });
+
+// Validación de correo para acceder a autenticación Google
+Route::post('/verificar-correo', [VerificarCorreoController::class, 'verificar'])->name('verificar.correo');
 
 // Rutas de autenticación con Google
 Route::get('/google-auth/redirect', function () {
@@ -70,7 +74,8 @@ Route::get('/auth/google/callback', function () {
         }
 
         // Si el usuario no está registrado, redirigir a una página de error o al login
-        return redirect('/')->withErrors(['msg' => 'Tu cuenta no está registrada en esta plataforma. No puedes ingresar a la página.']);
+        // return redirect('/')->withErrors(['msg' => 'Tu cuenta no está registrada en esta plataforma. No puedes ingresar a la página.']);
+        return view('welcome')->with('correoValido', false);
     } catch (\Exception $e) {
         return redirect('/')->withErrors(['msg' => 'Hubo un problema al iniciar sesión con Google: ' . $e->getMessage()]);
     }

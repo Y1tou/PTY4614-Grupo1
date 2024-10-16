@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Administrador - Registro</title>
 </head>
 
@@ -38,12 +39,14 @@
 
             <button type="submit">Registrar</button>
             @if ($errors->any())
-                <div>
-                    <ul>
+                <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                        <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            <p class="mb-4"><li>{{ $error }}</li></p>
                         @endforeach
-                    </ul>
+                        <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
+                    </div>
                 </div>
             @endif
 
@@ -133,4 +136,9 @@
             passwordInput.setAttribute('required', 'required');
         }
     });
+
+    // Mensaje 
+    function closeModal() {
+    document.querySelector('.fixed').style.display = 'none';
+    }
 </script>

@@ -57,24 +57,24 @@
     @if ($errors->any())
         <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
-                <h2 class="text-2xl font-semibold mb-4 text-green-600">Mensaje</h2>
+                <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
                 @foreach ($errors->all() as $error)
                     <p class="mb-4"><li>{{ $error }}</li></p>
                 @endforeach
-                <button onclick="closeModal()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Cerrar</button>
+                <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
             </div>
         </div>
     @endif
 
     @if (session('success'))
-    <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
-            <h2 class="text-2xl font-semibold mb-4 text-green-600">Éxito</h2>
-            <p class="mb-4">{{ session('success') }}</p>
-            <button onclick="closeModal()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Cerrar</button>
+        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                <h2 class="text-2xl font-semibold mb-4 text-green-600">Éxito</h2>
+                <p class="mb-4">{{ session('success') }}</p>
+                <button onclick="closeModal()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Cerrar</button>
+            </div>
         </div>
-    </div>
-@endif
+    @endif
 
 
     <!-- Modal para editar administrador -->
@@ -198,6 +198,5 @@
     function closeModal() {
         document.querySelector('.fixed').style.display = 'none';
         }
-
         
 </script>
