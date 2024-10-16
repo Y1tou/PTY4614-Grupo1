@@ -103,8 +103,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/registrar-cuenta', [AdminLoginController::class, 'mostrarPaginaRegistrar'])->name('admin.registrar-cuenta');
             Route::post('/registrar-cuenta', [AdminLoginController::class, 'registrarCuenta'])->name('admin.registrar-cuenta.post');
             Route::get('/listado-cuentas', [AdminLoginController::class, 'mostrarListado'])->name('admin.listado-cuentas');
-            Route::post('/update', [AdminLoginController::class, 'update'])->name('admin.update');
-            Route::delete('/eliminar-cuenta/{id}', [AdminLoginController::class, 'eliminarCuenta'])->name('admin.eliminar-cuenta');
+            Route::post('/updateAdmin', [AdminLoginController::class, 'updateAdmin'])->name('admin.updateAdmin');
+            Route::delete('/eliminar-cuenta-admin/{id}', [AdminLoginController::class, 'eliminarCuentaAdmin'])->name('admin.eliminar-cuenta-admin');
         });
         Route::middleware([CheckAdmin::class])->group(function () {
             Route::get('/ae-home', [AEAdminController::class, 'showAEHome'])->name('admin.ae-home');

@@ -56,7 +56,6 @@ class AdminLoginController extends Controller
     {
         $admins = Admin::all(); // Obtener todos los administradores
         return view('admin.listado-cuentas', compact('admins'));
-        return view('admin.cuentas-listado', compact('admins'));
     }
 
     public function registrarCuenta(Request $request)
@@ -87,7 +86,7 @@ class AdminLoginController extends Controller
     }
 
         //Actualizar datos Admin
-    public function update(Request $request)
+    public function updateAdmin(Request $request)
     {
         $admin = Admin::find($request->id);
         $admin->NOMBRE = $request->nombre;
@@ -97,7 +96,7 @@ class AdminLoginController extends Controller
         return redirect()->route('admin.listado-cuentas')->with('success', 'Administrador actualizado exitosamente.');
     }
 
-    public function eliminarCuenta($id)
+    public function eliminarCuentaAdmin($id)
     {
         $admin = Admin::findOrFail($id);
         $admin->delete(); // Eliminar el administrador

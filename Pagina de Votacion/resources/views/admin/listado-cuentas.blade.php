@@ -40,7 +40,7 @@
                     </div>
                 </td>
                 <td>
-                    <form class="btn2" action="{{ route('admin.eliminar-cuenta', $admin->ID) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta cuenta?');">
+                    <form class="btn2" action="{{ route('admin.eliminar-cuenta-admin', $admin->ID) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta cuenta?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit">
@@ -66,13 +66,23 @@
         </div>
     @endif
 
+    @if (session('success'))
+    <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+            <h2 class="text-2xl font-semibold mb-4 text-green-600">Éxito</h2>
+            <p class="mb-4">{{ session('success') }}</p>
+            <button onclick="closeModal()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Cerrar</button>
+        </div>
+    </div>
+@endif
+
 
     <!-- Modal para editar administrador -->
     <div id="editModal" style="display:none;">
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h2>Editar Administrador</h2>
-            <form id="editForm" method="POST" action="{{ route('admin.update') }}">
+            <form id="editForm" method="POST" action="{{ route('admin.updateAdmin') }}">
                 @csrf
                 <input type="hidden" name="id" id="admin-id">
                 <label for="nombre">Nombre:</label>
