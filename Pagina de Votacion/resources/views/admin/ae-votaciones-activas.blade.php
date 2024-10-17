@@ -16,12 +16,15 @@
         @include('admin.partials.ae-navigation')
 
         <div class="sec2">
-            <b>Historial de Votaciones</b>
+            <b>Votaciones Activas</b>
             @foreach ($votacion as $voto)
                 @if ($voto->ESTADO == 1)
                     <div class="card">
                         <div class="card_title">
-                            <p>Tema de la votación: {{ $voto->NOMBRE }}</p>
+                        <div class="titulo">
+                                <p>Tema de la votación: </p>
+                                <p class="sub-title">{{ $voto->NOMBRE }}</p>
+                            </div>
                             <div class="fechas">
                             <p>Fecha de inicio: {{ \Carbon\Carbon::parse($voto->created_at)->format('d-m-Y') }} </p>
                             </div>
@@ -44,12 +47,38 @@
                                     <tr>
                                         <td>{{ $voto->SIGLA }}</td>
                                         <td>{{ $voto->NOMBRE }}</td>
-                                        <td>{{ $voto->DESCRIPCION }}</td>
-                                        <td>{{ $voto->OPC_1 }}</td>
-                                        <td>{{ $voto->OPC_2 }}</td>
-                                        <td>{{ $voto->OPC_3 }}</td>
-                                        <td>{{ $voto->OPC_4 }}</td>
-                                        <td></td>
+                                        <td>
+                                            <div class="td-descripcion">
+                                                {{ $voto->DESCRIPCION }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="count-votos">
+                                                {{ $voto->OPC_1 }}
+                                                Votos: 10
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="count-votos">
+                                                {{ $voto->OPC_2 }}
+                                                Votos: 15
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="count-votos">
+                                                {{ $voto->OPC_3 }}
+                                                Votos: 12                                                
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="count-votos">
+                                                {{ $voto->OPC_4 }}
+                                                Votos: 18
+                                            </div>
+                                        </td>
+                                        <td>
+                                            Votos: 55
+                                        </td>
                                         @if ($voto->ESTADO == 1)
                                             <td>Activa</td>
                                             @else
@@ -145,8 +174,16 @@
         padding: 8px 12px;
     }
 
-    .card_title>p{
+    .titulo>p{
         font-size: 22px;
+    }
+
+    .sub-title{
+        margin-left: 50px;
+    }
+
+    .titulo>.sub-title{
+        font-size: 30px;
     }
 
     .fechas{
@@ -186,10 +223,11 @@
 
     .content.collapsible-content {
         display: none;
-        overflow: hidden;
         background-color: #f1f1f1;
-        padding: 10px;
-        border-radius: 5px;
+        border-radius: 10px;
+        max-width: 100%;
+        overflow-x: auto;
+        margin: 10px 0 0;
     }
 
     .error-messages {
@@ -201,7 +239,7 @@
         display: flex;
         justify-content: space-between;
         margin-top:20px;
-        padding:0 10px;
+        padding:0 80px;
     }
 
     .detalles{
@@ -233,23 +271,254 @@
     /* Tabla */
     
     table {
-        font-family: arial, sans-serif;
+        width: auto;
         border-collapse: collapse;
-        /* height: 10%; */
-        width: 100%;
-        margin-top: 1vh;
-        border-radius: 10px;
+        margin: 0;
+        overflow-x: auto;
     }
 
-    td,
-    th {
-        border: 1px solid #dddddd;
+    th, td {
+        padding: 15px;
         text-align: left;
-        padding: 20px 20px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
     }
 
-    tr:nth-child(even) {
-        background-color: #dddddd;
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .td-descripcion{
+        height: 200px;
+    }
+
+    .count-votos{
+        display: flex;
+        flex-direction: column;
+        padding: 0 5px;
+        width: 75px;
+    }
+
+    @media (max-width: 400px) {
+        .titulo>.sub-title{
+            font-size: 24px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .titulo>.sub-title{
+            font-size: 24px;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .titulo>.sub-title{
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .buttons{
+            display: flex;
+            justify-content: space-between;
+            margin-top:20px;
+            padding:0 40px;
+        }
+    }
+
+    @media (max-width: 1100px) {
+        .titulo>.sub-title{
+            font-size: 26px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        body {
+            background-color: #F1F1F1;
+        }
+
+        .content_ {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .sec2 {
+            width: 90%;
+            padding: 20px;
+            border-radius: 10px;
+            border: solid 1px #000;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .sec2 > b {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            margin: 10px 0;
+            padding: 13px 10px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            border: solid 1px #000;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+        }
+
+        .card_title {
+            display: flex;
+            flex-direction: column;
+            padding: 8px 12px;
+        }
+
+        .titulo > p {
+            font-size: 18px;
+        }
+
+        .sub-title {
+            font-size: 20px;
+            margin-left: 0;
+        }
+
+        .fechas {
+            font-size: 14px;
+            padding-right: 5px;
+            text-align: right;
+        }
+
+        .card:hover {
+            background-color: #f1f1f1;
+        }
+
+        .display {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .collapsible {
+            align-items: center;
+            width: 30px; 
+            height: 30px;
+            padding: 0;
+            border: solid #333;
+            border-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+            color: #333;
+        }
+
+        .active, .collapsible:hover {
+            background-color: #777;
+        }
+
+        .content.collapsible-content {
+            display: none;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            max-width: 100%;
+            overflow-x: auto;
+            margin: 10px 0 0;
+        }
+
+        .buttons {
+            /* display: flex;
+            flex-direction: column; */
+            gap: 10px;
+            margin-top: 10px;
+            padding: 0;
+        }
+
+        .detalles, .finalizar {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .finalizar {
+            background-color: red;
+        }
+
+        .detalles:hover {
+            background-color: darkgreen;
+        }
+
+        .finalizar:hover {
+            background-color: darkred;
+        }
+
+        table {
+            width: auto;
+            border-collapse: collapse;
+            margin: 0;
+            overflow-x: auto;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .count-votos {
+            padding: 0 5px;
+            width: 70px;
+        }
+
+        .td-descripcion {
+            height: auto;
+        }
+    }
+
+    @media (max-width: 400px) {
+
+        .detalles, .finalizar {
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        th, td {
+            padding: 6px 8px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .count-votos {
+            padding: 0 5px;
+            width: 70px;
+        }
+
+        .td-descripcion {
+            height: auto;
+        }
+
     }
 
     /* End CSS Tabla */
@@ -268,10 +537,10 @@
 
             if (content.style.display === "block") {
                 content.style.display = "none";
-                icon.textContent = "▼"; // Flecha hacia abajo cuando la tabla está oculta
+                icon.textContent = "▼"; 
             } else {
                 content.style.display = "block";
-                icon.textContent = "▲"; // Flecha hacia arriba cuando la tabla está visible
+                icon.textContent = "▲"; 
             }
         });
     }

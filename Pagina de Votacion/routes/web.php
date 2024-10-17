@@ -111,6 +111,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/updateAdmin', [AdminLoginController::class, 'updateAdmin'])->name('admin.updateAdmin');
             Route::delete('/eliminar-cuenta-admin/{id}', [AdminLoginController::class, 'eliminarCuentaAdmin'])->name('admin.eliminar-cuenta-admin');
         });
+        
         Route::middleware([CheckAdmin::class])->group(function () {
             Route::get('/ae-home', [AEAdminController::class, 'showAEHome'])->name('admin.ae-home');
             Route::get('/ae-listado-cuentas', [AEAdminController::class, 'mostrarListadoAE'])->name('admin.ae-listado-cuentas');

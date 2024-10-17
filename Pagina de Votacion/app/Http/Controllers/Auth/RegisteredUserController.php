@@ -29,7 +29,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        'run' => ['required', 'string', 'max:9'],
+        'run' => ['required', 'string', 'max:9', 'regex:/^\d+$/'],
         'name' => ['nullable', 'string', 'max:255'],
         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
         'carrera' => ['nullable', 'string', 'max:255'],
