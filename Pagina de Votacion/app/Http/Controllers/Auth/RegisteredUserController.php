@@ -27,24 +27,29 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => ['nullable','string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-        ]);
+{
+    $request->validate([
+        'run' => ['required', 'string', 'max:9'],
+        'name' => ['nullable', 'string', 'max:255'],
+        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+        'carrera' => ['nullable', 'string', 'max:255'],
+        'edad' => ['nullable', 'integer', 'min:18', 'max:99'], // Corregido para validar números entre 1 y 99
+        'sexo' => ['nullable','in:M,F'],
+    ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => null, // No almacenar contraseña
-        ]);
+    $user = User::create([
+        'run' => $request->run,
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => null, // No almacenar contraseña
+        'carrera' => $request->carrera,
+        'edad' => $request->edad, // Corregido
+        'sexo' => $request->sexo, // Corregido
+    ]);
 
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect()->route('admin.ae-listado-cuentas')->with('success', 'Cuenta creada exitosamente');
+    return redirect()->route('admin.ae-listado-cuentas')->with('success', 'Cuenta creada exitosamente');
 }
+
 
 }
 

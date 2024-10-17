@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Administrador</title>
 </head>
 
@@ -39,15 +40,17 @@
         </div>
 
     </form>
-    @if ($errors->any())
-                <div>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+        @if ($errors->any())
+            <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                    <h2 class="text-2xl font-semibold mb-4 text-green-600">Éxito</h2>
+                    @foreach ($errors->all() as $error)
+                    <p class="mb-4"><li>{{ $error }}</li></p>
+                    @endforeach
+                    <button onclick="closeModal()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Cerrar</button>
                 </div>
-            @endif
+            </div>
+        @endif
 
 </body>
 
@@ -145,6 +148,21 @@
     b{
         font-size: 20px;
     }
+
+    @media (max-width: 700px) {
+            form {
+
+                margin: 6% 10% 0% 10%;
+                border-radius: 5px;
+                border-color: #ccc;
+            }
+    }
 </style>
+
+<script>
+    function closeModal() {
+        document.querySelector('.fixed.inset-0').style.display = 'none';
+    }
+</script>
 
 

@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A.E. Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
@@ -13,55 +15,61 @@
     <div class="content">
         <!-- Links -->
         @include('admin.partials.ae-navigation')
-        <hr>
 
-        <table>
-            <tr>
-                <th>RUN</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Carrera</th>
-                <th>Edad</th>
-                <th>Sexo</th>
-                <th>Modificar</th>
-                <th>Eliminar</th>
-            </tr>
-            @foreach ($users as $user)
-            <tr>
-                <td>{{ $user->run }}</td>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>{{ $user->carrera }}</td>
-                <td>{{ $user->edad }}</td>
-                <td>{{ $user->sexo }}</td>
-                <td>
-                    <div class="btn1"  method="GET">
-                        <button type="button" class="edit-button" data-id="{{ $user->id }}" data-run="{{ $user->run }}" data-nombre="{{ $user->name }}" data-correo="{{ $user->email }}" data-carrera="{{ $user->carrera }}" data-edad="{{ $user->edad }}" data-sexo="{{ $user->sexo }}">
-                        Modificar
-                        </button>
-                    </div>
-                </td>
-                <td>
-                    <form class="btn2" action="{{ route('admin.eliminar-cuenta', $user->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta cuenta?');">
-                    @csrf
-                        @method('DELETE')
-                        <button type="submit">
-                            Eliminar
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-            @if ($errors->any())
-            <div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>RUN</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Carrera</th>
+                        <th>Edad</th>
+                        <th>Sexo</th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
+                    <tr>
+                        <td>{{ $user->run }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->carrera }}</td>
+                        <td>{{ $user->edad }}</td>
+                        <td>{{ $user->sexo }}</td>
+                        <td>
+                            <button type="button" class="edit-button" data-id="{{ $user->id }}" data-run="{{ $user->run }}" data-nombre="{{ $user->name }}" data-correo="{{ $user->email }}" data-carrera="{{ $user->carrera }}" data-edad="{{ $user->edad }}" data-sexo="{{ $user->sexo }}">
+                                <i class="fas fa-edit"></i> Modificar
+                            </button>
+                        </td>
+                        <td>
+                            <form action="{{ route('admin.eliminar-cuenta', $user->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta cuenta?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="delete-button">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
                     @endforeach
-                </ul>
-            </div>
-            @endif
-        </table>
+
+                    @if ($errors->any())
+                        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                                <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
+                                @foreach ($errors->all() as $error)
+                                    <p class="mb-4"><li>{{ $error }}</li></p>
+                                @endforeach
+                                <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
+                            </div>
+                        </div>
+                    @endif
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Modal para editar administrador -->
@@ -91,171 +99,170 @@
             </form>
         </div>
     </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .table-container {
+            margin: 20px auto;
+            width: 90%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* overflow: hidden; */
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .edit-button,
+        .delete-button {
+            background-color: #FFBD58;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .edit-button:hover {
+            background-color: #ff9d3f;
+        }
+
+        .delete-button {
+            background-color: #e57373;
+        }
+
+        .delete-button:hover {
+            background-color: #ef5350;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            width: 40%;
+            margin: auto;
+            margin-top: 2%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #editModal {
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            margin-top: 10vh;
+            padding-bottom: 20vh ;
+        }
+
+        .close-button {
+            cursor: pointer;
+        }
+
+        #editForm {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        #editForm label {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #editForm input,
+        #editForm select {
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #editForm button {
+            padding: 10px;
+            background-color: #FFBD58;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        #editForm button:hover {
+            background-color: #ff9d3f;
+        }
+    </style>
+
+    <script>
+        document.querySelectorAll('.edit-button').forEach(button => {
+            button.addEventListener('click', function () {
+                document.getElementById('user-id').value = this.getAttribute('data-id');
+                document.getElementById('user-run').value = this.getAttribute('data-run');
+                document.getElementById('user-nombre').value = this.getAttribute('data-nombre');
+                document.getElementById('user-correo').value = this.getAttribute('data-correo');
+                document.getElementById('user-carrera').value = this.getAttribute('data-carrera');
+                document.getElementById('user-edad').value = this.getAttribute('data-edad');
+                document.getElementById('user-sexo').value = this.getAttribute('data-sexo');
+                document.getElementById('editModal').style.display = 'block';
+            });
+        });
+
+        document.querySelector('.close-button').addEventListener('click', function () {
+            document.getElementById('editModal').style.display = 'none';
+        });
+
+        window.addEventListener('click', function (event) {
+            if (event.target === document.getElementById('editModal')) {
+                document.getElementById('editModal').style.display = 'none';
+            }
+        });
+
+        // Mensaje 
+        function closeModal() {
+        document.querySelector('.fixed').style.display = 'none';
+        }
+    </script>
 </body>
 
 </html>
-
-<style>
-  * {
-        padding: 0%;
-        margin: 0%;
-        font-family: 'Roboto';
-    }
-
-    .btn1,.btn2{
-        display:flex;
-        justify-content:center;
-    }
-
-    .content {
-        height: 90vh;
-        width: 100%;
-        background-color: #F1F1F1;
-        display: flex;
-        justify-content: center;
-    }
-
-    hr {
-        width: 3px;
-        margin-top: 1%;
-        margin-bottom: 1%;
-        height: 98% auto;
-        background-color: #000;
-        border-radius: 10px;
-    }
-
-    
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        height: 10%;
-        width: 70%;
-        margin: 5%;
-        border-radius: 20px;
-        border-style: solid;
-        border-color: #000;
-    }
-
-    td,
-    th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 20px 20px;
-    }
-
-    tr:nth-child(even) {
-        background-color: #dddddd;
-    }
-
-    img {
-        width: 25px;
-        height: 25px;
-    }
-
-    
-    /* Estilo del modal */
-    .modal-content {
-        background-color: white;
-        padding: 20px;
-        border: 1px solid #ccc;
-        width: 40%;
-        margin: auto;
-        margin-top: 2%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-
-    #editModal {
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.4);
-    }
-
-    .close-button {
-        cursor: pointer;
-    }
-
-
-    #editForm {
-        display: flex;
-        flex-direction: column;
-        width: 100%; /* Asegura que el formulario ocupe todo el ancho disponible */
-    }
-
-    #editForm label {
-        margin-top: 10px;
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    #editForm input {
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 15px;
-        width: 100%; /* Asegura que los inputs ocupen todo el ancho disponible */
-        font-size: 16px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
-
-    #editForm button {
-        padding: 10px;
-        background-color: #FFBD58;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 18px;
-        margin-top: 10px;
-    }
-
-    #editForm button:hover {
-        background-color: #ff9d3f;
-    }
-
-    #editForm select {
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    width: 100%; /* Asegura que el select ocupe todo el ancho disponible */
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-
-</style>
-
-<script>
-    document.querySelectorAll('.edit-button').forEach(button => {
-        button.addEventListener('click', function() {
-            // Rellenar el formulario con los datos del usuario
-            document.getElementById('user-id').value = this.getAttribute('data-id');
-            document.getElementById('user-run').value = this.getAttribute('data-run');
-            document.getElementById('user-nombre').value = this.getAttribute('data-nombre');
-            document.getElementById('user-correo').value = this.getAttribute('data-correo');
-            document.getElementById('user-carrera').value = this.getAttribute('data-carrera');
-            document.getElementById('user-edad').value = this.getAttribute('data-edad');
-            document.getElementById('user-sexo').value = this.getAttribute('data-sexo');
-            // Mostrar el modal
-            document.getElementById('editModal').style.display = 'block';
-        });
-    });
-
-    document.querySelector('.close-button').addEventListener('click', function() {
-        document.getElementById('editModal').style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target === document.getElementById('editModal')) {
-            document.getElementById('editModal').style.display = 'none';
-        }
-    });
-</script>

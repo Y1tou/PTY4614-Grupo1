@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Administrador - Listado</title>
 </head>
 
@@ -11,12 +12,10 @@
     <!-- Header -->
     @include('admin.partials.header')
     <div class="content">
-        <div class="sec1">
-            <a href="{{ route('admin.registrar-cuenta') }}">Registrar Cuenta</a>
-            <a href="{{ route('admin.listado-cuentas') }}">Listado de Cuentas</a>
-        </div>
+        <!--Links -->
+        @include('admin.partials.navegation')
 
-        <hr>
+
         <table class="sec2">
             <tr>
                 <th>ID</th>
@@ -41,7 +40,7 @@
                     </div>
                 </td>
                 <td>
-                    <form class="btn2" action="{{ route('admin.eliminar-cuenta', $admin->ID) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta cuenta?');">
+                    <form class="btn2" action="{{ route('admin.eliminar-cuenta-admin', $admin->ID) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta cuenta?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit">
@@ -55,13 +54,35 @@
         </table>
     </div>
 
+    @if ($errors->any())
+        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
+                @foreach ($errors->all() as $error)
+                    <p class="mb-4"><li>{{ $error }}</li></p>
+                @endforeach
+                <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
+            </div>
+        </div>
+    @endif
+
+    @if (session('success'))
+        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                <h2 class="text-2xl font-semibold mb-4 text-green-600">Éxito</h2>
+                <p class="mb-4">{{ session('success') }}</p>
+                <button onclick="closeModal()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Cerrar</button>
+            </div>
+        </div>
+    @endif
+
 
     <!-- Modal para editar administrador -->
     <div id="editModal" style="display:none;">
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h2>Editar Administrador</h2>
-            <form id="editForm" method="POST" action="{{ route('admin.update') }}">
+            <form id="editForm" method="POST" action="{{ route('admin.updateAdmin') }}">
                 @csrf
                 <input type="hidden" name="id" id="admin-id">
                 <label for="nombre">Nombre:</label>
@@ -77,66 +98,15 @@
 </html>
 
 <style>
-    * {
+    /* * {
         padding: 0%;
         margin: 0%;
         font-family: 'Roboto';
-    }
+    } */
 
     .btn1,.btn2{
         display:flex;
         justify-content:center;
-    }
-
-    header {
-        height: 10vh;
-        width: 100%;
-        background-color: #163D64;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .logout{
-        margin-right: 30px;
-    }
-
-    .logout>button{
-        background-color: #FFFFFF;
-        color: #000;
-        padding: 14px 20px;
-        border-radius: 10px;
-        border-color: #000;
-        cursor: pointer;
-        width: 100%;
-        font-size: 18px;
-    }
-
-    .logout>button:hover {
-        background-color: #FFBD58;
-        color: #FFFFFF;
-    }
-
-
-    .logo {
-        width: 22%;
-        height: 100%;
-        display: flex;
-        text-align: start;
-        margin-left: 1vh;
-        align-items: center;
-    }
-
-    .logo>strong {
-        font-size: 40px;
-        text-decoration: none;
-        font-family: 'Roboto';
-    }
-
-    .logo>p {
-        font-size: 45px;
-        font-family: 'Brush Script MT', cursive;
-        text-decoration: none;
     }
 
     .content {
@@ -145,32 +115,6 @@
         background-color: #F1F1F1;
         display: flex;
         justify-content: center;
-    }
-
-    .sec1 {
-        height: 100% auto;
-        width: 20%;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .sec1>a {
-        margin: 8% 20% 0 20%;
-        text-decoration: none;
-        font-size: 30px;
-        color: #000;
-        padding: 0px 12px 0px 12px;
-
-    }
-
-    hr {
-        width: 3px;
-        margin-top: 1%;
-        margin-bottom: 1%;
-        height: 98% auto;
-        background-color: #000;
-        border-radius: 10px;
     }
 
     table {
@@ -193,11 +137,6 @@
 
     tr:nth-child(even) {
         background-color: #dddddd;
-    }
-
-    img {
-        width: 25px;
-        height: 25px;
     }
 
 
@@ -254,4 +193,10 @@
             document.getElementById('editModal').style.display = 'none';
         }
     });
+
+    // Mensaje 
+    function closeModal() {
+        document.querySelector('.fixed').style.display = 'none';
+        }
+        
 </script>

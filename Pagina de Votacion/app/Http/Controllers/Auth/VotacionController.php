@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Votacion; // Modelo de Votación
+use App\Models\Votacion;
+use App\Models\Voto;
+
 
 class VotacionController extends Controller
 {
@@ -12,6 +14,24 @@ class VotacionController extends Controller
     public function create()
     {
         return view('admin.votacion');
+    }
+
+    public function mostrarVotacionAct()
+    {
+        $votacion = Votacion::all();
+        return view('admin/ae-votaciones-activas', compact('votacion'));
+    }
+
+    public function mostrarVotacionHist()
+    {
+        $votacion = Votacion::all();
+        return view('admin/ae-historial-votaciones', compact('votacion'));
+    }
+
+    public function detallesVotacion($sigla)
+    {
+        $votacion = Votacion::where('SIGLA', $sigla)->first();
+        return view('admin.ae-detalles-votacion', compact('votacion'));
     }
 
     // Guarda los datos de la votación en la base de datos
@@ -44,4 +64,19 @@ class VotacionController extends Controller
         // Redirigir a la vista de creación con un mensaje de éxito
         return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente');
     }
+
+    public function finalizarVotacion($sigla)
+    {
+        $votacion = Votacion::where('SIGLA', $sigla)->first();
+
+        if ($votacion) {
+            $votacion->ESTADO = 0; // Cambiar el estado a finalizada
+            $votacion->save();
+
+            return redirect()->route('admin.ae-historial-votaciones')->with('success', 'La votación se ha finalizado correctamente.');
+        }
+
+        return redirect()->route('admin.ae-historial-votaciones')->with('error', 'No se pudo finalizar la votación.');
+    }
+
 }

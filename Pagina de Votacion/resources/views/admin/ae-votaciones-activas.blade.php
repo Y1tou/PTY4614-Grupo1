@@ -4,30 +4,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Votaciones Activas</title>
 </head>
 
 <body>
     <!-- Header -->
     @include('admin.partials.header')
-    <div class="content">
+    <div class="content_">
         <!-- Links -->
         @include('admin.partials.ae-navigation')
-        <hr>
 
         <div class="sec2">
-            <b>Votaciones Activas</b>
-            
+            <b>Historial de Votaciones</b>
+            @foreach ($votacion as $voto)
+                @if ($voto->ESTADO == 1)
+                    <div class="card">
+                        <div class="card_title">
+                            <p>Tema de la votación: {{ $voto->NOMBRE }}</p>
+                            <div class="fechas">
+                            <p>Fecha de inicio: {{ \Carbon\Carbon::parse($voto->created_at)->format('d-m-Y') }} </p>
+                            </div>
+                        </div>
+                        <div class="display">
+                            <button type="button" class="collapsible"> <b> ▼ </b> </button>
+                            <div class="content collapsible-content">
+                                <table>
+                                    <tr>
+                                        <th>Sigla</th>
+                                        <th>Tema</th>
+                                        <th>Descripci&oacute;n</th>
+                                        <th>Opci&oacute;n 1</th>
+                                        <th>Opci&oacute;n 2</th>
+                                        <th>Opci&oacute;n 3</th>
+                                        <th>Opci&oacute;n 4</th>
+                                        <th>Votos Totales</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ $voto->SIGLA }}</td>
+                                        <td>{{ $voto->NOMBRE }}</td>
+                                        <td>{{ $voto->DESCRIPCION }}</td>
+                                        <td>{{ $voto->OPC_1 }}</td>
+                                        <td>{{ $voto->OPC_2 }}</td>
+                                        <td>{{ $voto->OPC_3 }}</td>
+                                        <td>{{ $voto->OPC_4 }}</td>
+                                        <td></td>
+                                        @if ($voto->ESTADO == 1)
+                                            <td>Activa</td>
+                                            @else
+                                            <td>Finalizada</td>
+                                        @endif
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="buttons">
+                            <form action="{{ route('admin.ae-detalles-votacion', $voto->SIGLA)}}" method="POST">
+                                @csrf
+                                <button class="detalles" type="submit">M&aacute;s detalles</button>
+                            </form>
+
+                            <form action="{{ route('admin.finalizar-votacion', $voto->SIGLA) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas finalizar la votación?');">
+                            @csrf
+                                <button class="finalizar" type="submit">Finalizar</button>
+                            </form>
+                        </div>
+                    </div>
+                    @else
+                @endif
+
+            @endforeach
         </div>
+
         @if ($errors->any())
-            <div>
-                <ul>
+            <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                    <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
                     @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                        <p class="mb-4"><li>{{ $error }}</li></p>
                     @endforeach
-                </ul>
+                    <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
+                </div>
             </div>
-            @endif
+        @endif
+
     </div>
 
 
@@ -36,46 +98,189 @@
 </html>
 
 <style>
-  * {
-        padding: 0%;
-        margin: 0%;
-        font-family: 'Roboto';
+
+    body {
+        background-color: #F1F1F1;
     }
 
-    .content {
-        height: 90vh;
+    .content_ {
         width: 100%;
-        background-color: #F1F1F1;
         display: flex;
         justify-content: center;
-    }
-
-    hr {
-        width: 3px;
-        margin-top: 1%;
-        margin-bottom: 1%;
-        height: 98% auto;
-        background-color: #000;
-        border-radius: 10px;
+        padding: 20px;
     }
 
     .sec2 {
-        height: 60%;
-        width: 50%;
-        margin: 5%;
-        padding: 5% 10%;
+        width: 90%;
+        padding: 20px;
         border-radius: 10px;
-        border-style: solid;
-        border-color: #000;
+        border: solid 1px #000;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .sec2 > b {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        margin: 10px 0;
+        padding: 13px 10px;
+        margin-bottom: 30px;
+        border-radius: 10px;
+        border: solid 1px #000;
+        display: flex;
+        flex-direction: column;
+        background-color: #f9f9f9;
+        transition: background-color 0.3s;
+    }
+
+    .card_title{
+        display:flex;
+        justify-content:space-between;
+        padding: 8px 12px;
+    }
+
+    .card_title>p{
+        font-size: 22px;
+    }
+
+    .fechas{
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        padding-right: 5px;
+        text-align: right;
+    }
+    .card:hover {
+        background-color: #f1f1f1;
+    }
+
+    .display{
+        display: flex;
+        align-items: center;
         flex-direction: column;
     }
 
-    .sec2>b {
+    .collapsible {
+        align-items: center;
+        width: 30px; 
+        height: 30px;
+        padding: 0;
+        border: solid #333;
+        border-radius: 10px;
+        font-weight: bold;
         text-align: center;
-        font-size: 40px;
-        margin-bottom: 10px;
+        font-size: 18px; /* Tamaño del ícono */
+        transition: background-color 0.3s, transform 0.3s;
+        color: #333;
     }
 
+    .active, .collapsible:hover {
+        background-color: #777;
+    }
+
+    .content.collapsible-content {
+        display: none;
+        overflow: hidden;
+        background-color: #f1f1f1;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .error-messages {
+        color: red;
+        margin-top: 20px;
+    }
+
+    .buttons{
+        display: flex;
+        justify-content: space-between;
+        margin-top:20px;
+        padding:0 10px;
+    }
+
+    .detalles{
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .finalizar{
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .detalles:hover {
+        background-color: darkgreen;
+    }
+    
+    .finalizar:hover {
+        background-color: darkred;
+    }
+
+    /* Tabla */
+    
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        /* height: 10%; */
+        width: 100%;
+        margin-top: 1vh;
+        border-radius: 10px;
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 20px 20px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    /* End CSS Tabla */
+
 </style>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            var icon = this.querySelector("b");
+
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                icon.textContent = "▼"; // Flecha hacia abajo cuando la tabla está oculta
+            } else {
+                content.style.display = "block";
+                icon.textContent = "▲"; // Flecha hacia arriba cuando la tabla está visible
+            }
+        });
+    }
+
+    // Mesaje
+    function closeModal() {
+        document.querySelector('.fixed').style.display = 'none';
+        }
+
+</script>
+
+

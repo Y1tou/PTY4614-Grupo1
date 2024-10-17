@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>A.E. Home</title>
-    @vite(['resources/css/app.css'])
 </head>
 
 <body>
@@ -14,47 +14,41 @@
     <div class="content">
         <!-- Links -->
         @include('admin.partials.ae-navigation')
-        <div class="hr"></div>
-        @if ($errors->any())
-            <div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form class="sec2 card" action="{{ route('register') }}" method="POST">
-            <b>Registro de Usuario</b>
-            @csrf
-            <input type="number" name="run" placeholder="RUT (Sin punto y/o gui&oacute;n )" maxlength="8">
-            <input type="text" name="name" placeholder="Nombre">
-            <input type="email" name="email" placeholder="Correo electrónico *" required>
-            <input type="text" name="carrera" placeholder="Carrera">
-            <input type="number" name="edad" placeholder="Edad">
-            <select name="sexo">
-                <option value="">Selecciona Sexo</option>
-                <option value="M">Masculino</option>
-                <option value="F">Femenino</option>
-            </select>
-            <button type="submit">Registrar</button>
-        </form>
+            <form class="sec2" action="{{ route('register') }}" method="POST">
+                <b>Registro de Usuario</b>
+                @csrf
+                <input type="number" name="run" placeholder="RUT (Sin punto y/o gui&oacute;n )" maxlength="8">
+                <input type="text" name="name" placeholder="Nombre">
+                <input type="email" name="email" placeholder="Correo electrónico *" required>
+                <input type="text" name="carrera" placeholder="Carrera">
+                <input type="number" name="edad" placeholder="Edad">
+                <select name="sexo">
+                    <option value="">Selecciona Sexo</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
+                <button type="submit">Registrar</button>
+            </form>
     </div>
-
+    @if ($errors->any())
+        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
+                @foreach ($errors->all() as $error)
+                    <p class="mb-4"><li>{{ $error }}</li></p>
+                @endforeach
+                <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
+            </div>
+        </div>
+    @endif
 </body>
 
 </html>
 
 <style>
-    * {
-        padding: 0%;
-        margin: 0%;
-        font-family: 'Roboto';
-    }
 
     .content {
-        height: 90vh;
+        height: 100%;
         width: 100%;
         background-color: #F1F1F1;
         display: flex;
@@ -63,15 +57,16 @@
 
     .sec2 {
         height: 60%;
-        width: 50%;
+        width: 80%;
         margin: 5%;
         padding: 5% 10%;
         border-radius: 10px;
-        border-style: solid;
-        border-color: #000;
+        border: solid #000;
         display: flex;
         justify-content: center;
         flex-direction: column;
+        background-color: #F1F1F1;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .sec2>b {
@@ -113,3 +108,10 @@
     }
 
 </style>
+
+<script>
+    // Mensaje 
+    function closeModal() {
+        document.querySelector('.fixed').style.display = 'none';
+    }
+</script>
