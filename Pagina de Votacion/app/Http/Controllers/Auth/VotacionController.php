@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Votacion;
-use App\Models\Voto;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VotacionNotificacion;
 
 class VotacionController extends Controller
 {
-    // Muestra la vista de creación de votación
     public function create()
     {
         return view('admin.votacion');
@@ -34,12 +33,10 @@ class VotacionController extends Controller
         return view('admin.ae-detalles-votacion', compact('votacion'));
     }
 
-    // Guarda los datos de la votación en la base de datos
     public function store(Request $request)
     {
-        // Validar los datos del formulario
         $request->validate([
-            'sigla' => 'required|string|max:255', // Validar SIGLA
+            'sigla' => 'required|string|max:255',
             'tema' => 'required|string|max:255',
             'descripcion' => 'required|string',
             'opcion1' => 'required|string|max:255',
@@ -48,21 +45,21 @@ class VotacionController extends Controller
             'opcion4' => 'nullable|string|max:255',
         ]);
 
-        // Crear un nuevo registro en la base de datos
-        Votacion::create([
-            'SIGLA' => $request->input('sigla'), // Almacenar SIGLA
+        $votacion = Votacion::create([
+            'SIGLA' => $request->input('sigla'),
             'NOMBRE' => $request->input('tema'),
             'DESCRIPCION' => $request->input('descripcion'),
             'OPC_1' => $request->input('opcion1'),
             'OPC_2' => $request->input('opcion2'),
-            'OPC_3' => $request->input('opcion3'), // Puede ser nulo
-            'OPC_4' => $request->input('opcion4'), // Puede ser nulo
-            'ESTADO' => 1, // Usar un valor numérico
+            'OPC_3' => $request->input('opcion3'),
+            'OPC_4' => $request->input('opcion4'),
+            'ESTADO' => 1,
         ]);
-        
 
-        // Redirigir a la vista de creación con un mensaje de éxito
-        return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente');
+        // Enviar correo de notificación
+        Mail::to('votacionduoc@gmail.com')->send(new VotacionNotificacion($votacion));
+
+        return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente y correo enviado.');
     }
 
     public function finalizarVotacion($sigla)
@@ -73,10 +70,12 @@ class VotacionController extends Controller
             $votacion->ESTADO = 0; // Cambiar el estado a finalizada
             $votacion->save();
 
-            return redirect()->route('admin.ae-historial-votaciones')->with('success', 'La votación se ha finalizado correctamente.');
+            // Enviar correo de notificación
+            Mail::to('votacionduoc@gmail.com')->send(new VotacionNotificacion($votacion));
+
+            return redirect()->route('admin.ae-historial-votaciones')->with('success', 'La votación se ha finalizado correctamente y correo enviado.');
         }
 
         return redirect()->route('admin.ae-historial-votaciones')->with('error', 'No se pudo finalizar la votación.');
     }
-
 }
