@@ -1,6 +1,8 @@
 <?php
-namespace App\Http\Controllers;
 
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
 use App\Models\Voto;
 use App\Models\Votacion;
 use Illuminate\Http\Request;
@@ -13,7 +15,7 @@ class VotoController extends Controller
     {
         // Obtener las votaciones activas
         $votaciones = Votacion::where('estado', 'activo')->get();
-        
+
         // Cargar la vista para votar (ubicada en 'resources/views/consejero/votar.blade.php')
         return view('consejero.votar', compact('votaciones'));
     }
@@ -33,9 +35,10 @@ class VotoController extends Controller
             'run' => Auth::user()->run,  // El RUN del consejero (identificador único)
             'opcion_votada' => $request->opcion_votada,
             'carrera' => Auth::user()->carrera,  // Asumiendo que el usuario tiene una carrera asignada
-            'correo' => Auth::user()->email, // El correo del consejero
+            'correo' => Auth::user()->email,     // El correo del consejero
         ]);
 
+        // Redirigir con un mensaje de éxito
         return redirect()->back()->with('success', 'Tu voto ha sido registrado correctamente.');
     }
 }
