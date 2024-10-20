@@ -18,7 +18,7 @@ class VotacionNotificacion extends Mailable
 
     public function build()
     {
-        return $this->view('admin.votacion') // Especifica la ruta correcta
+        return $this->view('emails.emailsvotacion') // Especifica la ruta correcta
                     ->subject('Notificación de Votación')
                     ->with(['sigla' => $this->sigla]); // Asegúrate de que estás pasando la información necesaria
     }
