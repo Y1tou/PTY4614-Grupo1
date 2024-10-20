@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Votacion;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VotacionNotificacion;
+use Illuminate\Support\Facades\DB;
 
 class VotacionController extends Controller
 {
@@ -56,10 +57,15 @@ class VotacionController extends Controller
             'ESTADO' => 1,
         ]);
 
-        // Enviar correo de notificación
-        Mail::to('votacionduoc@gmail.com')->send(new VotacionNotificacion($votacion));
+        // Obtener correos de usuarios con TIPO = 2
+        $usuarios = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
 
-        return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente y correo enviado.');
+        // Enviar el correo a todos los administradores con TIPO = 2
+        foreach ($usuarios as $correo) {
+            Mail::to($correo)->send(new VotacionNotificacion($votacion));
+        }
+
+        return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente y correos enviados.');
     }
 
     public function finalizarVotacion($sigla)
@@ -70,10 +76,15 @@ class VotacionController extends Controller
             $votacion->ESTADO = 0; // Cambiar el estado a finalizada
             $votacion->save();
 
-            // Enviar correo de notificación
-            Mail::to('votacionduoc@gmail.com')->send(new VotacionNotificacion($votacion));
+            // Obtener correos de usuarios con TIPO = 2
+            $usuarios = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
 
-            return redirect()->route('admin.ae-historial-votaciones')->with('success', 'La votación se ha finalizado correctamente y correo enviado.');
+            // Enviar el correo a todos los administradores con TIPO = 2
+            foreach ($usuarios as $correo) {
+                Mail::to($correo)->send(new VotacionNotificacion($votacion));
+            }
+
+            return redirect()->route('admin.ae-historial-votaciones')->with('success', 'La votación se ha finalizado correctamente y correos enviados.');
         }
 
         return redirect()->route('admin.ae-historial-votaciones')->with('error', 'No se pudo finalizar la votación.');
