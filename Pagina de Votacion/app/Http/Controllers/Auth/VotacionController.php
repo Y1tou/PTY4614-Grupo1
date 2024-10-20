@@ -62,7 +62,7 @@ class VotacionController extends Controller
 
         // Enviar el correo a todos los administradores con TIPO = 2
         foreach ($usuarios as $correo) {
-            Mail::to($correo)->send(new VotacionNotificacion($votacion));
+            Mail::to($correo)->send(new VotacionNotificacion($votacion, 'crear')); // Indica que se está creando
         }
 
         return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente y correos enviados.');
@@ -81,7 +81,7 @@ class VotacionController extends Controller
 
             // Enviar el correo a todos los administradores con TIPO = 2
             foreach ($usuarios as $correo) {
-                Mail::to($correo)->send(new VotacionNotificacion($votacion));
+                Mail::to($correo)->send(new VotacionNotificacion($votacion, 'eliminar')); // Indica que se está eliminando
             }
 
             return redirect()->route('admin.ae-historial-votaciones')->with('success', 'La votación se ha finalizado correctamente y correos enviados.');
