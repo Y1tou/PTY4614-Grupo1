@@ -59,10 +59,10 @@ class VotacionController extends Controller
 
         // Obtener correos de usuarios con TIPO = 2
         $usuarios = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
-
+        $siglaV = $votacion->SIGLA;
         // Enviar el correo a todos los administradores con TIPO = 2
         foreach ($usuarios as $correo) {
-            Mail::to($correo)->send(new VotacionNotificacion($votacion, 'crear')); // Indica que se está creando
+            Mail::to($correo)->send(new VotacionNotificacion($request->input('sigla'), 'crear')); // Indica que se está creando
         }
 
         return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente y correos enviados.');
@@ -81,7 +81,7 @@ class VotacionController extends Controller
 
             // Enviar el correo a todos los administradores con TIPO = 2
             foreach ($usuarios as $correo) {
-                Mail::to($correo)->send(new VotacionNotificacion($votacion, 'eliminar')); // Indica que se está eliminando
+                Mail::to($correo)->send(new VotacionNotificacion($sigla, 'eliminar')); // Indica que se está eliminando
             }
 
             return redirect()->route('admin.ae-historial-votaciones')->with('success', 'La votación se ha finalizado correctamente y correos enviados.');

@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Votacion;
 
 class VotacionNotificacion extends Mailable
 {
@@ -15,7 +16,9 @@ class VotacionNotificacion extends Mailable
 
     public function __construct($votacion, $accion) // Agrega el nuevo parámetro
     {
-        $this->sigla = $votacion->SIGLA;
+        // $siglaV = Votacion::where('SIGLA', $sigla)->first();
+        $this->sigla = $votacion;
+        // $this->sigla = $votacion->SIGLA;
         $this->accion = $accion; // Asigna la acción
     }
 
