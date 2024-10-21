@@ -36,36 +36,40 @@ class VotacionController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'sigla' => 'required|string|max:255',
-            'tema' => 'required|string|max:255',
-            'descripcion' => 'required|string',
-            'opcion1' => 'required|string|max:255',
-            'opcion2' => 'required|string|max:255',
-            'opcion3' => 'nullable|string|max:255',
-            'opcion4' => 'nullable|string|max:255',
-        ]);
-
-        $votacion = Votacion::create([
-            'SIGLA' => $request->input('sigla'),
-            'NOMBRE' => $request->input('tema'),
-            'DESCRIPCION' => $request->input('descripcion'),
-            'OPC_1' => $request->input('opcion1'),
-            'OPC_2' => $request->input('opcion2'),
-            'OPC_3' => $request->input('opcion3'),
-            'OPC_4' => $request->input('opcion4'),
-            'ESTADO' => 1,
-        ]);
-
-        // Obtener correos de usuarios con TIPO = 2
-        $usuarios = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
-        $siglaV = $votacion->SIGLA;
-        // Enviar el correo a todos los administradores con TIPO = 2
-        foreach ($usuarios as $correo) {
-            Mail::to($correo)->send(new VotacionNotificacion($request->input('sigla'), 'crear')); // Indica que se está creando
+        try {
+            // Validar los datos de entrada
+            $request->validate([
+                'sigla' => 'required|string|max:13',
+                'tema' => 'required|string|max:255',
+                'descripcion' => 'required|string',
+                'opcion1' => 'required|string|max:255',
+                'opcion2' => 'required|string|max:255',
+                'opcion3' => 'nullable|string|max:255',
+                'opcion4' => 'nullable|string|max:255',
+            ]);
+    
+            // Crear una nueva votación
+            $votacion = Votacion::create([
+                'SIGLA' => $request->input('sigla'),
+                'NOMBRE' => $request->input('tema'),
+                'DESCRIPCION' => $request->input('descripcion'),
+                'OPC_1' => $request->input('opcion1'),
+                'OPC_2' => $request->input('opcion2'),
+                'OPC_3' => $request->input('opcion3'),
+                'OPC_4' => $request->input('opcion4'),
+                'ESTADO' => 1,
+            ]);
+    
+            // Enviar correo de notificación
+            Mail::to('votacionduoc@gmail.com')->send(new VotacionNotificacion($votacion));
+    
+            // Redirigir con mensaje de éxito
+            return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente y correo enviado.');
+            
+        } catch (\Exception $e) {
+            // Atrapar cualquier error y redirigir con un mensaje de error
+            return redirect()->route('votacion.create')->with('error', 'Ocurrió un problema al crear la votación. Por favor, inténtalo de nuevo.');
         }
-
-        return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente y correos enviados.');
     }
 
     public function finalizarVotacion($sigla)
