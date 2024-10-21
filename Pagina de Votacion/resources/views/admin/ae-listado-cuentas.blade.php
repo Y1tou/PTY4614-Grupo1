@@ -20,7 +20,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>RUN</th>
+                        <th>RUT</th>
                         <th>Nombre</th>
                         <th>Correo</th>
                         <th>Carrera</th>
@@ -33,7 +33,7 @@
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
-                        <td>{{ $user->run }}</td>
+                        <td data-rut>{{ $user->run }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->carrera }}</td>
@@ -55,20 +55,30 @@
                         </td>
                     </tr>
                     @endforeach
-
-                    @if ($errors->any())
-                        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
-                                <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
-                                @foreach ($errors->all() as $error)
-                                    <p class="mb-4"><li>{{ $error }}</li></p>
-                                @endforeach
-                                <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
-                            </div>
-                        </div>
-                    @endif
                 </tbody>
             </table>
+
+            @if ($errors->any())
+                <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                        <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
+                        @foreach ($errors->all() as $error)
+                            <p class="mb-4"><li>{{ $error }}</li></p>
+                        @endforeach
+                        <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
+                    </div>
+                </div>
+            @endif
+            
+            @if(session('success'))
+                <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                        <h2 class="text-2xl font-semibold mb-4 text-green-600">¡Éxito!</h2>
+                        <p class="mb-4">{{ session('success') }}</p>
+                        <button onclick="closeModal()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Cerrar</button>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -81,7 +91,7 @@
                 @csrf
                 <input type="hidden" name="id" id="user-id">
                 <label for="run">RUN:</label>
-                <input type="number" name="run" id="user-run">
+                <input type="number" name="run" id="user-run" minlength="7" maxlength="8" required>
                 <label for="nombre">Nombre:</label>
                 <input type="text" name="nombre" id="user-nombre">
                 <label for="correo">Correo:</label>
@@ -256,6 +266,63 @@
                 document.getElementById('editModal').style.display = 'none';
             }
         });
+        
+        function calcularDV(rut) {
+            let suma = 0;
+            let multiplicador = 2;
+
+            // Asegúrate de que el RUT es una cadena de números
+            rut = rut.toString().replace(/\./g, '').replace(/-/g, ''); // Elimina puntos y guiones
+
+            for (let i = rut.length - 1; i >= 0; i--) {
+                suma += parseInt(rut.charAt(i)) * multiplicador;
+                multiplicador = multiplicador === 7 ? 2 : multiplicador + 1; // Cambia entre 2 y 7
+            }
+
+            const resto = suma % 11;
+            const dv = 11 - resto;
+
+            if (dv === 11) return '0'; // Si el resultado es 11, el DV es 0
+            if (dv === 10) return 'K'; // Si el resultado es 10, el DV es K
+            return dv.toString(); // Retorna el dígito verificador
+        }
+
+        // Función para formatear el RUN en el formato deseado: XX.XXX.XXX-DV
+            function formatRun(rut) {
+                // Asegurarse de que el rut no tenga puntos ni guiones antes de formatear
+                rut = rut.replace(/\./g, '').replace('-', '');
+                
+                // Calcular el DV si no está presente
+                let dv = '';
+                if (rut.length === 8) {
+                    dv = calcularDV(rut);
+                } else if (rut.length === 7) {
+                    dv = calcularDV(rut);
+                } else if (rut.length === 9) {
+                    dv = rut.slice(-1); // Suponiendo que el último dígito es el DV
+                    rut = rut.slice(0, -1); // Quitar el DV para formatear el número base
+                }
+
+               // Manejar RUTs de 7 dígitos
+                if (rut.length === 7) {
+                    const formattedRut = `${rut.slice(0, 1)}.${rut.slice(1, 4)}.${rut.slice(4, 7)}-${dv}`;
+                    return formattedRut;
+                }
+
+                // Manejar RUTs de 8 dígitos
+                if (rut.length === 8) {
+                    const formattedRut = `${rut.slice(0, 2)}.${rut.slice(2, 5)}.${rut.slice(5, 8)}-${dv}`;
+                    return formattedRut;
+                }
+            }
+
+            // Aplicar el formato a todos los RUNs cuando la página se carga
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('td[data-rut]').forEach(td => {
+                    const rut = td.textContent;
+                    td.textContent = formatRun(rut);
+                });
+            });
 
         // Mensaje 
         function closeModal() {
