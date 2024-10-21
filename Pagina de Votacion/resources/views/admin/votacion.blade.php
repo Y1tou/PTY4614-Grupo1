@@ -65,7 +65,7 @@
                 </div>
             </div>
         @endif
-        @elseif (session('error'))
+        @if (session('error'))
             <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                 <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
                     <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
