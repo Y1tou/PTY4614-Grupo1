@@ -17,7 +17,7 @@
             <form class="sec2" action="{{ route('register') }}" method="POST">
                 <b>Registro de Usuario</b>
                 @csrf
-                <input type="number" name="run" placeholder="RUT (Sin punto y/o gui&oacute;n )" maxlength="8">
+                <input type="text" name="run" placeholder="RUT (Sin punto y/o gui&oacute;n )" minlength="7" maxlength="8" required>
                 <input type="text" name="name" placeholder="Nombre">
                 <input type="email" name="email" placeholder="Correo electrónico *" required>
                 <input type="text" name="carrera" placeholder="Carrera">
@@ -37,6 +37,16 @@
                 @foreach ($errors->all() as $error)
                     <p class="mb-4"><li>{{ $error }}</li></p>
                 @endforeach
+                <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
+            </div>
+        </div>
+    @elseif (session('error'))
+        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
+                    <p class="mb-4">
+                        <li>Ocurrió un problema al registrar. Por favor verifique que no hayan datos duplicados e inténtelo de nuevo.</li>
+                    </p>
                 <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
             </div>
         </div>
@@ -110,6 +120,19 @@
 </style>
 
 <script>
+
+    document.querySelector('form.sec2').addEventListener('submit', function(e) {
+    const runInput = document.querySelector('input[name="run"]');
+    const runValue = runInput.value;
+        
+        // Validar que el campo `run` contenga solo números
+        if (!/^\d+$/.test(runValue)) {
+            e.preventDefault(); // Detener el envío del formulario
+            alert("El campo RUT debe contener solo números.");
+            return false;
+        }
+    });
+
     // Mensaje 
     function closeModal() {
         document.querySelector('.fixed').style.display = 'none';

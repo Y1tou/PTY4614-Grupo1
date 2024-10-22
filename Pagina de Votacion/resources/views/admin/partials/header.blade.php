@@ -1,7 +1,3 @@
-<!-- resources/views/admin/partials/header.blade.php -->
-<!-- @vite(['resources/css/app.css']) -->
-@vite(['resources/css/app.css'])
-
 <header>
         <div class="logo">
             <strong style="color: #F1F1F1;">Duoc</strong>
@@ -9,9 +5,9 @@
             <p style="color: #F1F1F1;">Consejeros</p>
         </div>
 
-        <form class="logout" action="{{ route('admin.logout') }}" method="POST" style="display:inline;">
+        <form class="logout btn-log" action="{{ route('admin.logout') }}" method="POST" style="display:inline;">
             @csrf
-            <button type="submit">Cerrar sesión</button>
+            <button class="btn-log" type="submit">Cerrar sesión</button>
         </form>
 </header>
 
@@ -82,11 +78,27 @@
         font-family: 'Roboto', sans-serif;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1100px) {  
 
         body{
-            padding-top: 18vh;
-        }    
+            padding-top: 17vh;
+        }  
+
+        .btn-log{
+            display: none;
+        }
+
+        .logo>strong {
+            font-size: 35px;
+            text-decoration: none;
+            font-family: 'Roboto';
+        }
+
+        .logo>p {
+            font-size: 40px;
+            font-family: 'Brush Script MT', cursive;
+            text-decoration: none;
+        }
 
         .logout{
         margin-right: 0px;
@@ -99,6 +111,29 @@
             border-radius: 10px;
             width: 100%;
             font-size: 12px;
+        }
+    }
+    
+    @media (max-width: 400px){
+
+        header {
+            height: 8vh;
+        }
+
+        body{
+            padding-top: 16vh;
+        }  
+
+        .logo>strong {
+            font-size: 30px;
+            text-decoration: none;
+            font-family: 'Roboto';
+        }
+
+        .logo>p {
+            font-size: 35px;
+            font-family: 'Brush Script MT', cursive;
+            text-decoration: none;
         }
     }
 </style>

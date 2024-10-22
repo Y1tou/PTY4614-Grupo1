@@ -28,7 +28,7 @@ class AEAdminController extends Controller
     {
         // Validar los datos enviados desde el formulario
         $request->validate([
-            'run' => 'required|string|max:9',
+            'run' => 'required|string|min:7|max:9',
             'nombre' => 'nullable|string|max:255',
             'correo' => 'required|email|max:255',
             'carrera' => 'nullable|string|max:255',

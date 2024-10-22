@@ -21,7 +21,10 @@
                 @if ($voto->ESTADO == 0)
                     <div class="card">
                         <div class="card_title">
-                            <p>Tema de la votación: {{ $voto->NOMBRE }}</p>
+                            <div class="titulo">
+                                <p>Tema de la votación: </p>
+                                <p class="sub-title">{{ $voto->NOMBRE }}</p>
+                            </div>
                             <div class="fechas">
                                 <p>Fecha de inicio: {{ \Carbon\Carbon::parse($voto->created_at)->format('d-m-Y') }} </p>
                                 <p>Fecha de Termino: {{ \Carbon\Carbon::parse($voto->updated_at)->format('d-m-Y') }} </p>
@@ -142,10 +145,18 @@
         padding: 8px 12px;
     }
 
-    .card_title>p{
+    .titulo>p{
         font-size: 22px;
     }
 
+    .sub-title{
+        margin-left: 50px;
+    }
+
+    .titulo>.sub-title{
+        font-size: 30px;
+    }
+    
     .fechas{
         font-size: 18px;
         padding-right: 5px;
@@ -165,24 +176,26 @@
         align-items: center;
         width: 30px; /* Ajustado para que se vea bien con los íconos */
         height: 30px;
-        background-color: #777;
         padding: 0;
+        border: solid #333;
+        border-radius: 10px;
         font-weight: bold;
         text-align: center;
         font-size: 18px; /* Tamaño del ícono */
         transition: background-color 0.3s, transform 0.3s;
+        color: #333;
     }
 
     .active, .collapsible:hover {
-        background-color: #555;
+        background-color: #777;
     }
 
     .content.collapsible-content {
         display: none;
-        overflow: hidden;
         background-color: #f1f1f1;
-        padding: 10px;
-        border-radius: 5px;
+        border-radius: 10px;
+        max-width: 100%;
+        overflow-x: auto;
     }
 
     .error-messages {
@@ -194,7 +207,7 @@
         display: flex;
         justify-content: start;
         margin-top:20px;
-        padding:0 10px;
+        padding:0 80px;
     }
 
     .buttons>button{
@@ -212,27 +225,128 @@
 
     /* Tabla */
     
+
     table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        /* height: 10%; */
         width: 100%;
-        margin-top: 1vh;
-        border-radius: 10px;
+        border-collapse: collapse;
+        margin: 0;
     }
 
-    td,
-    th {
-        border: 1px solid #dddddd;
+    th, td {
+        padding: 15px;
         text-align: left;
-        padding: 20px 20px;
+        border-bottom: 1px solid #ddd;
     }
 
-    tr:nth-child(even) {
-        background-color: #dddddd;
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
     }
 
     /* End CSS Tabla */
+
+
+    @media (max-width: 400px) {
+        .titulo>.sub-title{
+            font-size: 24px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .titulo>.sub-title{
+            font-size: 24px;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .titulo>.sub-title{
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .buttons{
+            display: flex;
+            justify-content: space-between;
+            margin-top:20px;
+            padding:0 40px;
+        }
+    }
+
+    @media (max-width: 1100px) {
+        .titulo>.sub-title{
+            font-size: 26px;
+        }
+    }
+    /* Ajustes CSS para móviles */
+    @media (max-width: 600px) {
+        .card_title {
+            flex-direction: column;
+            padding: 8px 0;
+        }
+
+        .titulo > p {
+            font-size: 16px;
+        }
+
+        .sub-title {
+            font-size: 20px;
+            margin-left: 0;
+        }
+
+        .fechas {
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .buttons {
+            padding: 0;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        th, td {
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .collapsible {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .titulo > p {
+            font-size: 14px;
+        }
+
+        .fechas {
+            font-size: 12px;
+        }
+
+        .buttons button {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        th, td {
+            padding: 8px;
+            font-size: 12px;
+        }
+    }
+
 
 </style>
 

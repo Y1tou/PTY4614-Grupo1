@@ -27,7 +27,7 @@
                         <p>Fecha de inicio: {{ \Carbon\Carbon::parse($votacion->created_at)->format('d-m-Y') }} </p>
                         <p>Fecha de Termino: {{ \Carbon\Carbon::parse($votacion->updated_at)->format('d-m-Y') }} </p>
                         @else
-                            <p>Fecha de Termino: {{ \Carbon\Carbon::parse($votacion->updated_at)->format('d-m-Y') }} </p>
+                            <p>Fecha de inicio: {{ \Carbon\Carbon::parse($votacion->created_at)->format('d-m-Y') }} </p>
                     @endif
                     </div>
                 </div>

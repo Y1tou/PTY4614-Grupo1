@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\AEAdminController;
 use App\Http\Middleware\CheckSuperAdmin;
 use App\Http\Middleware\CheckAdmin;
 use App\Http\Controllers\Auth\VerificarCorreoController;
+use App\Http\Controllers\Auth\VotoController;
 
 // Página de inicio (login)
 Route::get('/', function () {
@@ -111,6 +112,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/updateAdmin', [AdminLoginController::class, 'updateAdmin'])->name('admin.updateAdmin');
             Route::delete('/eliminar-cuenta-admin/{id}', [AdminLoginController::class, 'eliminarCuentaAdmin'])->name('admin.eliminar-cuenta-admin');
         });
+        
         Route::middleware([CheckAdmin::class])->group(function () {
             Route::get('/ae-home', [AEAdminController::class, 'showAEHome'])->name('admin.ae-home');
             Route::get('/ae-listado-cuentas', [AEAdminController::class, 'mostrarListadoAE'])->name('admin.ae-listado-cuentas');
@@ -125,4 +127,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/admin/finalizar-votacion/{sigla}', [VotacionController::class, 'finalizarVotacion'])->name('admin.finalizar-votacion');
         });
     });
+    Route::get('/votar', [VotoController::class, 'showVotingForm'])->name('voto.form');
+    Route::post('/voto', [VotoController::class, 'storeVote'])->name('voto.store');
+
 });
