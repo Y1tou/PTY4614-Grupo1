@@ -29,7 +29,7 @@
             <!-- Campo para la descripción -->
             <div class="form-group">
                 <label for="descripcion">Descripción:</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Ingrese la descripción" required></textarea>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Ingrese la descripción"  maxlength="300" required></textarea>
             </div>
             <!-- Campo para la opción 1 -->
             <div class="form-group">

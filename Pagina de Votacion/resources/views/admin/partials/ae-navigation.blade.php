@@ -3,11 +3,11 @@
 </div>
 
 <div class="sec1" id="nav-menu">
+    <a href="{{ route('admin.ae-home') }}" class="{{ request()->routeIs('admin.ae-home') ? 'active' : '' }}">Registrar Cuenta Consejero</a>
+    <a href="{{ route('admin.ae-listado-cuentas') }}" class="{{ request()->routeIs('admin.ae-listado-cuentas') ? 'active' : '' }}">Listado de Cuentas</a>
     <a href="{{ route('admin.votacion.create') }}" class="{{ request()->routeIs('admin.votacion.create') ? 'active' : '' }}">Crear votación</a>
     <a href="{{ route('admin.ae-votaciones-activas') }}" class="{{ request()->routeIs('admin.ae-votaciones-activas') ? 'active' : '' }}">Votaciones Activas</a>
     <a href="{{ route('admin.ae-historial-votaciones') }}" class="{{ request()->routeIs('admin.ae-historial-votaciones') ? 'active' : '' }}">Historial de Votaciones</a>
-    <a href="{{ route('admin.ae-home') }}" class="{{ request()->routeIs('admin.ae-home') ? 'active' : '' }}">Registrar Cuenta Consejero</a>
-    <a href="{{ route('admin.ae-listado-cuentas') }}" class="{{ request()->routeIs('admin.ae-listado-cuentas') ? 'active' : '' }}">Listado de Cuentas</a>
     <form class="logout log-btn" action="{{ route('admin.logout') }}" method="POST" style="display:inline;">
         @csrf
         <button class="log-btn" type="submit">Cerrar sesión</button>

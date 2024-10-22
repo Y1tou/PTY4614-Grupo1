@@ -60,9 +60,13 @@ class VotacionController extends Controller
                 'ESTADO' => 1,
             ]);
     
-            // Enviar correo de notificación
-            Mail::to('votacionduoc@gmail.com')->send(new VotacionNotificacion($votacion));
-    
+            // Obtener correos de usuarios con TIPO = 2
+            $usuarios = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
+            $siglaV = $votacion->SIGLA;
+            // Enviar el correo a todos los administradores con TIPO = 2
+            foreach ($usuarios as $correo) {
+                Mail::to($correo)->send(new VotacionNotificacion($request->input('sigla'), 'crear')); // Indica que se está creando
+            }
             // Redirigir con mensaje de éxito
             return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente y correo enviado.');
             
