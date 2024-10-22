@@ -64,24 +64,29 @@ class AdminLoginController extends Controller
         $validatedData = $request->validate([
             'NOMBRE' => '',
             'CORREO' => 'required|email|unique:admin,CORREO',
-            'CONTRASENIA' => '',
+            'CONTRASENIA' => 'required_if:TIPO,1|string|min:6', // Requerido solo si TIPO es 1
             'TIPO' => 'required|integer',
         ]);
 
         // Crear el nuevo admin
-        Admin::create([
+        $adminData = [
             'NOMBRE' => $validatedData['NOMBRE'],
             'CORREO' => $validatedData['CORREO'],
-            'CONTRASENIA' => bcrypt($validatedData['CONTRASENIA']), // Encriptar la contraseña
             'TIPO' => $validatedData['TIPO'],
-        ]);
+        ];
+
+        if ($validatedData['TIPO'] == 1) {
+            $adminData['CONTRASENIA'] = bcrypt($validatedData['CONTRASENIA']); // Encriptar la contraseña
+        }
+
+        Admin::create($adminData);
 
         // Redirigir a una página de confirmación o al listado de cuentas
         return redirect()->route('admin.listado-cuentas')->with('success', 'Cuenta creada exitosamente');
     }
 
         //Actualizar datos Admin
-    public function update(Request $request)
+    public function updateAdmin(Request $request)
     {
         $admin = Admin::find($request->id);
         $admin->NOMBRE = $request->nombre;
@@ -91,8 +96,7 @@ class AdminLoginController extends Controller
         return redirect()->route('admin.listado-cuentas')->with('success', 'Administrador actualizado exitosamente.');
     }
 
-
-    public function eliminarCuenta($id)
+    public function eliminarCuentaAdmin($id)
     {
         $admin = Admin::findOrFail($id);
         $admin->delete(); // Eliminar el administrador
