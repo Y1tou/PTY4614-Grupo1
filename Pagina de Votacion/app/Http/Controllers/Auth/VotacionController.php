@@ -47,7 +47,7 @@ class VotacionController extends Controller
                 'opcion3' => 'nullable|string|max:255',
                 'opcion4' => 'nullable|string|max:255',
             ]);
-    
+            
             // Crear una nueva votación
             $votacion = Votacion::create([
                 'SIGLA' => $request->input('sigla'),
@@ -59,16 +59,23 @@ class VotacionController extends Controller
                 'OPC_4' => $request->input('opcion4'),
                 'ESTADO' => 1,
             ]);
-    
-            // Obtener correos de usuarios con TIPO = 2
-            $usuarios = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
-            $siglaV = $votacion->SIGLA;
-            // Enviar el correo a todos los administradores con TIPO = 2
-            foreach ($usuarios as $correo) {
+            
+            // Obtener correos de usuarios con TIPO = 2 en la tabla admin
+            $adminCorreos = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
+            
+            // Obtener correos de la tabla USERS
+            $userCorreos = DB::table('USERS')->pluck('email');
+            
+            // Unir ambos arrays de correos y eliminar duplicados
+            $todosLosCorreos = $adminCorreos->merge($userCorreos)->unique();
+            
+            // Enviar el correo a todos los administradores y usuarios
+            foreach ($todosLosCorreos as $correo) {
                 Mail::to($correo)->send(new VotacionNotificacion($request->input('sigla'), 'crear')); // Indica que se está creando
             }
+            
             // Redirigir con mensaje de éxito
-            return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente y correo enviado.');
+            return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente y correos enviados.');
             
         } catch (\Exception $e) {
             // Atrapar cualquier error y redirigir con un mensaje de error
@@ -84,11 +91,17 @@ class VotacionController extends Controller
             $votacion->ESTADO = 0; // Cambiar el estado a finalizada
             $votacion->save();
 
-            // Obtener correos de usuarios con TIPO = 2
-            $usuarios = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
+            // Obtener correos de usuarios con TIPO = 2 en la tabla admin
+            $adminCorreos = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
+            
+            // Obtener correos de la tabla USERS
+            $userCorreos = DB::table('USERS')->pluck('email');
 
-            // Enviar el correo a todos los administradores con TIPO = 2
-            foreach ($usuarios as $correo) {
+            // Unir ambos arrays de correos y eliminar duplicados
+            $todosLosCorreos = $adminCorreos->merge($userCorreos)->unique();
+
+            // Enviar el correo a todos los administradores y usuarios
+            foreach ($todosLosCorreos as $correo) {
                 Mail::to($correo)->send(new VotacionNotificacion($sigla, 'eliminar')); // Indica que se está eliminando
             }
 
