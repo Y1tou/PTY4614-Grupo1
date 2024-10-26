@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-10-2024 a las 01:19:47
+-- Tiempo de generación: 26-10-2024 a las 03:02:04
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -33,21 +33,24 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `ID` int(1) NOT NULL,
   `NOMBRE` varchar(40) DEFAULT NULL,
-  `CORREO` varchar(30) NOT NULL,
+  `CORREO` varchar(60) NOT NULL,
   `CONTRASENIA` varchar(200) DEFAULT NULL,
   `TIPO` int(1) NOT NULL,
   `google_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Truncar tablas antes de insertar `admin`
+--
+
+TRUNCATE TABLE `admin`;
+--
 -- Volcado de datos para la tabla `admin`
 --
 
 INSERT INTO `admin` (`ID`, `NOMBRE`, `CORREO`, `CONTRASENIA`, `TIPO`, `google_id`) VALUES
 (7, 'aaa', 'angelsw.3010@gmail.com', '$2y$12$D0FdIfPq5knRpn21WXw40.wRGaj.nrqULeGab2P1Pt2UdgeIU0CMm', 1, NULL),
-(9, NULL, 'asd@gmail.com', '$2y$12$Im20g9d/x6fcVmd.08kf5.WDpg3MlS5OTxiTlINzd4Z1/yQ3ICa/2', 2, NULL),
-(10, NULL, 'ange.meza@duocuc.cl', '$2y$12$.l5gtMtThiv62gHSIoLxTe/Ojy6WkLEghlSLri.dx8FtR6BEwDGxK', 1, NULL),
-(11, NULL, 'angelsw.3010aaa@gmail.com', '$2y$12$7KiSMNlvU.4OU2qlGXKp8.lNlRAlCKE5ljYf00TUtSbar0Z5AMzgO', 1, NULL);
+(12, '', 'votacionduoc@gmail.com', '$2y$12$.l5gtMtThiv62gHSIoLxTe/Ojy6WkLEghlSLri.dx8FtR6BEwDGxK', 2, '104415041677343236917');
 
 -- --------------------------------------------------------
 
@@ -62,6 +65,11 @@ CREATE TABLE `cache` (
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `cache`
+--
+
+TRUNCATE TABLE `cache`;
 --
 -- Volcado de datos para la tabla `cache`
 --
@@ -85,6 +93,11 @@ CREATE TABLE `cache_locks` (
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `cache_locks`
+--
+
+TRUNCATE TABLE `cache_locks`;
 -- --------------------------------------------------------
 
 --
@@ -102,6 +115,11 @@ CREATE TABLE `failed_jobs` (
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `failed_jobs`
+--
+
+TRUNCATE TABLE `failed_jobs`;
 -- --------------------------------------------------------
 
 --
@@ -119,6 +137,11 @@ CREATE TABLE `jobs` (
   `created_at` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `jobs`
+--
+
+TRUNCATE TABLE `jobs`;
 -- --------------------------------------------------------
 
 --
@@ -139,6 +162,11 @@ CREATE TABLE `job_batches` (
   `finished_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `job_batches`
+--
+
+TRUNCATE TABLE `job_batches`;
 -- --------------------------------------------------------
 
 --
@@ -152,6 +180,11 @@ CREATE TABLE `migrations` (
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `migrations`
+--
+
+TRUNCATE TABLE `migrations`;
 --
 -- Volcado de datos para la tabla `migrations`
 --
@@ -174,6 +207,11 @@ CREATE TABLE `password_reset_tokens` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `password_reset_tokens`
+--
+
+TRUNCATE TABLE `password_reset_tokens`;
 -- --------------------------------------------------------
 
 --
@@ -191,15 +229,17 @@ CREATE TABLE `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Truncar tablas antes de insertar `sessions`
+--
+
+TRUNCATE TABLE `sessions`;
+--
 -- Volcado de datos para la tabla `sessions`
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('dQUEdvVpDh9ZyACZybyL8Jt2qxmfDN0rwQhDYQJV', 7, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoieDBsNUFzdjVVMG9oa29MWm1RQUlESjl1aENYc1Blemo2cjZhVW5uVSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9saXN0YWRvLWN1ZW50YXMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUyOiJsb2dpbl9hZG1pbl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjc7fQ==', 1727923410),
-('IiResExpMlh3pNy5w8bPUal5btUzQr8Ihy9HmgVe', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoibXRwZlM1V3RHcUJXTFNCcUVERVpSV3prTXVqelR2akJndmx1ejh5OCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9yZWdpc3RlciI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NToic3RhdGUiO3M6NDA6IjIxaEdsbDQ3bm84REZQOTFuVzdBbHJJOUxmRWtjdDN0eWhsY1BFaHAiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6NDQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9yZWdpc3RyYXItY3VlbnRhIjt9fQ==', 1728254157),
-('lxZ4qnSkyxLyk1yMpHRmSfkUoz5ArI6ffCpiPWdf', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSEZSOGhQbGtlcFo2VDVhUFpPc1ZlTFpNYlhMSkZ0UFpSdmlYcGlkQSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7fX0=', 1728094720),
-('MLZw7j9nOaGTKfscyKs4yrqGFyHvxNjlNDNR6aQQ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiNXRSM2pIMUs5TkZZbzMwcVQzNWlvQnVwUlB5SWd1TGl2eXlCdnBtNyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7fX0=', 1727922697),
-('sHTRgbcRwZpl3SWU3uus9fPz6x9bjpA0P5ViXPO5', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaTJNajNaWVpVdjdLbjlMRGNvS3dOaUhEdEdtSVJUSnJNUDFieUJiciI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9nb29nbGUtYXV0aC9yZWRpcmVjdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjU6InN0YXRlIjtzOjQwOiIzelZpM0M2REFrU3dvYWR2R3lGTWVEV2Q1ZkpucktqNHg3eEhrd1hhIjt9', 1728095025);
+('hauY8UBPoKoEGkZyIvIogIVjITNLBocI8ySHjBvJ', 12, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiOFhJR3c2aWZDSVp3OTljdDZ5QjNLazF4cFltUTdpM20xdDlQMWF5ZyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9hZS1ob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMjt9', 1729904223),
+('SDEqb3hryxyVY59HBy3Ilud8mnRldvsAlBjep078', 10, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiOTBycUVKM0FwSmdsSzV6SkVKR1N1TVV5VE1XSUQ1MEt5Y25jcTBtUiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbi9hZS12b3RhY2lvbmVzLWFjdGl2YXMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjU6InN0YXRlIjtzOjQwOiJrTURPS3BsUVM5Tk1qWm8yeXB1QWVadGFScjJsaVZVcWVDQXl1YU1DIjtzOjM6InVybCI7YToxOntzOjg6ImludGVuZGVkIjtzOjMxOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvZGFzaGJvYXJkIjt9czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMDt9', 1729903729);
 
 -- --------------------------------------------------------
 
@@ -210,8 +250,8 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `run` varchar(60) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
+  `run` varchar(8) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -225,12 +265,10 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Volcado de datos para la tabla `users`
+-- Truncar tablas antes de insertar `users`
 --
 
-INSERT INTO `users` (`id`, `run`, `name`, `email`, `email_verified_at`, `password`, `google_id`, `carrera`, `edad`, `sexo`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'ANGEL FERMIN MEZA VELIS', 'ange.meza@duocuc.cl', NULL, '$2y$12$HZTBcYZdQfB3ISH0RC6wlOCZUg5VekD8kgmXH.iNrBXENphzc2lrm', '104415041677343236917', NULL, NULL, NULL, NULL, '2024-10-03 05:30:59', '2024-10-03 05:31:17');
-
+TRUNCATE TABLE `users`;
 -- --------------------------------------------------------
 
 --
@@ -240,14 +278,31 @@ INSERT INTO `users` (`id`, `run`, `name`, `email`, `email_verified_at`, `passwor
 DROP TABLE IF EXISTS `votacion`;
 CREATE TABLE `votacion` (
   `SIGLA` varchar(12) NOT NULL,
-  `NOMBRE` varchar(30) NOT NULL,
+  `NOMBRE` varchar(60) NOT NULL,
   `ESTADO` tinyint(1) NOT NULL,
   `DESCRIPCION` varchar(300) NOT NULL,
   `OPC_1` varchar(30) NOT NULL,
   `OPC_2` varchar(30) NOT NULL,
   `OPC_3` varchar(30) DEFAULT NULL,
-  `OPC_4` varchar(30) DEFAULT NULL
+  `OPC_4` varchar(30) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Truncar tablas antes de insertar `votacion`
+--
+
+TRUNCATE TABLE `votacion`;
+--
+-- Volcado de datos para la tabla `votacion`
+--
+
+INSERT INTO `votacion` (`SIGLA`, `NOMBRE`, `ESTADO`, `DESCRIPCION`, `OPC_1`, `OPC_2`, `OPC_3`, `OPC_4`, `created_at`, `updated_at`) VALUES
+('123456789', '123456789 123456789 123456789 123456789 123456789 123456789', 1, '123456789012345678901234567890 234567890123456789012345678 01234567890123456789012345678 0123456789012345678901234567890 2345678901234567890123456 8901 3456789012345678901234567890123 567890123456789012345678901234567890 23456789012345678901234567890123 5678901234567890123456789012345678901234567890', '1234567890123 5678901234567890', '1234567890123 5678901234567890', '123456789012345 78901234567890', '12345678901234567 901234567890', '2024-10-26 03:28:17', '2024-10-26 03:28:17'),
+('123456789011', '123456789012345678901234567890123456789012345678901234567891', 1, '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890', '123456789012345678901234567890', '123456789012345678901234567890', '123456789012345678901234567890', '123456789012345678901234567890', '2024-10-26 03:21:36', '2024-10-26 03:21:36'),
+('123456789012', '123456789012345678901234567890123456789012345678901234567890', 1, '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890', '123456789012345678901234567890', '123456789012345678901234567890', '123456789012345678901234567890', '123456789012345678901234567890', '2024-10-26 03:19:57', '2024-10-26 03:19:57'),
+('1234567891', '123456789 123456789 123456789 123456789 123456789 123456789', 0, '123456789012345678901234567890 234567890123456789012345678 01234567890123456789012345678 0123456789012345678901234567890 2345678901234567890123456 8901 3456789012345678901234567890123 567890123456789012345678901234567890 23456789012345678901234567890123 5678901234567890123456789012345678901234567890', '1234567890123 5678901234567890', '1234567890123 5678901234567890', '123456789012345 78901234567890', '12345678901234567 901234567890', '2024-10-26 03:29:24', '2024-10-26 03:29:38');
 
 -- --------------------------------------------------------
 
@@ -266,6 +321,11 @@ CREATE TABLE `voto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Truncar tablas antes de insertar `voto`
+--
+
+TRUNCATE TABLE `voto`;
+--
 -- Índices para tablas volcadas
 --
 
@@ -273,7 +333,8 @@ CREATE TABLE `voto` (
 -- Indices de la tabla `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `CORREO` (`CORREO`);
 
 --
 -- Indices de la tabla `cache`
@@ -332,7 +393,8 @@ ALTER TABLE `sessions`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD UNIQUE KEY `run` (`run`);
 
 --
 -- Indices de la tabla `votacion`
@@ -344,7 +406,10 @@ ALTER TABLE `votacion`
 -- Indices de la tabla `voto`
 --
 ALTER TABLE `voto`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `SIGLA` (`SIGLA`),
+  ADD KEY `RUN` (`RUN`),
+  ADD KEY `OPCION_VOTADA` (`OPCION_VOTADA`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -354,7 +419,7 @@ ALTER TABLE `voto`
 -- AUTO_INCREMENT de la tabla `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `ID` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
@@ -378,7 +443,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `voto`
