@@ -19,12 +19,12 @@
             <!-- Campo para el tema de la votación -->
             <div class="form-group">
                 <label for="tema">Tema de la Votación:</label>
-                <input type="text" class="form-control" id="tema" name="tema" placeholder="Ingrese el tema" required>
+                <input type="text" class="form-control" id="tema" name="tema" placeholder="Ingrese el tema" maxlength="60" required>
             </div>
                 <!-- Campo para SIGLA -->
             <div class="form-group">
                 <label for="sigla">SIGLA:</label>
-                <input type="text" class="form-control" id="sigla" name="sigla" placeholder="Ingrese la SIGLA" required>
+                <input type="text" class="form-control" id="sigla" name="sigla" placeholder="Ingrese la SIGLA" maxlength="12" required>
             </div>
             <!-- Campo para la descripción -->
             <div class="form-group">
@@ -34,22 +34,22 @@
             <!-- Campo para la opción 1 -->
             <div class="form-group">
                 <label for="opcion1">Opción 1:</label>
-                <input type="text" class="form-control" id="opcion1" name="opcion1" placeholder="Ingrese la opción 1" required>
+                <input type="text" class="form-control" id="opcion1" name="opcion1" placeholder="Ingrese la opción 1" maxlength="30" required>
             </div>
             <!-- Campo para la opción 2 -->
             <div class="form-group">
                 <label for="opcion2">Opción 2:</label>
-                <input type="text" class="form-control" id="opcion2" name="opcion2" placeholder="Ingrese la opción 2" required>
+                <input type="text" class="form-control" id="opcion2" name="opcion2" placeholder="Ingrese la opción 2" maxlength="30" required>
             </div>
             <!-- Campo para la opción 3 -->
             <div class="form-group">
                 <label for="opcion3">Opción 3:</label>
-                <input type="text" class="form-control" id="opcion3" name="opcion3" placeholder="Ingrese la opción 3">
+                <input type="text" class="form-control" id="opcion3" name="opcion3" placeholder="Ingrese la opción 3" maxlength="30">
             </div>
             <!-- Campo para la opción 4 -->
             <div class="form-group">
                 <label for="opcion4">Opción 4:</label>
-                <input type="text" class="form-control" id="opcion4" name="opcion4" placeholder="Ingrese la opción 4">
+                <input type="text" class="form-control" id="opcion4" name="opcion4" placeholder="Ingrese la opción 4" maxlength="30">
             </div>
             <!-- Botón para enviar el formulario -->
             <button type="submit" class="btn btn-primary btn-block">Iniciar Votación</button>

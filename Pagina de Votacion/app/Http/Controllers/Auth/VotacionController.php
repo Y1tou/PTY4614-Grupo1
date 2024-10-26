@@ -39,13 +39,13 @@ class VotacionController extends Controller
         try {
             // Validar los datos de entrada
             $request->validate([
-                'sigla' => 'required|string|max:13',
-                'tema' => 'required|string|max:255',
-                'descripcion' => 'required|string',
-                'opcion1' => 'required|string|max:255',
-                'opcion2' => 'required|string|max:255',
-                'opcion3' => 'nullable|string|max:255',
-                'opcion4' => 'nullable|string|max:255',
+                'sigla' => 'required|string|max:12',
+                'tema' => 'required|string|max:60',
+                'descripcion' => 'required|string|max:300',
+                'opcion1' => 'required|string|max:30',
+                'opcion2' => 'required|string|max:30',
+                'opcion3' => 'nullable|string|max:30',
+                'opcion4' => 'nullable|string|max:30',
             ]);
             
             // Crear una nueva votación

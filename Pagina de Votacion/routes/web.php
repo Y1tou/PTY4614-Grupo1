@@ -19,11 +19,6 @@ Route::get('/', function () {
     return view('welcome'); 
 });
 
-// Página de login para admins
-Route::get('/admin', function () {
-    return view('/admin/login'); 
-});
-
 // Validación de correo para acceder a autenticación Google
 Route::post('/verificar-correo', [VerificarCorreoController::class, 'verificar'])->name('verificar.correo');
 
@@ -87,6 +82,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/votar', [VotoController::class, 'showVotingForm'])->name('voto.form');
+    Route::post('/voto', [VotoController::class, 'storeVote'])->name('voto.store');
+});
+
 // Rutas protegidas por autenticación
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -96,6 +96,11 @@ Route::middleware('auth')->group(function () {
 
 // Cargar rutas de autenticación
 require __DIR__ . '/auth.php';
+
+// Página de login para admins
+Route::get('/admin', function () {
+    return view('/admin/login'); 
+});
 
 Route::prefix('admin')->group(function () {
     // Rutas de autenticación para admins
