@@ -15,7 +15,7 @@
         <!-- Links -->
         @include('admin.partials.ae-navigation')
             <form class="sec2" action="{{ route('register') }}" method="POST">
-                <b>Registro de Usuario</b>
+                <b>Registrar Consejero de carrera</b>
                 @csrf
                 <input type="text" name="run" placeholder="RUT (Sin punto y/o gui&oacute;n )" minlength="7" maxlength="8" required>
                 <input type="text" name="name" placeholder="Nombre">
