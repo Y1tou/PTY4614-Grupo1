@@ -15,12 +15,12 @@
         <!-- Links -->
         @include('consejero.partials.navigation')
         <!-- Votaciones disponibles -->
-        <main class="p-6 flex-grow">
+        <main id="miMain" class="sec2 p-6 flex-grow">
             <h1 class="text-2xl font-bold mb-6">Lista de Votaciones Disponibles</h1>
 
             <div class="space-y-6">
                 <!-- Card de votación -->
-                <div class="bg-white shadow-md rounded p-4 border">
+                <form class="bg-white shadow-md rounded p-4 border" action="" method="POST">
                     <div class="flex justify-between items-center">
                         <div class="font-bold text-xl">Tema de la Votación: Jardín de la sede</div>
                         <div class="text-gray-600">Fecha Inicio: 05 / 09 / 2024</div>
@@ -39,7 +39,7 @@
                         </select>
                         <button class="bg-blue-800 text-white px-4 py-1 rounded">Confirmar voto</button>
                     </div>
-                </div>
+                </form>
             </div>
         </main>
     </div>
@@ -63,9 +63,9 @@
 
     .sec2 {
         height: 60%;
-        width: 80%;
+        width: 100%;
         margin: 5%;
-        padding: 5% 10%;
+        padding: 2% 5%;
         border-radius: 10px;
         border: solid #000;
         display: flex;
@@ -114,3 +114,25 @@
     }
 
 </style>
+
+
+<script>
+    function handleResize() {
+        const mainElement = document.getElementById('miMain');
+
+        if (window.matchMedia('(max-width: 600px)').matches) {
+            // Si la pantalla es menor o igual a 600px, quita la clase sec2
+            mainElement.classList.remove('sec2');
+        } else {
+            // Si la pantalla es mayor a 600px, añade la clase sec2
+            mainElement.classList.add('sec2');
+        }
+    }
+
+    // Agregar el evento de resize
+    window.addEventListener('resize', handleResize);
+
+    // Llamar la función al cargar la página
+    handleResize();
+
+</script>
