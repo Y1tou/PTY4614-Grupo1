@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Auth;
 
 class VotoController extends Controller
 {
+
+    public function showHomeConsejero()
+    {
+        return view('consejero.home');
+    }   
+    
+    public function showHistorialConsejero()
+    {
+        return view('consejero.historial');
+    }   
+
     // Mostrar el formulario de votación para los consejeros
     public function showVotingForm()
     {

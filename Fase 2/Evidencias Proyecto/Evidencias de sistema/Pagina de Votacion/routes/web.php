@@ -13,6 +13,7 @@ use App\Http\Middleware\CheckSuperAdmin;
 use App\Http\Middleware\CheckAdmin;
 use App\Http\Controllers\Auth\VerificarCorreoController;
 use App\Http\Controllers\Auth\VotoController;
+use App\Http\Controllers\Auth\ConsejeroController;
 
 // Página de inicio (login)
 Route::get('/', function () {
@@ -52,7 +53,7 @@ Route::get('/auth/google/callback', function () {
             Auth::login($user);
 
             // Redirigir al dashboard
-            return redirect('/dashboard');
+            return redirect('home');
         }
 
         // Verificar si el admin existe
@@ -83,6 +84,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/home', [VotoController::class, 'showHomeConsejero'])->name('consejero.home');
+    Route::get('/historial', [VotoController::class, 'showHistorialConsejero'])->name('consejero.historial');
+    // Route::get('/consejero/votar', [VotoController::class, 'showVotingForm'])->name('consejero.voto.form');
+    // Route::post('/consejero/voto', [VotoController::class, 'storeVote'])->name('consejero.voto.store');
     Route::get('/votar', [VotoController::class, 'showVotingForm'])->name('voto.form');
     Route::post('/voto', [VotoController::class, 'storeVote'])->name('voto.store');
 });
