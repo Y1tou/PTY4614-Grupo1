@@ -4,8 +4,8 @@
             <strong style="color: #FFBD58;">UC</strong>
             <p style="color: #F1F1F1;">Consejeros</p>
         </div>
-
-        <form class="logout btn-log" action="{{ route('admin.logout') }}" method="POST" style="display:inline;">
+        <form class="logout btn-log" action="{{ route('logout') }}" method="POST">
+            <div><p>{{ Auth::user()->name }}</p></div>
             @csrf
             <button class="btn-log" type="submit">Cerrar sesión</button>
         </form>
@@ -54,6 +54,14 @@
     
     .logout{
         margin-right: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logout>div{
+        margin-right: 50px;
+        color:white;
     }
 
     .logout>button{
@@ -63,7 +71,6 @@
         border-radius: 10px;
         border-color: #000;
         cursor: pointer;
-        width: 100%;
         font-size: 18px;
     }
 

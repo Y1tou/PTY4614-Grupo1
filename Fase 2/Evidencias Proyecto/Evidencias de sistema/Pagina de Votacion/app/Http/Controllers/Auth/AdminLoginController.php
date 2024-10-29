@@ -62,8 +62,8 @@ class AdminLoginController extends Controller
     {
         // Validar los datos del formulario
         $validatedData = $request->validate([
-            'NOMBRE' => '',
-            'CORREO' => 'required|email|unique:admin,CORREO',
+            'NOMBRE' => 'nullable|max:40',
+            'CORREO' => 'required|email|unique:admin,CORREO|max:60',
             'CONTRASENIA' => 'required_if:TIPO,1|string|min:6', // Requerido solo si TIPO es 1
             'TIPO' => 'required|integer',
         ]);

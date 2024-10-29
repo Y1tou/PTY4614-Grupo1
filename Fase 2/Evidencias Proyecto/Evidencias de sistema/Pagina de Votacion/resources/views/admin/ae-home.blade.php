@@ -15,7 +15,7 @@
         <!-- Links -->
         @include('admin.partials.ae-navigation')
             <form class="sec2" action="{{ route('register') }}" method="POST">
-                <b>Registro de Usuario</b>
+                <b>Registrar Consejero de carrera</b>
                 @csrf
                 <input type="text" name="run" placeholder="RUT (Sin punto y/o gui&oacute;n )" minlength="7" maxlength="8" required>
                 <input type="text" name="name" placeholder="Nombre">
@@ -122,16 +122,27 @@
 <script>
 
     document.querySelector('form.sec2').addEventListener('submit', function(e) {
-    const runInput = document.querySelector('input[name="run"]');
-    const runValue = runInput.value;
+        const runInput = document.querySelector('input[name="run"]');
+        const runValue = runInput.value;
+        const emailInput = document.querySelector('input[name="email"]');
+        const emailValue = emailInput.value;
         
+
         // Validar que el campo `run` contenga solo números
         if (!/^\d+$/.test(runValue)) {
             e.preventDefault(); // Detener el envío del formulario
             alert("El campo RUT debe contener solo números.");
             return false;
         }
+
+        // Validar que el campo `run` contenga solo números
+        if (!/^[a-zA-Z]+(\.[a-zA-Z]+)?@duocuc\.cl$/.test(emailValue)) {
+            e.preventDefault(); // Detener el envío del formulario
+            alert("El correo debe terminar en @duocuc.cl");
+            return false;
+        }
     });
+
 
     // Mensaje 
     function closeModal() {

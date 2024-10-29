@@ -28,10 +28,10 @@ class AEAdminController extends Controller
     {
         // Validar los datos enviados desde el formulario
         $request->validate([
-            'run' => 'required|string|min:7|max:9',
+            'run' => 'required|string|min:7|max:9|regex:/^\d+$/',
             'nombre' => 'nullable|string|max:255',
-            'correo' => 'required|email|max:255',
-            'carrera' => 'nullable|string|max:255',
+            'correo' => 'required|email|max:255|regex:/^[a-zA-Z]+(\.[a-zA-Z]+)?@duocuc\.cl$/',
+            'carrera' => 'nullable|string|max:60',
             'edad' => 'nullable|integer|min:18|max:99',
             'sexo' => 'in:M,F',
         ]);

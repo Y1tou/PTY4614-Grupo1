@@ -87,11 +87,11 @@
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h2>Editar Usuario</h2>
-            <form id="editForm" method="POST" action="{{ route('admin.update') }}">
+            <form id="editForm" class="editFormUser" method="POST" action="{{ route('admin.update') }}">
                 @csrf
                 <input type="hidden" name="id" id="user-id">
                 <label for="run">RUN:</label>
-                <input type="number" name="run" id="user-run" minlength="7" maxlength="8" required>
+                <input type="text" name="run" id="user-run" minlength="7" maxlength="8" required>
                 <label for="nombre">Nombre:</label>
                 <input type="text" name="nombre" id="user-nombre">
                 <label for="correo">Correo:</label>
@@ -328,6 +328,30 @@
         function closeModal() {
         document.querySelector('.fixed').style.display = 'none';
         }
+
+
+        document.querySelector('form.editFormUser').addEventListener('submit', function(e) {
+
+            const runInput = document.querySelector('input[name="run"]');
+            const runValue = runInput.value;
+            const emailInput = document.querySelector('input[name="correo"]');
+            const emailValue = emailInput.value;
+            
+                // Validar que el campo `run` contenga solo números
+                if (!/^\d+$/.test(runValue)) {
+                    e.preventDefault(); // Detener el envío del formulario
+                    alert("El campo RUT debe contener solo números.");
+                    return false;
+                }
+
+                // Validar que el correo contenga solo letras y un punto antes de @duocuc.cl
+                if (!/^[a-zA-Z]+(\.[a-zA-Z]+)?@duocuc\.cl$/.test(emailValue)) {
+                    e.preventDefault(); // Detener el envío del formulario
+                    alert("El correo debe terminar en @duocuc.cl");
+                    return false;
+                }
+        });
+
     </script>
 </body>
 

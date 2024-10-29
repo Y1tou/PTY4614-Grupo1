@@ -301,7 +301,7 @@
         display: flex;
         flex-direction: column;
         padding: 0 5px;
-        width: 75px;
+        width: 120px;
     }
 
     @media (max-width: 400px) {
@@ -484,7 +484,7 @@
 
         .count-votos {
             padding: 0 5px;
-            width: 70px;
+            width: 95px;
         }
 
         .td-descripcion {
@@ -512,7 +512,7 @@
 
         .count-votos {
             padding: 0 5px;
-            width: 70px;
+            width: 95px;
         }
 
         .td-descripcion {
