@@ -22,6 +22,8 @@ class CheckSuperAdmin
         // Verificar si el admin es de tipo superadmin (TIPO_SUPERADMIN = 1)
         if ($user && $user->TIPO == 1) {
             return $next($request); // Permitir acceso
+        }elseif($user && $user->TIPO == 2) {
+            return redirect('/admin/ae-home');
         }
 
         // Si no es superadmin, redirigir al inicio

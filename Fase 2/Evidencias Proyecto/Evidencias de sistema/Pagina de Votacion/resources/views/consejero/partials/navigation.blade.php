@@ -1,12 +1,14 @@
-<!-- resources/views/admin/partials/ae-navigation.blade.php -->
-
 <div class="navbar">
     <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
 </div>
 
 <div class="sec1" id="nav-menu">
-    <a href="{{ route('admin.registrar-cuenta') }}" class="{{ request()->routeIs('admin.registrar-cuenta') ? 'active' : '' }}">Registrar Cuenta</a>
-    <a href="{{ route('admin.listado-cuentas') }}" class="{{ request()->routeIs('admin.listado-cuentas') ? 'active' : '' }}">Listado de Cuentas</a>
+    <a href="{{ route('consejero.home') }}" class="{{ request()->routeIs('consejero.home') ? 'active' : '' }}">Votaciones Disponibles</a>
+    <a href="{{ route('consejero.historial') }}" class="{{ request()->routeIs('consejero.historial') ? 'active' : '' }}">Historial de Votaciones</a>
+    <form class="logout log-btn" action="{{ route('logout') }}" method="POST" style="display:inline;">
+        @csrf
+        <button class="log-btn" type="submit">Cerrar sesión</button>
+    </form>
 </div>
 
 <div class="hr"></div>
@@ -82,9 +84,12 @@
         /* background-color:#f0f0f0; */
     }
 
-    /* Estilos para pantallas pequeñas */
-    @media (max-width: 800px) {
+    .log-btn{
+        display: none;
+    }
 
+    /* Estilos para pantallas pequeñas */
+    @media (max-width: 1100px) {
         .navbar{
             /* display:black; */
             display: flex;
@@ -101,7 +106,7 @@
 
         .sec1 {
             display: none; /* Ocultar el menú por defecto */
-            top: 18vh; 
+            top: 17vh; 
             width:30vh;
             height:100%;
             border-right:solid #000;
@@ -125,6 +130,34 @@
 
         .hr{
             display: none; /* Ocultar el menú por defecto */
+        }
+
+        .log-btn{
+            display: flex;
+            margin: 10px auto;
+            font-size: 20px;
+            padding: 8px 0;
+            border-radius: 5px;
+        }
+    }
+
+    @media (max-width: 400px) {
+
+        .sec1 {
+            top: 12vh; 
+        }
+
+        .navbar{
+            top: 8vh;
+            padding: 0 15px;
+        }
+
+        .log-btn{
+            display: flex;
+            margin: 10px auto;
+            font-size: 20px;
+            padding: 8px 0;
+            border-radius: 5px;
         }
     }
 

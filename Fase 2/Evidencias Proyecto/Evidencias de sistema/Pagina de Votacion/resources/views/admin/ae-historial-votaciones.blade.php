@@ -48,12 +48,38 @@
                                     <tr>
                                         <td>{{ $voto->SIGLA }}</td>
                                         <td>{{ $voto->NOMBRE }}</td>
-                                        <td>{{ $voto->DESCRIPCION }}</td>
-                                        <td>{{ $voto->OPC_1 }}</td>
-                                        <td>{{ $voto->OPC_2 }}</td>
-                                        <td>{{ $voto->OPC_3 }}</td>
-                                        <td>{{ $voto->OPC_4 }}</td>
-                                        <td></td>
+                                        <td>
+                                            <div class="td-descripcion">
+                                                {{ $voto->DESCRIPCION }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="count-votos">
+                                                {{ $voto->OPC_1 }}
+                                                Votos: 10
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="count-votos">
+                                                {{ $voto->OPC_2 }}
+                                                Votos: 15
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="count-votos">
+                                                {{ $voto->OPC_3 }}
+                                                Votos: 12                                                
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="count-votos">
+                                                {{ $voto->OPC_4 }}
+                                                Votos: 18
+                                            </div>
+                                        </td>
+                                        <td>
+                                            Votos: 55
+                                        </td>
                                         @if ($voto->ESTADO == 1)
                                             <td>Activa</td>
                                             @else
@@ -245,6 +271,17 @@
 
     tr:hover {
         background-color: #f1f1f1;
+    }
+
+    .td-descripcion{
+        height: 200px;
+    }
+
+    .count-votos{
+        display: flex;
+        flex-direction: column;
+        padding: 0 5px;
+        width: 120px;
     }
 
     /* End CSS Tabla */
