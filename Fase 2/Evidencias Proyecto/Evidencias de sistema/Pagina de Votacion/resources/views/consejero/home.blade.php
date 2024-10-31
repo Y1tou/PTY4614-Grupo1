@@ -15,33 +15,40 @@
         <!-- Links -->
         @include('consejero.partials.navigation')
         <!-- Votaciones disponibles -->
-        <main id="miMain" class="sec2 p-6 flex-grow">
+        <main id="miMain" class="p-6 flex-grow">
             <h1 class="text-2xl font-bold mb-6">Lista de Votaciones Disponibles</h1>
-
-            <div class="space-y-6">
-                <!-- Card de votación -->
-                <form class="bg-white shadow-md rounded p-4 border" action="" method="POST">
-                    <div class="flex justify-between items-center">
-                        <div class="font-bold text-xl">Tema de la Votación: Jardín de la sede</div>
-                        <div class="text-gray-600">Fecha Inicio: 05 / 09 / 2024</div>
-                    </div>
-                    <p class="text-gray-700 my-4">
-                        Descripción: Lorem ipsum dolor sit amet consectetur adipiscing elit laoreet aenean, ultrices
-                        phasellus nam euismod taciti dictumst suscipit conubia..
-                    </p>
-                    <div class="flex items-center space-x-4">
-                        <label for="opciones" class="text-gray-700">Selecciona una opción:</label>
-                        <select id="opciones" class="border-gray-300 rounded-md">
-                            <option>Opciones</option>
-                            <option>Opción 1</option>
-                            <option>Opción 2</option>
-                            <option>Opción 3</option>
-                        </select>
-                        <button class="bg-blue-800 text-white px-4 py-1 rounded">Confirmar voto</button>
-                    </div>
-                </form>
-            </div>
+            @foreach ($votacion as $voto)
+                @if ($voto->ESTADO == 1)
+                    <div class="space-y-6">
+                        <!-- Card de votación -->
+                        <form class="bg-white shadow-md rounded p-4 border" action="" method="POST">
+                            <div class="flex justify-between items-center">
+                                <div class="font-bold text-xl">Tema de la Votación: {{ $voto->NOMBRE }}</div>
+                                <div class="text-gray-600">Fecha Inicio: {{ \Carbon\Carbon::parse($voto->created_at)->format('d-m-Y') }}</div>
+                            </div>
+                            <p class="text-gray-700 my-4">
+                                Descripción: {{ $voto->DESCRIPCION }}
+                            </p>
+                            <div class="flex items-center space-x-4">
+                                <label for="opciones" class="text-gray-700">Selecciona una opción:</label>
+                                <select id="opciones" class="border-gray-300 rounded-md">
+                                    <option>Opciones</option>
+                                    <option>{{ $voto->OPC_1 }}</option>
+                                    <option>{{ $voto->OPC_2 }}</option>
+                                    <option>{{ $voto->OPC_3 }}</option>
+                                    <option>{{ $voto->OPC_4 }}</option>
+                                </select>
+                                <button class="bg-blue-800 text-white px-4 py-1 rounded">Confirmar voto</button>
+                            </div>
+                        </form>
+                    </div>                            
+                @endif
+            @endforeach
         </main>
+
+   
+        
+        
     </div>
 </body>
 
@@ -81,6 +88,10 @@
         margin-bottom: 10px;
     }
 
+    space-y-6{
+        width: 800px;
+    }
+
     label>b {
         font-size: 20px;
     }
@@ -115,7 +126,7 @@
 
 </style>
 
-
+<!-- Comenta esto si se ve mal -->
 <script>
     function handleResize() {
         const mainElement = document.getElementById('miMain');

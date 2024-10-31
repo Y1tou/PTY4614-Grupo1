@@ -13,7 +13,8 @@ class VotoController extends Controller
 
     public function showHomeConsejero()
     {
-        return view('consejero.home');
+        $votacion = Votacion::all();
+        return view('consejero.home', compact('votacion'));
     }   
     
     public function showHistorialConsejero()
