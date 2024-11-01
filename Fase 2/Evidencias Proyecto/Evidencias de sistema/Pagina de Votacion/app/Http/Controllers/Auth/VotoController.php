@@ -40,7 +40,16 @@ class VotoController extends Controller
             'sigla' => 'required|string',
             'opcion_votada' => 'required|string',
         ]);
-
+    
+        // Verificar si el usuario ya ha votado en esta votación
+        $hasVoted = Voto::where('run', Auth::user()->run)
+                        ->where('sigla', $request->sigla)
+                        ->exists();
+    
+        if ($hasVoted) {
+            return redirect()->back()->with('error', 'Ya has votado en esta votación.');
+        }
+    
         // Guardar el voto en la base de datos
         Voto::create([
             'sigla' => $request->sigla,
@@ -49,8 +58,11 @@ class VotoController extends Controller
             'carrera' => Auth::user()->carrera,  // Asumiendo que el usuario tiene una carrera asignada
             'correo' => Auth::user()->email,     // El correo del consejero
         ]);
-
+    
+    
+    
         // Redirigir con un mensaje de éxito
         return redirect()->back()->with('success', 'Tu voto ha sido registrado correctamente.');
     }
+    
 }
