@@ -10,17 +10,16 @@ use Illuminate\Support\Facades\Auth;
 
 class VotoController extends Controller
 {
-
     public function showHomeConsejero()
     {
         $votacion = Votacion::all();
         return view('consejero.home', compact('votacion'));
-    }   
-    
+    }
+
     public function showHistorialConsejero()
     {
         return view('consejero.historial');
-    }   
+    }
 
     // Mostrar el formulario de votación para los consejeros
     public function showVotingForm()
@@ -42,24 +41,22 @@ class VotoController extends Controller
         ]);
     
         // Verificar si el usuario ya ha votado en esta votación
-        $hasVoted = Voto::where('run', Auth::user()->run)
-                        ->where('sigla', $request->sigla)
+        $hasVoted = Voto::where('RUN', Auth::user()->run)
+                        ->where('SIGLA', $request->sigla)
                         ->exists();
     
         if ($hasVoted) {
             return redirect()->back()->with('error', 'Ya has votado en esta votación.');
         }
     
-        // Guardar el voto en la base de datos
-        Voto::create([
-            'sigla' => $request->sigla,
-            'run' => Auth::user()->run,  // El RUN del consejero (identificador único)
-            'opcion_votada' => $request->opcion_votada,
-            'carrera' => Auth::user()->carrera,  // Asumiendo que el usuario tiene una carrera asignada
-            'correo' => Auth::user()->email,     // El correo del consejero
-        ]);
-    
-    
+        // Crear el voto utilizando la instancia y el método `save()`
+        $voto = new Voto();
+        $voto->SIGLA = $request->sigla;
+        $voto->RUN = Auth::user()->run;
+        $voto->OPCION_VOTADA = $request->opcion_votada;
+        $voto->CARRERA = Auth::user()->carrera;
+        $voto->CORREO = Auth::user()->email;
+        $voto->save();
     
         // Redirigir con un mensaje de éxito
         return redirect()->back()->with('success', 'Tu voto ha sido registrado correctamente.');
