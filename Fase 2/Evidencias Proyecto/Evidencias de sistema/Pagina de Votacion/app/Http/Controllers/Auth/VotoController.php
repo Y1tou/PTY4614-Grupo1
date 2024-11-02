@@ -12,13 +12,36 @@ class VotoController extends Controller
 {
     public function showHomeConsejero()
     {
-        $votacion = Votacion::all();
-        return view('consejero.home', compact('votacion'));
+        $votaciones = Votacion::where('ESTADO', 1)->get();
+        $votosUsuario = Voto::where('RUN', Auth::user()->run)->get();
+        // Añadir información sobre si el usuario votó y la opción votada
+        $votacionesConVotos = $votaciones->map(function ($votacion) use ($votosUsuario) {
+            // Verificar si el usuario votó en esta votación específica
+            $votoRealizado = $votosUsuario->firstWhere('SIGLA', $votacion->SIGLA);
+            // Agregar la opción votada (si existe) y un indicador de voto realizado
+            $votacion->voto_realizado = $votoRealizado ? true : false;
+            $votacion->opcion_votada = $votoRealizado->OPCION_VOTADA ?? null;
+            return $votacion;
+        });
+        return view('consejero.home', compact('votacionesConVotos'));
     }
-
+    
     public function showHistorialConsejero()
     {
-        return view('consejero.historial');
+        $votaciones = Votacion::where('ESTADO', 0)->get();
+        $votosUsuario = Voto::where('RUN', Auth::user()->run)->get();
+        // Filtrar votaciones en las que el usuario haya participado
+        $votacionesConVotos = $votaciones->filter(function ($votacion) use ($votosUsuario) {
+            // Verificar si el usuario votó en esta votación específica
+            return $votosUsuario->contains('SIGLA', $votacion->SIGLA);
+        })->map(function ($votacion) use ($votosUsuario) {
+            // Obtener el voto específico del usuario para esta votación
+            $votoRealizado = $votosUsuario->firstWhere('SIGLA', $votacion->SIGLA);
+            // Añadir la opción votada a la votación
+            $votacion->opcion_votada = $votoRealizado->OPCION_VOTADA ?? null;
+            return $votacion;
+        });
+        return view('consejero.historial', compact('votacionesConVotos'));
     }
 
     // Mostrar el formulario de votación para los consejeros
@@ -36,8 +59,8 @@ class VotoController extends Controller
     {
         // Validar los datos recibidos
         $request->validate([
-            'sigla' => 'required|string',
-            'opcion_votada' => 'required|string',
+            'sigla' => 'required|string|max:12',
+            'opcion_votada' => 'required|string|max:30',
         ]);
     
         // Verificar si el usuario ya ha votado en esta votación
