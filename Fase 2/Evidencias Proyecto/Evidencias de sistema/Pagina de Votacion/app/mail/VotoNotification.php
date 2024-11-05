@@ -12,17 +12,20 @@ class VotoNotification extends Mailable
 
     public $sigla;
     public $opcion_votada;
+    public $nombreVotacion;
 
-    public function __construct($sigla, $opcion_votada)
+    public function __construct($sigla, $opcion_votada, $nombreVotacion)
     {
         $this->sigla = $sigla;
         $this->opcion_votada = $opcion_votada;
+        $this->nombreVotacion = $nombreVotacion;
     }
 
     public function build()
     {
         return $this
-            ->subject('Notificación de Voto')
+            ->from('votacionduoc@gmail.com')
+            ->subject('Notificación de Voto Realizado')
             ->view('emails.voto_notification');
     }
 }

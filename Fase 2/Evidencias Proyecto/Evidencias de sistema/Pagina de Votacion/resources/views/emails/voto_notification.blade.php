@@ -7,9 +7,14 @@
     <title>Notificación de Voto</title>
 </head>
 <body>
-    <h1>Confirmación de Voto</h1>
-    <p>Has registrado un voto en la votación con la sigla: <strong>{{ $sigla }}</strong></p>
-    <p>Opción elegida: <strong>{{ $opcion_votada }}</strong></p>
-    <p>Gracias por tu participación.</p>
+    <p>Estimado usuario,</p>
+    <p>Gracias por participar en la votación.</p>
+    <p><strong>Detalles del Voto:</strong></p>
+    <ul>
+        <li><strong>Nombre de la Votación:</strong> {{ $nombreVotacion }}</li>
+        <li><strong>Sigla:</strong> {{ $sigla }}</li>
+        <li><strong>Opción Elegida:</strong> {{ $opcion_votada }}</li>
+    </ul>
+    <p>Atentamente,<br>Plataforma de votaciones consejeros DUOC UC</p>
 </body>
 </html>
