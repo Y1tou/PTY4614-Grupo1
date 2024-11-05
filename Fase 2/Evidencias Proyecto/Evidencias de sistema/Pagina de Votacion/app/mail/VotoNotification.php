@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class VoteNotification extends Mailable
+class VotoNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -23,6 +23,6 @@ class VoteNotification extends Mailable
     {
         return $this
             ->subject('Notificación de Voto')
-            ->view('emails.vote_notification');
+            ->view('emails.voto_notification');
     }
 }
