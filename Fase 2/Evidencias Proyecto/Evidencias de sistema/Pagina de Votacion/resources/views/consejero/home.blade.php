@@ -38,10 +38,21 @@
                                 <label for="opcion_votada" class="text-gray-700">Selecciona una opción:</label>
                                 <select id="opcion_votada" name="opcion_votada" required class="border-gray-300 rounded-md">
                                     <option value="">Seleccione una opción</option>
-                                    <option value="{{ $voto->OPC_1 }}">{{ $voto->OPC_1 }}</option>
-                                    <option value="{{ $voto->OPC_2 }}">{{ $voto->OPC_2 }}</option>
-                                    <option value="{{ $voto->OPC_3 }}">{{ $voto->OPC_3 }}</option>
-                                    <option value="{{ $voto->OPC_4 }}">{{ $voto->OPC_4 }}</option>
+                                    @if(!empty($voto->OPC_1))
+                                        <option value="{{ $voto->OPC_1 }}">{{ $voto->OPC_1 }}</option>
+                                    @endif
+
+                                    @if(!empty($voto->OPC_2))
+                                        <option value="{{ $voto->OPC_2 }}">{{ $voto->OPC_2 }}</option>
+                                    @endif
+
+                                    @if(!empty($voto->OPC_3))
+                                        <option value="{{ $voto->OPC_3 }}">{{ $voto->OPC_3 }}</option>
+                                    @endif
+
+                                    @if(!empty($voto->OPC_4))
+                                        <option value="{{ $voto->OPC_4 }}">{{ $voto->OPC_4 }}</option>
+                                    @endif
                                 </select>
                                 <button type="submit" class="bg-blue-800 text-white px-4 py-1 rounded">Confirmar voto</button>
                             </div>
