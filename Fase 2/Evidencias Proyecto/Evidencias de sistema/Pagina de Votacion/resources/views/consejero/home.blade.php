@@ -19,7 +19,7 @@
             <h1 class="text-2xl font-bold mb-6">Lista de Votaciones Disponibles</h1>
             @foreach ($votacionesConVotos as $voto)
                 <div class="space-y-6  card-voto">
-                    <form class="bg-white shadow-md rounded p-4 border" action="{{ route('voto.store') }}" method="POST">
+                    <form class="bg-white shadow-md rounded p-4 border" action="{{ route('voto.store') }}" method="POST" onsubmit="return confirm('¿Estás seguro de la opción seleccionada?');">
                         @csrf
                         <input type="hidden" name="sigla" value="{{ $voto->SIGLA }}">
 

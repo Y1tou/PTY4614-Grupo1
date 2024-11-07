@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Votacion;
+use App\Models\Voto;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VotacionNotificacion;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +33,24 @@ class VotacionController extends Controller
     public function detallesVotacion($sigla)
     {
         $votacion = Votacion::where('SIGLA', $sigla)->first();
-        return view('admin.ae-detalles-votacion', compact('votacion'));
+        $votos = Voto::where('SIGLA', $sigla)->get();
+
+        $countOP1 = Voto::where('SIGLA', $sigla)->where('OPCION_VOTADA', $votacion->OPC_1)->count();
+        $countOP2 = Voto::where('SIGLA', $sigla)->where('OPCION_VOTADA', $votacion->OPC_2)->count();
+        $countOP3 = Voto::where('SIGLA', $sigla)->where('OPCION_VOTADA', $votacion->OPC_3)->count();
+        $countOP4 = Voto::where('SIGLA', $sigla)->where('OPCION_VOTADA', $votacion->OPC_4)->count();
+
+        $consejerosOP1 = $votos->where('OPCION_VOTADA', $votacion->OPC_1)->pluck('RUN');
+        $consejerosOP2 = $votos->where('OPCION_VOTADA', $votacion->OPC_2)->pluck('RUN');
+        $consejerosOP3 = $votos->where('OPCION_VOTADA', $votacion->OPC_3)->pluck('RUN');
+        $consejerosOP4 = $votos->where('OPCION_VOTADA', $votacion->OPC_4)->pluck('RUN');
+
+        $nombresOP1 = User::whereIn('run', $consejerosOP1)->pluck('name');
+        $nombresOP2 = User::whereIn('run', $consejerosOP2)->pluck('name');
+        $nombresOP3 = User::whereIn('run', $consejerosOP3)->pluck('name');
+        $nombresOP4 = User::whereIn('run', $consejerosOP4)->pluck('name');
+
+        return view('admin.ae-detalles-votacion', compact('votacion', 'votos', 'countOP1','countOP2','countOP3','countOP4','nombresOP1', 'nombresOP2', 'nombresOP3', 'nombresOP4'));
     }
 
     public function store(Request $request)
@@ -83,11 +102,16 @@ class VotacionController extends Controller
         }
     }
 
-    public function finalizarVotacion($sigla)
+    public function finalizarVotacion(Request $request, $sigla)
     {
+        $validated = $request->validate([
+            'opc_ganadora' => 'required|string|max:30'
+        ]);    
+
         $votacion = Votacion::where('SIGLA', $sigla)->first();
 
         if ($votacion) {
+            $votacion->GANADOR = $validated['opc_ganadora']; // Establecer opcion ganadora
             $votacion->ESTADO = 0; // Cambiar el estado a finalizada
             $votacion->save();
 

@@ -32,39 +32,41 @@
                     </div>
                 </div>
                 <strong>Listado de participantes</strong>
-                <table class="section-b">
-                    <tr>
-                        <th>Opción 1</th>
-                        <th>Opción 2</th>
-                        <th>Opción 3</th>
-                        <th>Opción 4</th>
-                    </tr>
-                    <tr>
-                        <td>Datos 1</td>
-                        <td>Datos 2</td>
-                        <td>Datos 3</td>
-                        <td>Datos 4</td>
-                    </tr>
-
-                    <tr>
-                        <td>Datos 1</td>
-                        <td>Datos 2</td>
-                        <td>Datos 3</td>
-                        <td>Datos 4</td>
-                    </tr>
-                    <tr>
-                        <td>Datos 1</td>
-                        <td>Datos 2</td>
-                        <td>Datos 3</td>
-                        <td>Datos 4</td>
-                    </tr>
-                    <tr>
-                        <td>Datos 1</td>
-                        <td>Datos 2</td>
-                        <td>Datos 3</td>
-                        <td>Datos 4</td>
-                    </tr>
+                <table class="section-b table-secondary">
+                    <thead>
+                        <tr>
+                            <th>Opción 1</th>
+                            <th>Opción 2</th>
+                            <th>Opción 3</th>
+                            <th>Opción 4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @foreach ($nombresOP1 as $nombre)
+                                    <p>{{ $nombre }}</p>
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach ($nombresOP2 as $nombre)
+                                    <p>{{ $nombre }}</p>
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach ($nombresOP3 as $nombre)
+                                    <p>{{ $nombre }}</p>
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach ($nombresOP4 as $nombre)
+                                    <p>{{ $nombre }}</p>
+                                @endforeach
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
+
             </div>  
         </div>
         <div class="buttons">
@@ -72,10 +74,30 @@
                 <a href="{{ route('admin.ae-votaciones-activas') }}">Volver</a>
                 <form action="{{ route('admin.finalizar-votacion', $votacion->SIGLA) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas finalizar la votación?');">
                     @csrf
+                    <label for="opc_ganadora" class="text-gray-700">Selecciona la opción ganadora:</label>
+                    <select id="opc_ganadora" name="opc_ganadora" required class="border-gray-300 rounded-md">
+                        <option value="">Seleccione una opción </option>
+                        @if(!empty($votacion->OPC_1))
+                            <option value="{{ $votacion->OPC_1 }}">{{ $votacion->OPC_1 }}</option>
+                        @endif
+
+                        @if(!empty($votacion->OPC_2))
+                            <option value="{{ $votacion->OPC_2 }}">{{ $votacion->OPC_2 }}</option>
+                        @endif
+
+                        @if(!empty($votacion->OPC_3))
+                            <option value="{{ $votacion->OPC_3 }}">{{ $votacion->OPC_3 }}</option>
+                        @endif
+
+                        @if(!empty($votacion->OPC_4))
+                            <option value="{{ $votacion->OPC_4 }}">{{ $votacion->OPC_4 }}</option>
+                        @endif
+                    </select>
                     <button class="finalizar" type="submit">Finalizar</button>
                 </form>
             @else
                 <a href="{{ route('admin.ae-historial-votaciones') }}">Volver</a>
+                <label for="opc_ganadora" class="text-gray-700">Opcion Ganadora: {{ $votacion->GANADOR }}</label>
             @endif
         </div>
     </div>
@@ -91,6 +113,19 @@
             text-align:center;
         }
 
+        @media (max-width: 600px) {  
+            .content {
+                padding: 20px;
+                margin: 20px;
+                border: none;
+                border-radius: 10px;
+                background-color: #ffffff;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                text-align:center;
+            }
+        }
+
+
         .content>strong{
             font-size: 30px;
         }
@@ -105,6 +140,7 @@
         .buttons{
             display: flex;
             justify-content: space-around;
+            align-items: center;
             padding: 12px 20px 2px;
         }
 
@@ -155,8 +191,11 @@
             margin: 10px 0;
             border: solid #000;
             border-radius: 10px;
-            background-color: #9abfd781;
             overflow-x: auto;
+        }
+
+        .section-a {
+            background-color: #9abfd781;
         }
 
         .section-a>strong{
@@ -172,7 +211,7 @@
         }
         
         td, th {
-            border: 1px solid #dddddd;
+            border: 1px solid #000000;
             text-align: left;
             padding: 10px;
         }
@@ -192,10 +231,10 @@
 
         }
         .fechas{
-        font-size: 18px;
-        padding-right: 5px;
-        display: flex;
-        justify-content: space-around;
+            font-size: 18px;
+            padding-right: 5px;
+            display: flex;
+            justify-content: space-around;
         }
 
         @media (max-width: 768px) {
@@ -210,42 +249,42 @@
             .buttons > a, .buttons > form > button {
                 margin: 10px 0;
             }
-    }
+        }
 
     </style>
 
 <script>
     const ctx = document.getElementById('miGrafico').getContext('2d');
-        
+
     const miGrafico = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['{{$votacion->OPC_1}}','{{$votacion->OPC_2}}','{{$votacion->OPC_3}}','{{$votacion->OPC_4}}'],
+            labels: ['{{$votacion->OPC_1}} ({{$countOP1}})','{{$votacion->OPC_2}} ({{$countOP2}})','{{$votacion->OPC_3}} ({{$countOP3}})','{{$votacion->OPC_4}} ({{$countOP4}})'],
             datasets: [
                 {
                     label: 'Opcion 1',
-                    data: [12, 0, 0, 0],
+                    data: [{{$countOP1}}, 0, 0, 0],
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
                 },
                 {
                     label: 'Opcion 2',
-                    data: [0, 19, 0, 0],
+                    data: [0, {{$countOP2}}, 0, 0],
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 },
                 {
                     label: 'Opcion 3',
-                    data: [0, 0, 3, 0],
+                    data: [0, 0, {{$countOP3}}, 0],
                     backgroundColor: 'rgba(255, 206, 86, 0.2)',
                     borderColor: 'rgba(255, 206, 86, 1)',
                     borderWidth: 1
                 },
                 {
                     label: 'Opcion 4',
-                    data: [0, 0, 0, 5],
+                    data: [0, 0, 0, {{$countOP4}}],
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
@@ -262,6 +301,7 @@
             }
         }
     });
-    </script>
+</script>
+
 </body>
 </html>
