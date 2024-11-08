@@ -106,32 +106,34 @@ class VotacionController extends Controller
     {
         $validated = $request->validate([
             'opc_ganadora' => 'required|string|max:30'
-        ]);    
-
+        ]);
+    
         $votacion = Votacion::where('SIGLA', $sigla)->first();
-
+    
         if ($votacion) {
-            $votacion->GANADOR = $validated['opc_ganadora']; // Establecer opcion ganadora
-            $votacion->ESTADO = 0; // Cambiar el estado a finalizada
+            // Establecer opción ganadora y cambiar el estado a finalizada
+            $votacion->GANADOR = $validated['opc_ganadora'];
+            $votacion->ESTADO = 0; // Cambiar estado a finalizada
             $votacion->save();
-
+    
             // Obtener correos de usuarios con TIPO = 2 en la tabla admin
             $adminCorreos = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
             
             // Obtener correos de la tabla USERS
             $userCorreos = DB::table('USERS')->pluck('email');
-
+    
             // Unir ambos arrays de correos y eliminar duplicados
             $todosLosCorreos = $adminCorreos->merge($userCorreos)->unique();
-
+    
             // Enviar el correo a todos los administradores y usuarios
             foreach ($todosLosCorreos as $correo) {
-                Mail::to($correo)->send(new VotacionNotificacion($sigla, 'eliminar')); // Indica que se está eliminando
+                Mail::to($correo)->send(new VotacionNotificacion($sigla, 'eliminar')); // Enviar correo de finalización
             }
-
+    
             return redirect()->route('admin.ae-historial-votaciones')->with('success', 'La votación se ha finalizado correctamente y correos enviados.');
         }
-
+    
         return redirect()->route('admin.ae-historial-votaciones')->with('error', 'No se pudo finalizar la votación.');
     }
+    
 }
