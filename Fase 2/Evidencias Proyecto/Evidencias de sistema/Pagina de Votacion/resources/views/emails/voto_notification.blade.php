@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,10 +13,12 @@
             background-color: #f4f4f9;
             padding: 20px;
         }
+
         h1 {
             text-align: center;
             color: #4CAF50;
         }
+
         .content {
             background-color: #fff;
             padding: 20px;
@@ -24,17 +27,21 @@
             max-width: 600px;
             margin: 20px auto;
         }
+
         .section {
             margin-bottom: 15px;
         }
+
         .section p {
             font-size: 16px;
             line-height: 1.6;
         }
+
         .highlight {
             color: #4CAF50;
             font-weight: bold;
         }
+
         .footer {
             text-align: center;
             font-size: 12px;
@@ -43,6 +50,7 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Notificación de Voto</h1>
     <div class="content">
@@ -57,6 +65,11 @@
     </div>
     <div class="footer">
         <p>Atentamente,<br>Plataforma de votaciones consejeros Duoc UC</p>
+        <!-- Imagen de pie de firma 
+        <img src="Pagina de Votacion/imagenes/FirmaCorreoCapstone.png"
+            alt="Firma" style="margin-top: 15px; width: 100px; height: auto;"> -->
+
     </div>
 </body>
+
 </html>
