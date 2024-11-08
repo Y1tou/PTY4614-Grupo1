@@ -26,7 +26,10 @@
 
                             <div class="flex justify-between items-center">
                                 <div class="font-bold text-xl">Tema de la Votación: {{ $voto->NOMBRE }}</div>
-                                <div class="text-gray-600">Fecha Inicio: {{ \Carbon\Carbon::parse($voto->created_at)->format('d-m-Y') }}</div>
+                                <div>
+                                    <div class="text-gray-600">Fecha Inicio: {{ \Carbon\Carbon::parse($voto->created_at)->format('d-m-Y') }}</div>
+                                    <div class="text-gray-600">Fecha Termino: {{ \Carbon\Carbon::parse($voto->updated_at)->format('d-m-Y') }}</div>
+                                </div>
                             </div>
                             <p class="text-gray-700 my-4">Descripción: {{ $voto->DESCRIPCION }}</p>
                             <div class="display">
@@ -186,6 +189,7 @@
         border-radius: 10px;
         max-width: 100%;
         overflow-x: auto;
+        margin: 10px 0 0;
     }
 
     .error-messages {
