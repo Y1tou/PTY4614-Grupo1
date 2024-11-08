@@ -97,7 +97,7 @@
                 </form>
             @else
                 <a href="{{ route('admin.ae-historial-votaciones') }}">Volver</a>
-                <label for="opc_ganadora" class="text-gray-700">Opcion Ganadora: {{ $votacion->GANADOR }}</label>
+                <label for="opc_ganadora" class="text-gray-700"><strong>Opcion Ganadora: {{ $votacion->GANADOR }}</strong></label>
             @endif
         </div>
     </div>

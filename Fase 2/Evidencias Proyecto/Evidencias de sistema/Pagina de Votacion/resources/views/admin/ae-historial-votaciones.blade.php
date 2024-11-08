@@ -19,82 +19,81 @@
             <b>Historial de Votaciones</b>
             @foreach ($votacion as $voto)
                 @if ($voto->ESTADO == 0)
-                    <div class="card">
-                        <div class="card_title">
-                            <div class="titulo">
-                                <p>Tema de la votación: </p>
-                                <p class="sub-title">{{ $voto->NOMBRE }}</p>
-                            </div>
-                            <div class="fechas">
-                                <p>Fecha de inicio: {{ \Carbon\Carbon::parse($voto->created_at)->format('d-m-Y') }} </p>
-                                <p>Fecha de Termino: {{ \Carbon\Carbon::parse($voto->updated_at)->format('d-m-Y') }} </p>
-                            </div>
-                        </div>
-                        <div class="display">
-                            <button type="button" class="collapsible"> <b> ▼ </b> </button>
-                            <div class="content collapsible-content">
-                                <table>
-                                    <tr>
-                                        <th>Sigla</th>
-                                        <th>Tema</th>
-                                        <th>Descripci&oacute;n</th>
-                                        <th>Opci&oacute;n 1</th>
-                                        <th>Opci&oacute;n 2</th>
-                                        <th>Opci&oacute;n 3</th>
-                                        <th>Opci&oacute;n 4</th>
-                                        <th>Votos Totales</th>
-                                        <th>Estado</th>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ $voto->SIGLA }}</td>
-                                        <td>{{ $voto->NOMBRE }}</td>
-                                        <td>
-                                            <div class="td-descripcion">
-                                                {{ $voto->DESCRIPCION }}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="count-votos">
-                                                {{ $voto->OPC_1 }}
-                                                Votos: 10
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="count-votos">
-                                                {{ $voto->OPC_2 }}
-                                                Votos: 15
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="count-votos">
-                                                {{ $voto->OPC_3 }}
-                                                Votos: 12                                                
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="count-votos">
-                                                {{ $voto->OPC_4 }}
-                                                Votos: 18
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Votos: 55
-                                        </td>
-                                        @if ($voto->ESTADO == 1)
-                                            <td>Activa</td>
-                                            @else
-                                            <td>Finalizada</td>
-                                        @endif
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <form class="buttons" action="{{ route('admin.ae-detalles-votacion', $voto->SIGLA)}}" method="POST">
+                    <div class="space-y-6  card-voto">
+                        <div class="bg-white shadow-md rounded p-4 border">
                             @csrf
-                            <button type="submit">
-                                M&aacute;s detalles
-                            </button>
-                        </form>
+                            <input type="hidden" name="sigla" value="{{ $voto->SIGLA }}">
+
+                            <div class="flex justify-between items-center">
+                                <div class="font-bold text-xl">Tema de la Votación: {{ $voto->NOMBRE }}</div>
+                                <div class="text-gray-600">Fecha Inicio: {{ \Carbon\Carbon::parse($voto->created_at)->format('d-m-Y') }}</div>
+                            </div>
+                            <p class="text-gray-700 my-4">Descripción: {{ $voto->DESCRIPCION }}</p>
+                            <div class="display">
+                                <button type="button" class="collapsible"> <b> ▼ </b> </button>
+                                <div class="content collapsible-content">
+                                    <table>
+                                        <tr>
+                                            <th>Sigla</th>
+                                            <th>Tema</th>
+                                            <th>Opci&oacute;n 1</th>
+                                            <th>Opci&oacute;n 2</th>
+                                            <th>Opci&oacute;n 3</th>
+                                            <th>Opci&oacute;n 4</th>
+                                            <th>Opci&oacute;n Ganadora</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ $voto->SIGLA }}</td>
+                                            <td>{{ $voto->NOMBRE }}</td>
+                                            <td>
+                                                <div class="count-votos">
+                                                    {{ $voto->OPC_1 }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="count-votos">
+                                                    {{ $voto->OPC_2 }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="count-votos">
+                                                    @if(!empty($voto->OPC_3))
+                                                        {{ $voto->OPC_3 }}
+                                                        @else
+                                                            <p> Sin opci&oacute;n </p>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="count-votos">
+                                                    @if(!empty($voto->OPC_4))
+                                                        {{ $voto->OPC_4 }}
+                                                        @else
+                                                            <p> Sin opci&oacute;n </p>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {{ $voto->GANADOR }}
+                                            </td>
+                                            @if ($voto->ESTADO == 1)
+                                                <td>Activa</td>
+                                                @else
+                                                <td>Finalizada</td>
+                                            @endif
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="flex justify-start" style=" margin: 20px 30px 0;">
+                                <form action="{{ route('admin.ae-detalles-votacion', $voto->SIGLA)}}" method="POST">
+                                    @csrf
+                                    <button class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600" type="submit">M&aacute;s detalles</button>
+                                </form>
+
+                            </div>
+                        </div>
                     </div>
                     @else
                 @endif
@@ -153,43 +152,8 @@
         margin-bottom: 20px;
     }
 
-    .card {
+    .card-voto{
         margin: 10px 0;
-        padding: 13px 10px;
-        margin-bottom: 30px;
-        border-radius: 10px;
-        border: solid 1px #000;
-        display: flex;
-        flex-direction: column;
-        background-color: #f9f9f9;
-        transition: background-color 0.3s;
-    }
-
-    .card_title{
-        display:flex;
-        justify-content:space-between;
-        padding: 8px 12px;
-    }
-
-    .titulo>p{
-        font-size: 22px;
-    }
-
-    .sub-title{
-        margin-left: 50px;
-    }
-
-    .titulo>.sub-title{
-        font-size: 30px;
-    }
-    
-    .fechas{
-        font-size: 18px;
-        padding-right: 5px;
-        text-align: right;
-    }
-    .card:hover {
-        background-color: #f1f1f1;
     }
 
     .display{
@@ -251,7 +215,6 @@
 
     /* Tabla */
     
-
     table {
         width: 100%;
         border-collapse: collapse;
@@ -273,10 +236,6 @@
         background-color: #f1f1f1;
     }
 
-    .td-descripcion{
-        height: 200px;
-    }
-
     .count-votos{
         display: flex;
         flex-direction: column;
@@ -286,24 +245,7 @@
 
     /* End CSS Tabla */
 
-
-    @media (max-width: 400px) {
-        .titulo>.sub-title{
-            font-size: 24px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .titulo>.sub-title{
-            font-size: 24px;
-        }
-    }
-
     @media (max-width: 900px) {
-        .titulo>.sub-title{
-            font-size: 24px;
-            margin: 0;
-        }
 
         .buttons{
             display: flex;
@@ -313,32 +255,9 @@
         }
     }
 
-    @media (max-width: 1100px) {
-        .titulo>.sub-title{
-            font-size: 26px;
-        }
-    }
+
     /* Ajustes CSS para móviles */
     @media (max-width: 600px) {
-        .card_title {
-            flex-direction: column;
-            padding: 8px 0;
-        }
-
-        .titulo > p {
-            font-size: 16px;
-        }
-
-        .sub-title {
-            font-size: 20px;
-            margin-left: 0;
-        }
-
-        .fechas {
-            font-size: 14px;
-            text-align: left;
-        }
-
         .buttons {
             padding: 0;
             flex-direction: column;
@@ -365,13 +284,6 @@
     }
 
     @media (max-width: 400px) {
-        .titulo > p {
-            font-size: 14px;
-        }
-
-        .fechas {
-            font-size: 12px;
-        }
 
         .buttons button {
             padding: 8px 12px;
