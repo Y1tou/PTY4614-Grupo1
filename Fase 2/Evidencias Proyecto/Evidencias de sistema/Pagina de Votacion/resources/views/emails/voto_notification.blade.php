@@ -46,7 +46,7 @@
 <body>
     <h1>Notificación de Voto</h1>
     <div class="content">
-        <p>Estimado usuario,</p>
+        <p>Estimado consejero,</p>
         <p>Gracias por participar en la votación.</p>
         <p><strong>Detalles del Voto:</strong></p>
         <ul>
@@ -56,7 +56,7 @@
         </ul>
     </div>
     <div class="footer">
-        <p>Atentamente,<br>Plataforma de votaciones consejeros DUOC UC</p>
+        <p>Atentamente,<br>Plataforma de votaciones consejeros Duoc UC</p>
     </div>
 </body>
 </html>
