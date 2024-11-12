@@ -36,17 +36,14 @@
                                     <table>
                                         <tr>
                                             <th>Sigla</th>
-                                            <th>Tema</th>
                                             <th>Opci&oacute;n 1</th>
                                             <th>Opci&oacute;n 2</th>
                                             <th>Opci&oacute;n 3</th>
                                             <th>Opci&oacute;n 4</th>
-                                            <th>Votos Totales</th>
                                             <th>Estado</th>
                                         </tr>
                                         <tr>
                                             <td>{{ $voto->SIGLA }}</td>
-                                            <td>{{ $voto->NOMBRE }}</td>
                                             <td>
                                                 <div class="count-votos">
                                                     {{ $voto->OPC_1 }}
@@ -74,9 +71,6 @@
                                                             <p> Sin opci&oacute;n </p>
                                                     @endif
                                                 </div>
-                                            </td>
-                                            <td>
-                                                Votos: 55
                                             </td>
                                             @if ($voto->ESTADO == 1)
                                                 <td>Activa</td>

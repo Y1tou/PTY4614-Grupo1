@@ -32,41 +32,58 @@
                     </div>
                 </div>
                 <strong>Listado de participantes</strong>
-                <table class="section-b table-secondary">
-                    <thead>
-                        <tr>
-                            <th>Opción 1</th>
-                            <th>Opción 2</th>
-                            <th>Opción 3</th>
-                            <th>Opción 4</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
+                <div class="tabla-content">
+                    <table class="section-b table-secondary">
+                        <thead>
+                            <tr>
+                                <th>Opción 1</th>
+                                <th>Opción 2</th>
+                                <th>Opción 3</th>
+                                <th>Opción 4</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
                                 @foreach ($nombresOP1 as $nombre)
-                                    <p>{{ $nombre }}</p>
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach ($nombresOP2 as $nombre)
-                                    <p>{{ $nombre }}</p>
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach ($nombresOP3 as $nombre)
-                                    <p>{{ $nombre }}</p>
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach ($nombresOP4 as $nombre)
-                                    <p>{{ $nombre }}</p>
-                                @endforeach
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                                        <p>{{ $nombre }}</p>
+                                        <p style="width:100%;">------------</p>
+                                    @endforeach @foreach ($nombresOP1 as $nombre)
+                                        <p>{{ $nombre }}</p>
+                                        <p style="width:100%;">------------</p>
+                                    @endforeach @foreach ($nombresOP1 as $nombre)
+                                        <p>{{ $nombre }}</p>
+                                        <p style="width:100%;">------------</p>
+                                    @endforeach @foreach ($nombresOP1 as $nombre)
+                                        <p>{{ $nombre }}</p>
+                                        <p style="width:100%;">------------</p>
+                                    @endforeach @foreach ($nombresOP1 as $nombre)
+                                        <p>{{ $nombre }}</p>
+                                        <p style="width:100%;">------------</p>
+                                    @endforeach @foreach ($nombresOP1 as $nombre)
+                                        <p>{{ $nombre }}</p>
+                                        <p style="width:100%;">------------</p>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach ($nombresOP2 as $nombre)
+                                        <p>{{ $nombre }}</p>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach ($nombresOP3 as $nombre)
+                                        <p>{{ $nombre }}</p>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach ($nombresOP4 as $nombre)
+                                        <p>{{ $nombre }}</p>
+                                    @endforeach
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>  
         </div>
         <div class="buttons">
@@ -201,6 +218,11 @@
         .section-a>strong{
             font-size: 24px;
         }
+        .tabla-content{
+            height:200px;
+            overflow-x: auto;
+            border: solid #000000;
+        }
 
         table {
             font-family: Arial, sans-serif;
@@ -253,55 +275,50 @@
 
     </style>
 
-<script>
-    const ctx = document.getElementById('miGrafico').getContext('2d');
+    <script>
+        const ctx = document.getElementById('miGrafico').getContext('2d');
 
-    const miGrafico = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['{{$votacion->OPC_1}} ({{$countOP1}})','{{$votacion->OPC_2}} ({{$countOP2}})','{{$votacion->OPC_3}} ({{$countOP3}})','{{$votacion->OPC_4}} ({{$countOP4}})'],
-            datasets: [
-                {
-                    label: 'Opcion 1',
-                    data: [{{$countOP1}}, 0, 0, 0],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Opcion 2',
-                    data: [0, {{$countOP2}}, 0, 0],
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Opcion 3',
-                    data: [0, 0, {{$countOP3}}, 0],
-                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                    borderColor: 'rgba(255, 206, 86, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Opcion 4',
-                    data: [0, 0, 0, {{$countOP4}}],
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }
-            ]
-        },
-        options: {
-            responsive: true, 
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true
+        const miGrafico = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    '{{$votacion->OPC_1}} ({{$countOP1}})',
+                    '{{$votacion->OPC_2}} ({{$countOP2}})',
+                    '{{$votacion->OPC_3}} ({{$countOP3}})',
+                    '{{$votacion->OPC_4}} ({{$countOP4}})'
+                ],
+                datasets: [
+                    {
+                        label: 'Votos',
+                        data: [{{$countOP1}}, {{$countOP2}}, {{$countOP3}}, {{$countOP4}}],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',  // Color para OPC_1
+                            'rgba(54, 162, 235, 0.2)',  // Color para OPC_2
+                            'rgba(255, 206, 86, 0.2)',  // Color para OPC_3
+                            'rgba(75, 192, 192, 0.2)'   // Color para OPC_4
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',    // Color para OPC_1
+                            'rgba(54, 162, 235, 1)',    // Color para OPC_2
+                            'rgba(255, 206, 86, 1)',    // Color para OPC_3
+                            'rgba(75, 192, 192, 1)'     // Color para OPC_4
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true, 
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
-</script>
+        });
+    </script>
+
 
 </body>
 </html>
