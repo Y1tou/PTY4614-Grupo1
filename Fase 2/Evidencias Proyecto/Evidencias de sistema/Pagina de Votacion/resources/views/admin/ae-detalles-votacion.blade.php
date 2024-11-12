@@ -43,44 +43,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                @foreach ($nombresOP1 as $nombre)
-                                        <p>{{ $nombre }}</p>
-                                        <p style="width:100%;">------------</p>
-                                    @endforeach @foreach ($nombresOP1 as $nombre)
-                                        <p>{{ $nombre }}</p>
-                                        <p style="width:100%;">------------</p>
-                                    @endforeach @foreach ($nombresOP1 as $nombre)
-                                        <p>{{ $nombre }}</p>
-                                        <p style="width:100%;">------------</p>
-                                    @endforeach @foreach ($nombresOP1 as $nombre)
-                                        <p>{{ $nombre }}</p>
-                                        <p style="width:100%;">------------</p>
-                                    @endforeach @foreach ($nombresOP1 as $nombre)
-                                        <p>{{ $nombre }}</p>
-                                        <p style="width:100%;">------------</p>
-                                    @endforeach @foreach ($nombresOP1 as $nombre)
-                                        <p>{{ $nombre }}</p>
-                                        <p style="width:100%;">------------</p>
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach ($nombresOP2 as $nombre)
-                                        <p>{{ $nombre }}</p>
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach ($nombresOP3 as $nombre)
-                                        <p>{{ $nombre }}</p>
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach ($nombresOP4 as $nombre)
-                                        <p>{{ $nombre }}</p>
-                                    @endforeach
-                                </td>
-                            </tr>
+                            @for ($i = 0; $i < $maxRows; $i++)
+                                <tr>
+                                    <td>{{ $nombresOP1[$i] ?? '' }}</td>
+                                    <td>{{ $nombresOP2[$i] ?? '' }}</td>
+                                    <td>{{ $nombresOP3[$i] ?? '' }}</td>
+                                    <td>{{ $nombresOP4[$i] ?? '' }}</td>
+                                </tr>
+                            @endfor
                         </tbody>
                     </table>
                 </div>
@@ -203,11 +173,17 @@
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .section-a, .section-b {
+        .section-a {
             padding: 20px;
             margin: 10px 0;
             border: solid #000;
             border-radius: 10px;
+            overflow-x: auto;
+        }
+
+         .section-b {
+            /* padding: 20px; */
+            margin: 10px 0;
             overflow-x: auto;
         }
 
@@ -219,32 +195,36 @@
             font-size: 24px;
         }
         .tabla-content{
-            height:200px;
+            height:250px;
             overflow-x: auto;
-            border: solid #000000;
+            margin-top: 15px;
+            border: solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
         }
 
         table {
-            font-family: Arial, sans-serif;
-            border-collapse: collapse;
             width: 100%;
-            margin-top: 1vh;
-            border-radius: 10px;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
         }
         
-        td, th {
-            border: 1px solid #000000;
-            text-align: left;
-            padding: 10px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
         th {
             background-color: #4CAF50;
             color: white;
+            padding: 12px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
         .buttons{

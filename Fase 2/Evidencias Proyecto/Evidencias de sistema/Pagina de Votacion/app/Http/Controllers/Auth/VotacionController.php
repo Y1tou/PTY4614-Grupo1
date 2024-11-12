@@ -45,12 +45,14 @@ class VotacionController extends Controller
         $consejerosOP3 = $votos->where('OPCION_VOTADA', $votacion->OPC_3)->pluck('RUN');
         $consejerosOP4 = $votos->where('OPCION_VOTADA', $votacion->OPC_4)->pluck('RUN');
 
-        $nombresOP1 = User::whereIn('run', $consejerosOP1)->pluck('name');
-        $nombresOP2 = User::whereIn('run', $consejerosOP2)->pluck('name');
-        $nombresOP3 = User::whereIn('run', $consejerosOP3)->pluck('name');
-        $nombresOP4 = User::whereIn('run', $consejerosOP4)->pluck('name');
+        $nombresOP1 = User::whereIn('run', $consejerosOP1)->pluck('name')->map(function($name){return ucwords(strtolower($name));});
+        $nombresOP2 = User::whereIn('run', $consejerosOP2)->pluck('name')->map(function($name){return ucwords(strtolower($name));});
+        $nombresOP3 = User::whereIn('run', $consejerosOP3)->pluck('name')->map(function($name){return ucwords(strtolower($name));});
+        $nombresOP4 = User::whereIn('run', $consejerosOP4)->pluck('name')->map(function($name){return ucwords(strtolower($name));});
 
-        return view('admin.ae-detalles-votacion', compact('votacion', 'votos', 'countOP1','countOP2','countOP3','countOP4','nombresOP1', 'nombresOP2', 'nombresOP3', 'nombresOP4'));
+        $maxRows = max($nombresOP1->count(), $nombresOP2->count(), $nombresOP3->count(), $nombresOP4->count());
+
+        return view('admin.ae-detalles-votacion', compact('votacion', 'votos', 'countOP1','countOP2','countOP3','countOP4','nombresOP1', 'nombresOP2', 'nombresOP3', 'nombresOP4', 'maxRows'));
     }
 
     public function store(Request $request)
