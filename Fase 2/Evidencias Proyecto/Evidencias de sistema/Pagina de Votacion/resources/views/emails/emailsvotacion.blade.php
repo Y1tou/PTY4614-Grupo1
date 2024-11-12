@@ -14,7 +14,7 @@
         }
         h1 {
             text-align: center;
-            color: #4CAF50;
+            color: #163D64;
         }
         .content {
             background-color: #fff;
@@ -32,7 +32,7 @@
             line-height: 1.6;
         }
         .highlight {
-            color: #4CAF50;
+            color: #163D64;
             font-weight: bold;
         }
         .footer {
