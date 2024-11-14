@@ -97,7 +97,7 @@ class VotoController extends Controller
                 return redirect()->back()->with('success', 'Tu voto ha sido registrado correctamente.');
             }
             else{
-                return redirect()->back()->with('noValido', 'Tu voto NO es valido.');
+                return redirect()->back()->with('noValido', 'La información ingresada NO es valida.');
             }
         }
         catch (\Exception $e) {
