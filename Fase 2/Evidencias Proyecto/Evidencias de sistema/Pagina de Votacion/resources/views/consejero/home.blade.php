@@ -168,6 +168,16 @@
         color: #FFFFFF;
     }
 
+    @media (max-width: 600px) {
+        select {
+            font-size: 16px; /* Ajusta el tamaño de la fuente */
+            padding: 8px; /* Ajusta el padding para reducir el tamaño en móviles */
+        }
+        select option {
+            font-size: 16px; /* Ajusta el tamaño de la fuente de las opciones */
+        }
+    }
+
 </style>
 
 

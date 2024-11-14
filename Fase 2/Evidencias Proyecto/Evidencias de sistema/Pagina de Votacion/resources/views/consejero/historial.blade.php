@@ -12,7 +12,7 @@
     <div class="content">
         @include('consejero.partials.navigation')
         <main id="miMain" class="p-6 flex-grow">
-            <h1 class="text-2xl font-bold mb-6">Historial de Votos Realizados</h1>
+            <h1 class="text-2xl font-bold mb-6">Historial de Votaciones participadas</h1>
             <div class="space-y-6 card-voto">
                 @foreach ($votacionesConVotos as $votacion)
                     <div class="bg-white shadow-md rounded p-4 border">
