@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notificación de Votación</title>
+    <title>Notificación de Voto</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,10 +13,12 @@
             background-color: #f4f4f9;
             padding: 20px;
         }
+
         h1 {
             text-align: center;
             color: #163D64;
         }
+
         .content {
             background-color: #fff;
             padding: 20px;
@@ -24,17 +27,21 @@
             max-width: 600px;
             margin: 20px auto;
         }
+
         .section {
             margin-bottom: 15px;
         }
+
         .section p {
             font-size: 16px;
             line-height: 1.6;
         }
+
         .highlight {
             color: #163D64;
             font-weight: bold;
         }
+
         .footer {
             text-align: center;
             font-size: 12px;
@@ -43,27 +50,26 @@
         }
     </style>
 </head>
+
 <body>
-    <h1>Notificación de Votación</h1>
+    <h1>Notificación de Voto</h1>
     <div class="content">
-        @if($accion == 'crear')
-        <div class="section">
-            <p>Se ha creado una nueva votación con la sigla <span class="highlight">{{ $sigla }}</span>.</p>
-        </div>
-        @elseif($accion == 'eliminar')
-        <div class="section">
-            <p>La votación con la sigla <span class="highlight">{{ $sigla }}</span> ha sido finalizada.</p>
-            <p><strong>Descripción:</strong> {{ $descripcion }}</p>
-            <p><strong>Votación ganadora:</strong> {{ $ganador }}</p>
-        </div>
-        @else
-        <div class="section">
-            <p>No se ha definido ninguna acción.</p>
-        </div>
-        @endif
+        <p>Estimado consejero,</p>
+        <p>Gracias por participar en la votación.</p>
+        <p><strong>Detalles del Voto:</strong></p>
+        <ul>
+            <li><strong>Nombre de la Votación:</strong> <span class="highlight">{{ $nombreVotacion }}</span></li>
+            <li><strong>Sigla:</strong> <span class="highlight">{{ $sigla }}</span></li>
+            <li><strong>Opción Elegida:</strong> <span class="highlight">{{ $opcion_votada }}</span></li>
+        </ul>
     </div>
     <div class="footer">
-        <p>&copy; {{ date('Y') }} - Todos los derechos reservados.</p>
+        <p>Atentamente,<br>Plataforma de votaciones consejeros Duoc UC</p>
+        <!-- Imagen de pie de firma 
+        <img src="Pagina de Votacion/imagenes/FirmaCorreoCapstone.png"
+            alt="Firma" style="margin-top: 15px; width: 100px; height: auto;"> -->
+
     </div>
 </body>
+
 </html>

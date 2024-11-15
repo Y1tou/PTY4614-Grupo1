@@ -81,12 +81,13 @@ Route::get('/auth/google/callback', function () {
 });
 
 // Ruta del dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('/home');
+// })->middleware(['auth', 'verified'])->name('consejero.home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [VotoController::class, 'showHomeConsejero'])->name('consejero.home');
+    Route::get('/dashboard', [VotoController::class, 'redirectHome']);
     Route::get('/historial', [VotoController::class, 'showHistorialConsejero'])->name('consejero.historial');
     // Route::get('/consejero/votar', [VotoController::class, 'showVotingForm'])->name('consejero.voto.form');
     // Route::post('/consejero/voto', [VotoController::class, 'storeVote'])->name('consejero.voto.store');
