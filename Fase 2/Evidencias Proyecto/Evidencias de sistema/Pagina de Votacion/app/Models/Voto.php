@@ -6,13 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Voto extends Model
 {
-    // Si no necesitas usar HasFactory, está bien dejarlo fuera
-    // protected $keyType = 'string'; // Solo si el campo 'ID' es un string, si es entero puedes eliminar esto.
-    
-    protected $table = 'voto';        // Nombre de la tabla
+    protected $table = 'VOTO';        // Nombre de la tabla (asegúrate de que coincide con el nombre real en la base de datos)
     protected $primaryKey = 'ID';     // Clave primaria de la tabla
+    public $timestamps = false;       // Desactiva las marcas de tiempo
 
     protected $fillable = [
-        'ID', 'SIGLA', 'RUN', 'OPCION_VOTADA', 'CARRERA', 'CORREO'  // Campos asignables
+        'SIGLA', 'RUN', 'OPCION_VOTADA', 'CARRERA', 'CORREO'  // Campos asignables
     ];
 }

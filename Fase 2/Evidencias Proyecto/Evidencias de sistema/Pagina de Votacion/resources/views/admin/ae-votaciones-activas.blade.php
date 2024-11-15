@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <title>Votaciones Activas</title>
 </head>
 
@@ -19,86 +20,102 @@
             <b>Votaciones Activas</b>
             @foreach ($votacion as $voto)
                 @if ($voto->ESTADO == 1)
-                    <div class="card">
-                        <div class="card_title">
-                        <div class="titulo">
-                                <p>Tema de la votación: </p>
-                                <p class="sub-title">{{ $voto->NOMBRE }}</p>
-                            </div>
-                            <div class="fechas">
-                            <p>Fecha de inicio: {{ \Carbon\Carbon::parse($voto->created_at)->format('d-m-Y') }} </p>
-                            </div>
-                        </div>
-                        <div class="display">
-                            <button type="button" class="collapsible"> <b> ▼ </b> </button>
-                            <div class="content collapsible-content">
-                                <table>
-                                    <tr>
-                                        <th>Sigla</th>
-                                        <th>Tema</th>
-                                        <th>Descripci&oacute;n</th>
-                                        <th>Opci&oacute;n 1</th>
-                                        <th>Opci&oacute;n 2</th>
-                                        <th>Opci&oacute;n 3</th>
-                                        <th>Opci&oacute;n 4</th>
-                                        <th>Votos Totales</th>
-                                        <th>Estado</th>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ $voto->SIGLA }}</td>
-                                        <td>{{ $voto->NOMBRE }}</td>
-                                        <td>
-                                            <div class="td-descripcion">
-                                                {{ $voto->DESCRIPCION }}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="count-votos">
-                                                {{ $voto->OPC_1 }}
-                                                Votos: 10
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="count-votos">
-                                                {{ $voto->OPC_2 }}
-                                                Votos: 15
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="count-votos">
-                                                {{ $voto->OPC_3 }}
-                                                Votos: 12                                                
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="count-votos">
-                                                {{ $voto->OPC_4 }}
-                                                Votos: 18
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Votos: 55
-                                        </td>
-                                        @if ($voto->ESTADO == 1)
-                                            <td>Activa</td>
-                                            @else
-                                            <td>Finalizada</td>
-                                        @endif
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="buttons">
-                            <form action="{{ route('admin.ae-detalles-votacion', $voto->SIGLA)}}" method="POST">
-                                @csrf
-                                <button class="detalles" type="submit">M&aacute;s detalles</button>
-                            </form>
-
-                            <form action="{{ route('admin.finalizar-votacion', $voto->SIGLA) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas finalizar la votación?');">
+                    <div class="space-y-6  card-voto">
+                        <div class="bg-white shadow-md rounded p-4 border">
                             @csrf
-                                <button class="finalizar" type="submit">Finalizar</button>
-                            </form>
+                            <input type="hidden" name="sigla" value="{{ $voto->SIGLA }}">
+
+                            <div class="flex justify-between items-center">
+                                <div class="font-bold text-xl">Tema de la Votación: {{ $voto->NOMBRE }}</div>
+                                <div class="text-gray-600">Fecha Inicio: {{ \Carbon\Carbon::parse($voto->created_at)->format('d-m-Y') }}</div>
+                            </div>
+                            <p class="text-gray-700 my-4">Descripción: {{ $voto->DESCRIPCION }}</p>
+                            <div class="display">
+                                <button type="button" class="collapsible"> <b> ▼ </b> </button>
+                                <div class="content collapsible-content">
+                                    <table>
+                                        <tr>
+                                            <th>Sigla</th>
+                                            <th>Opci&oacute;n 1</th>
+                                            <th>Opci&oacute;n 2</th>
+                                            <th>Opci&oacute;n 3</th>
+                                            <th>Opci&oacute;n 4</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ $voto->SIGLA }}</td>
+                                            <td>
+                                                <div class="count-votos">
+                                                    {{ $voto->OPC_1 }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="count-votos">
+                                                    {{ $voto->OPC_2 }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="count-votos">
+                                                    @if(!empty($voto->OPC_3))
+                                                        {{ $voto->OPC_3 }}
+                                                        @else
+                                                            <p> Sin opci&oacute;n </p>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="count-votos">
+                                                    @if(!empty($voto->OPC_4))
+                                                        {{ $voto->OPC_4 }}
+                                                        @else
+                                                            <p> Sin opci&oacute;n </p>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            @if ($voto->ESTADO == 1)
+                                                <td>Activa</td>
+                                                @else
+                                                <td>Finalizada</td>
+                                            @endif
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="flex justify-between" style=" margin: 20px 30px 0;">
+                                <form action="{{ route('admin.ae-detalles-votacion', $voto->SIGLA)}}" method="POST">
+                                    @csrf
+                                    <button class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600" type="submit">M&aacute;s detalles</button>
+                                </form>
+                                    
+                                <form action="{{ route('admin.finalizar-votacion', $voto->SIGLA) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas finalizar la votación?');">
+                                @csrf
+                                <select id="opc_ganadora" name="opc_ganadora" required class="border-gray-300 rounded-md">
+                                    <option value="">Seleccione una opción ganadora </option>
+                                    @if(!empty($voto->OPC_1))
+                                        <option value="{{ $voto->OPC_1 }}">{{ $voto->OPC_1 }}</option>
+                                    @endif
+
+                                    @if(!empty($voto->OPC_2))
+                                        <option value="{{ $voto->OPC_2 }}">{{ $voto->OPC_2 }}</option>
+                                    @endif
+
+                                    @if(!empty($voto->OPC_3))
+                                        <option value="{{ $voto->OPC_3 }}">{{ $voto->OPC_3 }}</option>
+                                    @endif
+
+                                    @if(!empty($voto->OPC_4))
+                                        <option value="{{ $voto->OPC_4 }}">{{ $voto->OPC_4 }}</option>
+                                    @endif
+                                </select>
+                                    <button class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600" type="submit">Finalizar</button>
+                                </form>
+
+                                <!-- <div>
+                                    <button onclick="openModal('{{ $voto->OPC_1 }}', '{{ $voto->OPC_2 }}', '{{ $voto->OPC_3 ?? '' }}', '{{ $voto->OPC_4 ?? '' }}')" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600" type="button">Finalizar</button>
+                                </div> -->
+
+
+                            </div>
                         </div>
                     </div>
                     @else
@@ -106,6 +123,56 @@
 
             @endforeach
         </div>
+
+
+        <!-- Modal -->
+        <div id="myModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+            <form class="bg-white w-96 p-6 rounded-lg shadow-lg relative" action="{{ route('admin.finalizar-votacion', $voto->SIGLA) }}"
+             method="POST" onsubmit="return confirm('¿Estás seguro de que deseas finalizar la votación?');">
+            @csrf
+                <button onclick="closeModal2()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
+                    &times;
+                </button>
+                <h2 class="text-xl font-semibold mb-4">Título del Modal</h2>
+                    <label for="opc_ganadora" class="text-gray-700">Selecciona la opción ganadora:</label>
+                    <select id="opc_ganadora" name="opc_ganadora" required class="border-gray-300 rounded-md">
+                        <option value="">Seleccione una opción </option>
+                    </select>
+                <button onclick="closeModal2()" class="bg-blue-500 text-white px-4 py-2 rounded">Cancelar</button>
+                <button class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600" type="submit">Finalizar</button>
+            </form>
+        </div>
+
+        <script>
+        function openModal() {
+            document.getElementById('myModal').classList.remove('hidden');
+        }
+
+        function closeModal2() {
+            document.getElementById('myModal').classList.add('hidden');
+        }
+
+        function openModal(opc1, opc2, opc3 = '', opc4 = '') {
+            // Obtener el elemento del select
+            const selectElement = document.getElementById('opc_ganadora');
+            
+            // Limpiar opciones anteriores (excepto la primera opción)
+            selectElement.innerHTML = '<option value="">Seleccione una opción</option>';
+            
+            // Agregar opciones al select
+            if (opc1) selectElement.innerHTML += `<option value="${opc1}">${opc1}</option>`;
+            if (opc2) selectElement.innerHTML += `<option value="${opc2}">${opc2}</option>`;
+            if (opc3) selectElement.innerHTML += `<option value="${opc3}">${opc3}</option>`;
+            if (opc4) selectElement.innerHTML += `<option value="${opc4}">${opc4}</option>`;
+
+            // Mostrar el modal
+            document.getElementById('myModal').classList.remove('hidden');
+        }
+
+        function closeModal2() {
+            document.getElementById('myModal').classList.add('hidden');
+        }
+    </script>
 
         @if ($errors->any())
             <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -156,45 +223,8 @@
         margin-bottom: 20px;
     }
 
-    .card {
+    .card-voto{
         margin: 10px 0;
-        padding: 13px 10px;
-        margin-bottom: 30px;
-        border-radius: 10px;
-        border: solid 1px #000;
-        display: flex;
-        flex-direction: column;
-        background-color: #f9f9f9;
-        transition: background-color 0.3s;
-    }
-
-    .card_title{
-        display:flex;
-        justify-content:space-between;
-        padding: 8px 12px;
-    }
-
-    .titulo>p{
-        font-size: 22px;
-    }
-
-    .sub-title{
-        margin-left: 50px;
-    }
-
-    .titulo>.sub-title{
-        font-size: 30px;
-    }
-
-    .fechas{
-        display: flex;
-        align-items: center;
-        font-size: 18px;
-        padding-right: 5px;
-        text-align: right;
-    }
-    .card:hover {
-        background-color: #f1f1f1;
     }
 
     .display{
@@ -242,32 +272,6 @@
         padding:0 80px;
     }
 
-    .detalles{
-        background-color: green;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .finalizar{
-        background-color: red;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .detalles:hover {
-        background-color: darkgreen;
-    }
-    
-    .finalizar:hover {
-        background-color: darkred;
-    }
-
     /* Tabla */
     
     table {
@@ -293,10 +297,6 @@
         background-color: #f1f1f1;
     }
 
-    .td-descripcion{
-        height: 200px;
-    }
-
     .count-votos{
         display: flex;
         flex-direction: column;
@@ -304,35 +304,12 @@
         width: 120px;
     }
 
-    @media (max-width: 400px) {
-        .titulo>.sub-title{
-            font-size: 24px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .titulo>.sub-title{
-            font-size: 24px;
-        }
-    }
-
     @media (max-width: 900px) {
-        .titulo>.sub-title{
-            font-size: 24px;
-            margin: 0;
-        }
-
         .buttons{
             display: flex;
             justify-content: space-between;
             margin-top:20px;
             padding:0 40px;
-        }
-    }
-
-    @media (max-width: 1100px) {
-        .titulo>.sub-title{
-            font-size: 26px;
         }
     }
 
@@ -363,43 +340,6 @@
             text-align: center;
             font-size: 22px;
             margin-bottom: 20px;
-        }
-
-        .card {
-            margin: 10px 0;
-            padding: 13px 10px;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            border: solid 1px #000;
-            display: flex;
-            flex-direction: column;
-            background-color: #f9f9f9;
-            transition: background-color 0.3s;
-        }
-
-        .card_title {
-            display: flex;
-            flex-direction: column;
-            padding: 8px 12px;
-        }
-
-        .titulo > p {
-            font-size: 18px;
-        }
-
-        .sub-title {
-            font-size: 20px;
-            margin-left: 0;
-        }
-
-        .fechas {
-            font-size: 14px;
-            padding-right: 5px;
-            text-align: right;
-        }
-
-        .card:hover {
-            background-color: #f1f1f1;
         }
 
         .display {
@@ -443,27 +383,6 @@
             padding: 0;
         }
 
-        .detalles, .finalizar {
-            background-color: green;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .finalizar {
-            background-color: red;
-        }
-
-        .detalles:hover {
-            background-color: darkgreen;
-        }
-
-        .finalizar:hover {
-            background-color: darkred;
-        }
-
         table {
             width: auto;
             border-collapse: collapse;
@@ -486,18 +405,9 @@
             padding: 0 5px;
             width: 95px;
         }
-
-        .td-descripcion {
-            height: auto;
-        }
     }
 
     @media (max-width: 400px) {
-
-        .detalles, .finalizar {
-            padding: 5px;
-            border-radius: 5px;
-        }
 
         th, td {
             padding: 6px 8px;
@@ -514,11 +424,6 @@
             padding: 0 5px;
             width: 95px;
         }
-
-        .td-descripcion {
-            height: auto;
-        }
-
     }
 
     /* End CSS Tabla */
