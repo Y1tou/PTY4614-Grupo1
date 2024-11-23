@@ -26,32 +26,42 @@ class AEAdminController extends Controller
     // Actualizar datos Consejero
     public function update(Request $request)
     {
-        // Validar los datos enviados desde el formulario
-        $request->validate([
-            'run' => 'required|string|min:7|max:9|regex:/^\d+$/',
-            'nombre' => 'nullable|string|max:255',
-            'correo' => 'required|email|max:255|regex:/^[a-zA-Z]+(\.[a-zA-Z]+)?@duocuc\.cl$/',
-            'carrera' => 'nullable|string|max:60',
-            'edad' => 'nullable|integer|min:18|max:99',
-            'sexo' => 'in:M,F',
-        ]);
+        try{
+            // Validar los datos enviados desde el formulario
+            $request->validate([
+                'run' => 'required|string|min:7|max:9|regex:/^\d+$/',
+                'nombre' => 'nullable|string|max:255',
+                'correo' => 'required|email|max:255|regex:/^[a-zA-Z]+(\.[a-zA-Z]+)?@duocuc\.cl$/',
+                'carrera' => 'nullable|string|max:60',
+                'edad' => 'nullable|integer|min:18|max:99',
+                'sexo' => 'in:M,F',
+            ]);
 
-        // Buscar al usuario por ID
-        $user = User::find($request->id);
-        
-        // Actualizar los campos
-        $user->run = $request->run;
-        $user->name = $request->nombre;
-        $user->email = $request->correo;
-        $user->carrera = $request->carrera;
-        $user->edad = $request->edad;
-        $user->sexo = $request->sexo;
-        
-        // Guardar los cambios
-        $user->save();
+            // Buscar al usuario por ID
+            $user = User::find($request->id);
+            
+            // Actualizar los campos
+            $user->run = $request->run;
+            $user->name = $request->nombre;
+            $user->email = $request->correo;
+            $user->carrera = $request->carrera;
+            $user->edad = $request->edad;
+            $user->sexo = $request->sexo;
+            
+            // Guardar los cambios
+            $user->save();
+            // Redirigir a la lista de cuentas con un mensaje de éxito
+            return redirect()->route('admin.ae-listado-cuentas')->with('success', 'Datos actualizados exitosamente.');
 
-        // Redirigir a la lista de cuentas con un mensaje de éxito
-        return redirect()->route('admin.ae-listado-cuentas')->with('success', 'Datos actualizados exitosamente.');
+        } catch (\Exception $e) {
+            // Registrar el error en laravel.log
+            Log::error('Error en la función actualizar informacion de usuario(consejero): ' . $e->getMessage(), [
+                'linea' => $e->getLine(),
+                'archivo' => $e->getFile(),
+                'traza' => $e->getTraceAsString(),
+            ]);
+            return redirect()->route('admin.ae-listado-cuentas')->with('error', 'Ocurrió un problema al actualizar los datos. Por favor, verífiquelos inténtalo de nuevo.');
+        }
     }
 
     public function eliminarCuenta($id)
