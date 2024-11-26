@@ -18,11 +18,11 @@
                 <b>Registrar Consejero de carrera</b>
                 @csrf
                 <input type="text" name="run" placeholder="RUT (Sin punto y/o gui&oacute;n )" minlength="7" maxlength="8" required>
-                <input type="text" name="name" placeholder="Nombre">
+                <input type="text" name="name" placeholder="Nombre" required>
                 <input type="email" name="email" placeholder="Correo electrónico *" required>
-                <input type="text" name="carrera" placeholder="Carrera">
-                <input type="number" name="edad" placeholder="Edad">
-                <select name="sexo">
+                <input type="text" name="carrera" placeholder="Carrera" required>
+                <input type="number" name="edad" placeholder="Edad" required min="18">
+                <select name="sexo" required>
                     <option value="">Selecciona Sexo</option>
                     <option value="M">Masculino</option>
                     <option value="F">Femenino</option>
@@ -45,7 +45,7 @@
             <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
                 <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
                     <p class="mb-4">
-                        <li>Ocurrió un problema al registrar. Por favor verifique que no hayan datos duplicados e inténtelo de nuevo.</li>
+                        <li>{{ session('error') }}</li>
                     </p>
                 <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
             </div>

@@ -99,43 +99,59 @@ class VotacionController extends Controller
             return redirect()->route('votacion.create')->with('success', 'Votación creada exitosamente y correos enviados.');
             
         } catch (\Exception $e) {
-            // Atrapar cualquier error y redirigir con un mensaje de error
+            // Registrar el error en laravel.log
+            // Log::error('Error en la función crear votacion: ' . $e->getMessage(), [
+            //     'linea' => $e->getLine(),
+            //     'archivo' => $e->getFile(),
+            //     'traza' => $e->getTraceAsString(),
+            // ]);
+            // Redirigir con mensaje de error
             return redirect()->route('votacion.create')->with('error', 'Ocurrió un problema al crear la votación. Por favor, inténtalo de nuevo.');
         }
     }
 
     public function finalizarVotacion(Request $request, $sigla)
     {
-        $validated = $request->validate([
-            'opc_ganadora' => 'required|string|max:30'
-        ]);
-    
-        $votacion = Votacion::where('SIGLA', $sigla)->first();
-    
-        if ($votacion) {
-            // Establecer opción ganadora y cambiar el estado a finalizada
-            $votacion->GANADOR = $validated['opc_ganadora'];
-            $votacion->ESTADO = 0; // Cambiar estado a finalizada
-            $votacion->save();
-    
-            // Obtener correos de usuarios con TIPO = 2 en la tabla admin
-            $adminCorreos = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
-            
-            // Obtener correos de la tabla USERS
-            $userCorreos = DB::table('USERS')->pluck('email');
-    
-            // Unir ambos arrays de correos y eliminar duplicados
-            $todosLosCorreos = $adminCorreos->merge($userCorreos)->unique();
-    
-            // Enviar el correo a todos los administradores y usuarios
-            foreach ($todosLosCorreos as $correo) {
-                Mail::to($correo)->send(new VotacionNotificacion($sigla, 'eliminar')); // Enviar correo de finalización
+        try {
+            $validated = $request->validate([
+                'opc_ganadora' => 'required|string|max:30'
+            ]);
+        
+            $votacion = Votacion::where('SIGLA', $sigla)->first();
+        
+            if ($votacion) {
+                // Establecer opción ganadora y cambiar el estado a finalizada
+                $votacion->GANADOR = $validated['opc_ganadora'];
+                $votacion->ESTADO = 0; // Cambiar estado a finalizada
+                $votacion->save();
+        
+                // Obtener correos de usuarios con TIPO = 2 en la tabla admin
+                $adminCorreos = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
+                
+                // Obtener correos de la tabla USERS
+                $userCorreos = DB::table('USERS')->pluck('email');
+        
+                // Unir ambos arrays de correos y eliminar duplicados
+                $todosLosCorreos = $adminCorreos->merge($userCorreos)->unique();
+        
+                // Enviar el correo a todos los administradores y usuarios
+                foreach ($todosLosCorreos as $correo) {
+                    Mail::to($correo)->send(new VotacionNotificacion($sigla, 'eliminar')); // Enviar correo de finalización
+                }
+        
+                return redirect()->route('admin.ae-historial-votaciones')->with('success', 'La votación se ha finalizado correctamente y correos enviados.');
             }
-    
-            return redirect()->route('admin.ae-historial-votaciones')->with('success', 'La votación se ha finalizado correctamente y correos enviados.');
+            return redirect()->route('admin.ae-historial-votaciones')->with('error', 'No se pudo finalizar la votación.');
+
+        } catch (\Exception $e) {
+            // Registrar el error en laravel.log
+            // Log::error('Error en la función crear votacion: ' . $e->getMessage(), [
+            //     'linea' => $e->getLine(),
+            //     'archivo' => $e->getFile(),
+            //     'traza' => $e->getTraceAsString(),
+            // ]);
+            // Redirigir con mensaje de error
+            return redirect()->route('admin.ae-historial-votaciones')->with('error', 'No se pudo finalizar la votación.');
         }
-    
-        return redirect()->route('admin.ae-historial-votaciones')->with('error', 'No se pudo finalizar la votación.');
     }
-    
 }
