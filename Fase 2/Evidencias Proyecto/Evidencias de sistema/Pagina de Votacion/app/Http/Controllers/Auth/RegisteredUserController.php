@@ -30,12 +30,12 @@ class RegisteredUserController extends Controller
     {
         try {
             $request->validate([
-                'run' => ['required', 'string', 'max:9', 'regex:/^\d+$/'],
-                'name' => ['nullable', 'string', 'max:255'],
+                'run' => ['required', 'string', 'min:7', 'max:9', 'regex:/^\d+$/'],
+                'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class,'regex:/^[a-zA-Z]+(\.[a-zA-Z]+)?@duocuc\.cl$/'],
-                'carrera' => ['nullable', 'string', 'max:60'],
-                'edad' => ['nullable', 'integer', 'min:18', 'max:99'],
-                'sexo' => ['nullable','in:M,F'],
+                'carrera' => ['required', 'string', 'max:60'],
+                'edad' => ['required', 'integer', 'min:18', 'max:99'],
+                'sexo' => ['required','in:M,F'],
             ]);
 
             $user = User::create([
@@ -50,8 +50,13 @@ class RegisteredUserController extends Controller
 
             return redirect()->route('admin.ae-listado-cuentas')->with('success', 'Cuenta creada exitosamente');
         } catch (\Exception $e) {
-            // Atrapar cualquier error y redirigir con un mensaje de error
-            return redirect()->route('admin.ae-home')->with('error', 'Ocurrió un problema al registrar. Por favor, inténtalo de nuevo.');
+            // Registrar el error en laravel.log
+            // Log::error('Error en la función registro de usuario(consejero): ' . $e->getMessage(), [
+            //     'linea' => $e->getLine(),
+            //     'archivo' => $e->getFile(),
+            //     'traza' => $e->getTraceAsString(),
+            // ]);
+            return redirect()->route('admin.ae-home')->with('error', 'Ocurrió un problema al registrar. Por favor, verifique los datos inténtalo de nuevo.');
         }
     }
 

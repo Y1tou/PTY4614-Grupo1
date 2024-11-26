@@ -44,7 +44,7 @@ class AdminLoginController extends Controller
     public function logout()
     {
         Auth::guard('admin')->logout(); // Cierra la sesión del admin
-        return redirect('/admin/login'); // Redirige al login
+        return redirect('/'); // Redirige al login
     }
 
     public function mostrarPaginaRegistrar()

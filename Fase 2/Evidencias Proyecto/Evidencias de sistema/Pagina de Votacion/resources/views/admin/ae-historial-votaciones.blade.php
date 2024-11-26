@@ -38,7 +38,6 @@
                                     <table>
                                         <tr>
                                             <th>Sigla</th>
-                                            <th>Tema</th>
                                             <th>Opci&oacute;n 1</th>
                                             <th>Opci&oacute;n 2</th>
                                             <th>Opci&oacute;n 3</th>
@@ -48,7 +47,6 @@
                                         </tr>
                                         <tr>
                                             <td>{{ $voto->SIGLA }}</td>
-                                            <td>{{ $voto->NOMBRE }}</td>
                                             <td>
                                                 <div class="count-votos">
                                                     {{ $voto->OPC_1 }}
@@ -110,6 +108,16 @@
                     @foreach ($errors->all() as $error)
                         <p class="mb-4"><li>{{ $error }}</li></p>
                     @endforeach
+                    <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
+                </div>
+            </div>
+        elseif (session('error'))
+            <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                    <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
+                        <p class="mb-4">
+                            <li>{{ session('error') }}</li>
+                        </p>
                     <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
                 </div>
             </div>

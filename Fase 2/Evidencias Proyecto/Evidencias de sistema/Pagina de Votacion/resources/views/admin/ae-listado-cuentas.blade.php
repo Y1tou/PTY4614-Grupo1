@@ -68,8 +68,18 @@
                         <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
                     </div>
                 </div>
+            elseif (session('error'))
+                <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                        <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
+                            <p class="mb-4">
+                                <li>{{ session('error') }}</li>
+                            </p>
+                        <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
+                    </div>
+                </div>
             @endif
-            
+
             @if(session('success'))
                 <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">

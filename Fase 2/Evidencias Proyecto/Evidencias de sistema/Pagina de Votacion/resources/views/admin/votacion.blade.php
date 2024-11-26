@@ -70,7 +70,7 @@
                 <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
                     <h2 class="text-2xl font-semibold mb-4 text-red-600">Mensaje</h2>
                         <p class="mb-4">
-                            <li>Ocurrió un problema al crear la votación. Por favor verifique la sigla e inténtelo de nuevo.</li>
+                            <li>{{ session('error') }}</li>
                         </p>
                     <button onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
                 </div>

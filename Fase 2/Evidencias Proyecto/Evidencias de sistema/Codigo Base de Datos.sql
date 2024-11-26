@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2024 a las 15:55:25
+-- Tiempo de generación: 26-11-2024 a las 03:07:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,11 +40,6 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Truncar tablas antes de insertar `admin`
---
-
-TRUNCATE TABLE `admin`;
---
 -- Volcado de datos para la tabla `admin`
 --
 
@@ -65,11 +60,6 @@ CREATE TABLE `cache` (
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Truncar tablas antes de insertar `cache`
---
-
-TRUNCATE TABLE `cache`;
 --
 -- Volcado de datos para la tabla `cache`
 --
@@ -93,11 +83,6 @@ CREATE TABLE `cache_locks` (
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Truncar tablas antes de insertar `cache_locks`
---
-
-TRUNCATE TABLE `cache_locks`;
 -- --------------------------------------------------------
 
 --
@@ -115,11 +100,6 @@ CREATE TABLE `failed_jobs` (
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Truncar tablas antes de insertar `failed_jobs`
---
-
-TRUNCATE TABLE `failed_jobs`;
 -- --------------------------------------------------------
 
 --
@@ -137,11 +117,6 @@ CREATE TABLE `jobs` (
   `created_at` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Truncar tablas antes de insertar `jobs`
---
-
-TRUNCATE TABLE `jobs`;
 -- --------------------------------------------------------
 
 --
@@ -162,11 +137,6 @@ CREATE TABLE `job_batches` (
   `finished_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Truncar tablas antes de insertar `job_batches`
---
-
-TRUNCATE TABLE `job_batches`;
 -- --------------------------------------------------------
 
 --
@@ -180,11 +150,6 @@ CREATE TABLE `migrations` (
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Truncar tablas antes de insertar `migrations`
---
-
-TRUNCATE TABLE `migrations`;
 --
 -- Volcado de datos para la tabla `migrations`
 --
@@ -207,11 +172,6 @@ CREATE TABLE `password_reset_tokens` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Truncar tablas antes de insertar `password_reset_tokens`
---
-
-TRUNCATE TABLE `password_reset_tokens`;
 -- --------------------------------------------------------
 
 --
@@ -229,16 +189,12 @@ CREATE TABLE `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Truncar tablas antes de insertar `sessions`
---
-
-TRUNCATE TABLE `sessions`;
---
 -- Volcado de datos para la tabla `sessions`
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('aWGEPcyTjRNIh5hvCrYLqDOOwQ2QF38yhsGjKDrG', 12, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoidURneUgxN0E3N0JncEVoMEJvcEk3MzhRRXZFaWJCenNadmVETHRzVyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbi9hZS1oaXN0b3JpYWwtdm90YWNpb25lcyI7fXM6NToic3RhdGUiO3M6NDA6Ik5VNFR4M3FXNE5qa3Vvc0J6UjF6eUtBdXhLajFxcGlXU2N6Y2YzUkgiO3M6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Njt9', 1730964234);
+('1bLJ85a0tUrolfUCrquCyDI1MqZOEHYGIwQu7nTS', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoibzNsd0VJaEhNUFR6TWIyUXRpcDVSSE5xem9WWEFCNkxQNldkUkM5NyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9nb29nbGUtYXV0aC9yZWRpcmVjdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NToic3RhdGUiO3M6NDA6IlNDdEduelM0WjZMOGwySUt3Q29mVEVYZXFYNklrOVBNWENwb0tVZ2MiO30=', 1732575827),
+('1zQLavOpvasJF3et2nLt79FW2U6rVckp06OPmB0I', 12, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiYzY5ZG9ITENROGhRV3RQa3ZZbFI3OUF1aFJKdjNxRDQxS3dod2t6MSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbi9hZS1oaXN0b3JpYWwtdm90YWNpb25lcyI7fXM6NToic3RhdGUiO3M6NDA6Ikt3OG9GQkV4b0lUTURVR3RmTmpmTmF6bGlDYWdoaTlqb1JFZkx4WWciO3M6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTI7fQ==', 1732576338);
 
 -- --------------------------------------------------------
 
@@ -264,18 +220,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Truncar tablas antes de insertar `users`
---
-
-TRUNCATE TABLE `users`;
---
 -- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`id`, `run`, `name`, `email`, `email_verified_at`, `password`, `google_id`, `carrera`, `edad`, `sexo`, `remember_token`, `created_at`, `updated_at`) VALUES
-(6, '20603622', 'ANGEL FERMIN MEZA VELIS', 'ange.meza@duocuc.cl', NULL, NULL, '104415041677343236917', 'A', 24, 'M', NULL, '2024-10-29 03:32:33', '2024-10-29 04:23:21'),
-(7, '20603623', 'ANGEL FERMIN MEZA VELIS\n\n 1', 'ange.sdmeza@duocuc.cl', NULL, NULL, '104415041677343236917', 'A', 24, 'M', NULL, '2024-10-29 03:32:33', '2024-10-29 04:23:21'),
-(9, '20603624', 'ANGEL FERMIN MEZA VELIS\n\n 2', 'ange.sdmezas@duocuc.cl', NULL, NULL, '104415041677343236917', 'A', 24, 'M', NULL, '2024-10-29 03:32:33', '2024-10-29 04:23:21');
+(36, '20603622', 'ANGEL FERMIN MEZA VELIS', 'ange.meza@duocuc.cl', NULL, NULL, '104415041677343236917', 'Ingeniería en informática', 24, 'M', NULL, '2024-11-26 02:09:29', '2024-11-26 02:10:47'),
+(37, '20562281', '', 'ch.acevedo@duocuc.cl', NULL, NULL, '', 'Ingeniería en informática', 22, 'M', NULL, '2024-11-26 02:09:29', '2024-11-26 02:10:47'),
+(38, '20676246', '', 'ro.cancino@duocuc.cl', NULL, NULL, '', 'Ingeniería en informática', 23, 'M', NULL, '2024-11-26 02:09:29', '2024-11-26 02:10:47');
 
 -- --------------------------------------------------------
 
@@ -299,23 +250,11 @@ CREATE TABLE `votacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Truncar tablas antes de insertar `votacion`
---
-
-TRUNCATE TABLE `votacion`;
---
 -- Volcado de datos para la tabla `votacion`
 --
 
 INSERT INTO `votacion` (`SIGLA`, `NOMBRE`, `ESTADO`, `DESCRIPCION`, `OPC_1`, `OPC_2`, `OPC_3`, `OPC_4`, `GANADOR`, `created_at`, `updated_at`) VALUES
-('VTA-357', 'Desayuno mensual', 0, 'AAAAAAAAAAAAAAA', 'Lunes - Miercoles', 'Martes - Jueves', 'Lunes - Viernes', 'Martes - Viernes', NULL, '2024-11-02 05:03:22', '2024-11-02 23:44:20'),
-('VTA-358', 'Desayuno mensual', 1, 'BBBBBBBB', 'Lunes - Miercoles', 'Martes - Jueves', NULL, NULL, NULL, '2024-11-02 05:08:58', '2024-11-02 05:08:58'),
-('VTA-359', 'Desayuno mensual', 0, 'CCCCCCCCCCCCCCCC', 'Lunes - Miercoles', 'Martes - Jueves', 'Lunes - Viernes', 'Martes - Viernes', NULL, '2024-11-02 23:39:04', '2024-11-02 23:39:04'),
-('VTA-360', 'Desayuno mensual 2', 1, 'DDDDDDDDDDDDDDDDDDDDDDD', 'Lunes - Miercoles', 'Martes - Jueves', 'Lunes - Viernes', 'Martes - Viernes', NULL, '2024-11-02 23:44:47', '2024-11-03 00:52:10'),
-('VTA-361', 'Desayuno mensual 3', 1, 'EEEEEEEEEEEEEEEEEEEEEE', 'Lunes - Miercoles', 'Martes - Jueves', 'Lunes - Viernes', 'Martes - Viernes', NULL, '2024-11-02 23:58:03', '2024-11-02 23:58:03'),
-('VTA-362', 'Desayuno mensual 4', 1, 'FFFFFFFFFFFFFFFFFFF', 'Lunes - Miercoles', 'Martes - Jueves', NULL, NULL, NULL, '2024-11-05 05:15:53', '2024-11-05 05:15:53'),
-('VTA-363', 'Desayuno mensual 5', 0, 'GGGGGGGGGGGGGGGGGGG', 'opc 1', 'opc 2', 'opc 3', 'opc 4', 'opc 2', '2024-11-07 04:51:05', '2024-11-07 06:33:27'),
-('VTA-364', 'Desayuno mensual 6', 0, 'HHHHHHHHHHHHHHHHHHHHH', 'opc 1', 'opc 2', 'opc 3', 'opc 4', 'opc 1', '2024-11-07 06:43:26', '2024-11-07 10:23:36');
+('VTA-374', 'Desayuno Semanal', 0, 'Desayuno que se realizará 2 días de cada semana.', 'Lunes - Martes', 'Miercoles - Jueves', 'Lunes - Viernes', 'Martes - Viernes', 'Miercoles - Jueves', '2024-11-26 02:09:53', '2024-11-26 02:11:58');
 
 -- --------------------------------------------------------
 
@@ -334,22 +273,11 @@ CREATE TABLE `voto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Truncar tablas antes de insertar `voto`
---
-
-TRUNCATE TABLE `voto`;
---
 -- Volcado de datos para la tabla `voto`
 --
 
 INSERT INTO `voto` (`ID`, `SIGLA`, `RUN`, `OPCION_VOTADA`, `CARRERA`, `CORREO`) VALUES
-(6, 'VTA-362', 20603622, 'Martes - Jueves', 'A', 'ange.meza@duocuc.cl'),
-(7, 'VTA-357', 20603622, 'Martes - Jueves', 'A', 'ange.meza@duocuc.cl'),
-(8, 'VTA-358', 20603622, 'Lunes - Miercoles', 'A', 'ange.meza@duocuc.cl'),
-(9, 'VTA-363', 20603622, 'opc 1', 'A', 'ange.meza@duocuc.cl'),
-(10, 'VTA-364', 20603622, 'opc 1', 'A', 'ange.meza@duocuc.cl'),
-(11, 'VTA-364', 20603623, 'opc 3', 'A', 'ange.meza@duocuc.cl'),
-(12, 'VTA-364', 20603624, 'opc 1', 'A', 'ange.meza@duocuc.cl');
+(42, 'VTA-374', 20603622, 'Miercoles - Jueves', 'Ingeniería en informática', 'ange.meza@duocuc.cl');
 
 --
 -- Índices para tablas volcadas
@@ -469,13 +397,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `voto`
 --
 ALTER TABLE `voto`
-  MODIFY `ID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
