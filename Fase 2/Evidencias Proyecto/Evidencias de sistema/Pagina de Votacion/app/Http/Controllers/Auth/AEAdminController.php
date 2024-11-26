@@ -55,11 +55,11 @@ class AEAdminController extends Controller
 
         } catch (\Exception $e) {
             // Registrar el error en laravel.log
-            Log::error('Error en la función actualizar informacion de usuario(consejero): ' . $e->getMessage(), [
-                'linea' => $e->getLine(),
-                'archivo' => $e->getFile(),
-                'traza' => $e->getTraceAsString(),
-            ]);
+            // Log::error('Error en la función actualizar informacion de usuario(consejero): ' . $e->getMessage(), [
+            //     'linea' => $e->getLine(),
+            //     'archivo' => $e->getFile(),
+            //     'traza' => $e->getTraceAsString(),
+            // ]);
             return redirect()->route('admin.ae-listado-cuentas')->with('error', 'Ocurrió un problema al actualizar los datos. Por favor, verífiquelos inténtalo de nuevo.');
         }
     }

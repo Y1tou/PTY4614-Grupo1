@@ -100,11 +100,11 @@ class VotacionController extends Controller
             
         } catch (\Exception $e) {
             // Registrar el error en laravel.log
-            Log::error('Error en la función crear votacion: ' . $e->getMessage(), [
-                'linea' => $e->getLine(),
-                'archivo' => $e->getFile(),
-                'traza' => $e->getTraceAsString(),
-            ]);
+            // Log::error('Error en la función crear votacion: ' . $e->getMessage(), [
+            //     'linea' => $e->getLine(),
+            //     'archivo' => $e->getFile(),
+            //     'traza' => $e->getTraceAsString(),
+            // ]);
             // Redirigir con mensaje de error
             return redirect()->route('votacion.create')->with('error', 'Ocurrió un problema al crear la votación. Por favor, inténtalo de nuevo.');
         }
@@ -145,11 +145,11 @@ class VotacionController extends Controller
 
         } catch (\Exception $e) {
             // Registrar el error en laravel.log
-            Log::error('Error en la función crear votacion: ' . $e->getMessage(), [
-                'linea' => $e->getLine(),
-                'archivo' => $e->getFile(),
-                'traza' => $e->getTraceAsString(),
-            ]);
+            // Log::error('Error en la función crear votacion: ' . $e->getMessage(), [
+            //     'linea' => $e->getLine(),
+            //     'archivo' => $e->getFile(),
+            //     'traza' => $e->getTraceAsString(),
+            // ]);
             // Redirigir con mensaje de error
             return redirect()->route('admin.ae-historial-votaciones')->with('error', 'No se pudo finalizar la votación.');
         }

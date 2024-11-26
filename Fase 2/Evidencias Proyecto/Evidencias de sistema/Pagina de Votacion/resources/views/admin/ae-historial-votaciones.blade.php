@@ -38,7 +38,6 @@
                                     <table>
                                         <tr>
                                             <th>Sigla</th>
-                                            <th>Tema</th>
                                             <th>Opci&oacute;n 1</th>
                                             <th>Opci&oacute;n 2</th>
                                             <th>Opci&oacute;n 3</th>
@@ -48,7 +47,6 @@
                                         </tr>
                                         <tr>
                                             <td>{{ $voto->SIGLA }}</td>
-                                            <td>{{ $voto->NOMBRE }}</td>
                                             <td>
                                                 <div class="count-votos">
                                                     {{ $voto->OPC_1 }}

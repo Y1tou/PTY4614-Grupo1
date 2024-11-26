@@ -51,11 +51,11 @@ class RegisteredUserController extends Controller
             return redirect()->route('admin.ae-listado-cuentas')->with('success', 'Cuenta creada exitosamente');
         } catch (\Exception $e) {
             // Registrar el error en laravel.log
-            Log::error('Error en la función registro de usuario(consejero): ' . $e->getMessage(), [
-                'linea' => $e->getLine(),
-                'archivo' => $e->getFile(),
-                'traza' => $e->getTraceAsString(),
-            ]);
+            // Log::error('Error en la función registro de usuario(consejero): ' . $e->getMessage(), [
+            //     'linea' => $e->getLine(),
+            //     'archivo' => $e->getFile(),
+            //     'traza' => $e->getTraceAsString(),
+            // ]);
             return redirect()->route('admin.ae-home')->with('error', 'Ocurrió un problema al registrar. Por favor, verifique los datos inténtalo de nuevo.');
         }
     }
