@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+    
 class Voto extends Model
 {
     protected $table = 'VOTO';        // Nombre de la tabla (asegúrate de que coincide con el nombre real en la base de datos)
@@ -11,6 +11,6 @@ class Voto extends Model
     public $timestamps = false;       // Desactiva las marcas de tiempo
 
     protected $fillable = [
-        'SIGLA', 'RUN', 'OPCION_VOTADA', 'CARRERA', 'CORREO'  // Campos asignables
+        'SIGLA', 'RUN', 'NOMBRE', 'OPCION_VOTADA', 'CARRERA', 'CORREO'  // Campos asignables
     ];
 }

@@ -40,6 +40,8 @@ class VotacionController extends Controller
         $countOP3 = Voto::where('SIGLA', $sigla)->where('OPCION_VOTADA', $votacion->OPC_3)->count();
         $countOP4 = Voto::where('SIGLA', $sigla)->where('OPCION_VOTADA', $votacion->OPC_4)->count();
 
+        $countAllUsers = User::count();
+
         $consejerosOP1 = $votos->where('OPCION_VOTADA', $votacion->OPC_1)->pluck('RUN');
         $consejerosOP2 = $votos->where('OPCION_VOTADA', $votacion->OPC_2)->pluck('RUN');
         $consejerosOP3 = $votos->where('OPCION_VOTADA', $votacion->OPC_3)->pluck('RUN');
@@ -50,9 +52,17 @@ class VotacionController extends Controller
         $nombresOP3 = User::whereIn('run', $consejerosOP3)->pluck('name')->map(function($name){return ucwords(strtolower($name));});
         $nombresOP4 = User::whereIn('run', $consejerosOP4)->pluck('name')->map(function($name){return ucwords(strtolower($name));});
 
-        $maxRows = max($nombresOP1->count(), $nombresOP2->count(), $nombresOP3->count(), $nombresOP4->count());
+        // Obtener los RUN que ya han votado
+        $runVotantes = $votos->pluck('RUN');
 
-        return view('admin.ae-detalles-votacion', compact('votacion', 'votos', 'countOP1','countOP2','countOP3','countOP4','nombresOP1', 'nombresOP2', 'nombresOP3', 'nombresOP4', 'maxRows'));
+        // Filtrar usuarios que no han votado
+        $sinVotar = User::whereNotIn('run', $runVotantes)->pluck('name')->map(function($name){return ucwords(strtolower($name));});
+
+        $maxRows = max($nombresOP1->count(), $nombresOP2->count(), $nombresOP3->count(), $nombresOP4->count());
+        
+        $usuarioSinVotar = $countAllUsers - $maxRows;
+
+        return view('admin.ae-detalles-votacion', compact('votacion', 'votos', 'countOP1','countOP2','countOP3','countOP4','nombresOP1', 'nombresOP2', 'nombresOP3', 'nombresOP4', 'maxRows', 'usuarioSinVotar', 'sinVotar'));
     }
 
     public function store(Request $request)
