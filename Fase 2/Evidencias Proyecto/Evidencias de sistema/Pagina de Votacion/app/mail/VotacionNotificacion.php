@@ -21,10 +21,13 @@ class VotacionNotificacion extends Mailable
         $this->sigla = $votacion;
         $this->accion = $accion;
 
-        // Si la acción es 'eliminar', obtenemos la descripción y ganador
+        // Obtenemos la información de la votación dependiendo de la acción
+        $votacionObj = Votacion::where('SIGLA', $votacion)->first();
+
         if ($accion == 'eliminar') {
-            $votacionObj = Votacion::where('SIGLA', $votacion)->first();
             $this->ganador = $votacionObj->GANADOR;
+            $this->descripcion = $votacionObj->DESCRIPCION;
+        } elseif ($accion == 'crear') {
             $this->descripcion = $votacionObj->DESCRIPCION;
         }
     }
@@ -37,8 +40,7 @@ class VotacionNotificacion extends Mailable
                         'sigla' => $this->sigla,
                         'accion' => $this->accion,
                         'ganador' => $this->ganador ?? null, // El ganador solo se pasa si se finaliza la votación
-                        'descripcion' => $this->descripcion ?? null // La descripción solo se pasa si se finaliza la votación
+                        'descripcion' => $this->descripcion ?? null // La descripción se pasa si aplica
                     ]);
     }
 }
-
