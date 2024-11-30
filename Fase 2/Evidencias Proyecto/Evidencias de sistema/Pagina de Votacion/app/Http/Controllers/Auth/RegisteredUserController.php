@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RegistroNotificacion; // Importar la clase de correo
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail; // Importar la facada de correos
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -48,7 +50,10 @@ class RegisteredUserController extends Controller
                 'sexo' => $request->sexo, 
             ]);
 
-            return redirect()->route('admin.ae-listado-cuentas')->with('success', 'Cuenta creada exitosamente');
+            // Enviar el correo de notificación al usuario registrado
+            Mail::to($user->email)->send(new RegistroNotificacion($user));
+
+            return redirect()->route('admin.ae-listado-cuentas')->with('success', 'Cuenta creada exitosamente y se envió una notificación por correo.');
         } catch (\Exception $e) {
             // Registrar el error en laravel.log
             // Log::error('Error en la función registro de usuario(consejero): ' . $e->getMessage(), [
@@ -59,7 +64,4 @@ class RegisteredUserController extends Controller
             return redirect()->route('admin.ae-home')->with('error', 'Ocurrió un problema al registrar. Por favor, verifique los datos inténtalo de nuevo.');
         }
     }
-
 }
-
-
