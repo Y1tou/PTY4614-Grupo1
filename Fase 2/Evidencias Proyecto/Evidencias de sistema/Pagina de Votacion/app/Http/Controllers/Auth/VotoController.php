@@ -82,6 +82,7 @@ class VotoController extends Controller
                 $voto = new Voto();
                 $voto->SIGLA = $request->sigla;
                 $voto->RUN = Auth::user()->run;
+                $voto->NOMBRE = Auth::user()->name;
                 $voto->OPCION_VOTADA = $request->opcion_votada;
                 $voto->CARRERA = Auth::user()->carrera;
                 $voto->CORREO = Auth::user()->email;
