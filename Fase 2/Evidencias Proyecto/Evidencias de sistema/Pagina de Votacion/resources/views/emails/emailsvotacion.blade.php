@@ -49,6 +49,7 @@
         @if($accion == 'crear')
         <div class="section">
             <p>Se ha creado una nueva votación con la sigla <span class="highlight">{{ $sigla }}</span>.</p>
+            <p><strong>Descripción de la votación:</strong> {{ $descripcion }}</p>
         </div>
         @elseif($accion == 'eliminar')
         <div class="section">

@@ -13,7 +13,12 @@
         <strong>Tema de la Votaci&oacute;n: {{$votacion->NOMBRE}}</strong>
         <div class="sec-head">
             <div class="section sec1">
-                <canvas id="miGrafico" style="width: 100%; height: auto;"></canvas>
+                <div class="sec1-a">
+                    <canvas id="graficoBarras" style="width: 100%; max-height: 300px auto;"></canvas>
+                </div>
+                <div class="sec1-b">
+                    <canvas id="graficoPie" style="width: 100%; max-height: 300px;"></canvas>
+                </div>
             </div> 
          
             <div class="section sec2">
@@ -51,6 +56,26 @@
                                     <td>{{ $nombresOP4[$i] ?? '' }}</td>
                                 </tr>
                             @endfor
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tabla-content">
+                    <table class="section-b table-secondary">
+                        <thead>
+                            <tr>
+                                <th>Consejeros Sin Votar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach ($sinVotar as $usuario)
+                                <tr>
+                                    <td class="td-noVoto">
+                                        <li>{{ $usuario }}</li>
+                                    </td>
+                                </tr>
+
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -172,7 +197,21 @@
             flex-direction: column;
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
         }
+        .sec1{
+            display: flex;
+            justify-content: center;
+            height: 400px auto;
+        }
 
+        .sec1-a, .sec1-b {
+            margin: 10px;
+            padding: 20px;
+            background-color: #F1F1F1;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
         .section-a {
             padding: 20px;
             margin: 10px 0;
@@ -219,8 +258,13 @@
 
         td {
             padding: 10px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1px solid #ddd;
+        }
+
+        .td-noVoto{
+            text-align: left;
+            padding: ;
         }
         
         tr:nth-child(even) {
@@ -256,9 +300,9 @@
     </style>
 
     <script>
-        const ctx = document.getElementById('miGrafico').getContext('2d');
+        const barra = document.getElementById('graficoBarras').getContext('2d');
 
-        const miGrafico = new Chart(ctx, {
+        const graficoBarras = new Chart(barra, {
             type: 'bar',
             data: {
                 labels: [
@@ -295,6 +339,46 @@
                         beginAtZero: true
                     }
                 }
+            }
+        });
+
+        const pie = document.getElementById('graficoPie').getContext('2d');
+
+        const graficoPie = new Chart(pie, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Personas que no han votado ({{$usuarioSinVotar}})',
+                    'Personas que han votado ({{$maxRows}})'
+                ],
+                datasets: [
+                    {
+                        label: 'Votos',
+                        data: [{{$usuarioSinVotar}}, {{$maxRows}}],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',  // Color para OPC_1
+                            'rgba(54, 162, 235, 0.2)',  // Color para OPC_2
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',    // Color para OPC_1
+                            'rgba(54, 162, 235, 1)',    // Color para OPC_2
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true, 
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top', // Posición de la leyenda
+                    },
+                    title: {
+                        display: true,
+                        text: 'Votos de Consejeros' // Título del gráfico
+                    },
+                },
             }
         });
     </script>

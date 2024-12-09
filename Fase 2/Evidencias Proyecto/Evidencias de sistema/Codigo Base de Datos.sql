@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-11-2024 a las 03:07:56
+-- Tiempo de generación: 30-11-2024 a las 02:06:55
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,6 +40,11 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Truncar tablas antes de insertar `admin`
+--
+
+TRUNCATE TABLE `admin`;
+--
 -- Volcado de datos para la tabla `admin`
 --
 
@@ -60,6 +65,11 @@ CREATE TABLE `cache` (
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `cache`
+--
+
+TRUNCATE TABLE `cache`;
 --
 -- Volcado de datos para la tabla `cache`
 --
@@ -83,6 +93,11 @@ CREATE TABLE `cache_locks` (
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `cache_locks`
+--
+
+TRUNCATE TABLE `cache_locks`;
 -- --------------------------------------------------------
 
 --
@@ -100,6 +115,11 @@ CREATE TABLE `failed_jobs` (
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `failed_jobs`
+--
+
+TRUNCATE TABLE `failed_jobs`;
 -- --------------------------------------------------------
 
 --
@@ -117,6 +137,11 @@ CREATE TABLE `jobs` (
   `created_at` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `jobs`
+--
+
+TRUNCATE TABLE `jobs`;
 -- --------------------------------------------------------
 
 --
@@ -137,6 +162,11 @@ CREATE TABLE `job_batches` (
   `finished_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `job_batches`
+--
+
+TRUNCATE TABLE `job_batches`;
 -- --------------------------------------------------------
 
 --
@@ -150,6 +180,11 @@ CREATE TABLE `migrations` (
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `migrations`
+--
+
+TRUNCATE TABLE `migrations`;
 --
 -- Volcado de datos para la tabla `migrations`
 --
@@ -172,6 +207,11 @@ CREATE TABLE `password_reset_tokens` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Truncar tablas antes de insertar `password_reset_tokens`
+--
+
+TRUNCATE TABLE `password_reset_tokens`;
 -- --------------------------------------------------------
 
 --
@@ -189,12 +229,19 @@ CREATE TABLE `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Truncar tablas antes de insertar `sessions`
+--
+
+TRUNCATE TABLE `sessions`;
+--
 -- Volcado de datos para la tabla `sessions`
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('1bLJ85a0tUrolfUCrquCyDI1MqZOEHYGIwQu7nTS', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoibzNsd0VJaEhNUFR6TWIyUXRpcDVSSE5xem9WWEFCNkxQNldkUkM5NyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9nb29nbGUtYXV0aC9yZWRpcmVjdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NToic3RhdGUiO3M6NDA6IlNDdEduelM0WjZMOGwySUt3Q29mVEVYZXFYNklrOVBNWENwb0tVZ2MiO30=', 1732575827),
-('1zQLavOpvasJF3et2nLt79FW2U6rVckp06OPmB0I', 12, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiYzY5ZG9ITENROGhRV3RQa3ZZbFI3OUF1aFJKdjNxRDQxS3dod2t6MSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbi9hZS1oaXN0b3JpYWwtdm90YWNpb25lcyI7fXM6NToic3RhdGUiO3M6NDA6Ikt3OG9GQkV4b0lUTURVR3RmTmpmTmF6bGlDYWdoaTlqb1JFZkx4WWciO3M6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTI7fQ==', 1732576338);
+('4QstmnRcwHZuVFbigO1CxzlHDWQKdtlyg9qBwn2M', 12, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoicW1PbFRndjZPV1U3RXplMHIyVG1rQTE4eUxtVk5hMmhsaEZDc2wwYSI7czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMjtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1MToiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2FkbWluL2FlLWhpc3RvcmlhbC12b3RhY2lvbmVzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1732822056),
+('M8mXeFudUOOozLuvgd3LmMbAk2FxXY24royZmkZE', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiWEF2YXZvVTBBSmMybEtZZ0FlWlhzRnRDSk4wbFFmQ01NQVRmRzhldSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozNToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2FlLWhvbWUiO31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2dvb2dsZS1hdXRoL3JlZGlyZWN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1OiJzdGF0ZSI7czo0MDoiSFJEQUlxTzdEbVppU0d2UkRhTGlmcUdNNFBmNlA2d2pVZUk2djMyQiI7fQ==', 1732817485),
+('oWlQOvtAPBjpJMkg24XMDjhsxHmpeFpKV34LbPxQ', 12, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoienBLZnUzeXZOQ1Z1VG9OVjY0YmRacGRTUlpNTWZjZkN5VlJkY3RTbSI7czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMjtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1MToiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2FkbWluL2FlLWhpc3RvcmlhbC12b3RhY2lvbmVzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1732926077),
+('tIUk8p2FI6STiw2Jc00KfUBjhVyAE9hGxMSyTc1G', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaUFYSkd0cmVTMUtyWDkzbnB4V1FrSkdhUTdNd0dQajdZZVhoQ1E5TiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozNToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2FlLWhvbWUiO31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2dvb2dsZS1hdXRoL3JlZGlyZWN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1OiJzdGF0ZSI7czo0MDoiM3RDYnhqNHo3MFVoUE9FUDRscVk5UktsOEI4a2xJQ1k5dVFySFVrZyI7fQ==', 1732924732);
 
 -- --------------------------------------------------------
 
@@ -206,27 +253,32 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `run` varchar(8) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `google_id` varchar(255) DEFAULT NULL,
-  `carrera` varchar(60) DEFAULT NULL,
-  `edad` int(2) DEFAULT NULL,
-  `sexo` char(1) DEFAULT NULL,
+  `carrera` varchar(60) NOT NULL,
+  `edad` int(2) NOT NULL,
+  `sexo` char(1) NOT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Truncar tablas antes de insertar `users`
+--
+
+TRUNCATE TABLE `users`;
+--
 -- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`id`, `run`, `name`, `email`, `email_verified_at`, `password`, `google_id`, `carrera`, `edad`, `sexo`, `remember_token`, `created_at`, `updated_at`) VALUES
 (36, '20603622', 'ANGEL FERMIN MEZA VELIS', 'ange.meza@duocuc.cl', NULL, NULL, '104415041677343236917', 'Ingeniería en informática', 24, 'M', NULL, '2024-11-26 02:09:29', '2024-11-26 02:10:47'),
-(37, '20562281', '', 'ch.acevedo@duocuc.cl', NULL, NULL, '', 'Ingeniería en informática', 22, 'M', NULL, '2024-11-26 02:09:29', '2024-11-26 02:10:47'),
-(38, '20676246', '', 'ro.cancino@duocuc.cl', NULL, NULL, '', 'Ingeniería en informática', 23, 'M', NULL, '2024-11-26 02:09:29', '2024-11-26 02:10:47');
+(37, '20562281', 'Christopher', 'ch.acevedo@duocuc.cl', NULL, NULL, '', 'Ingeniería en informática', 22, 'M', NULL, '2024-11-26 02:09:29', '2024-11-26 02:10:47'),
+(38, '20676246', 'Rodrigo', 'ro.cancino@duocuc.cl', NULL, NULL, '', 'Ingeniería en informática', 23, 'M', NULL, '2024-11-26 02:09:29', '2024-11-26 02:10:47');
 
 -- --------------------------------------------------------
 
@@ -250,6 +302,11 @@ CREATE TABLE `votacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Truncar tablas antes de insertar `votacion`
+--
+
+TRUNCATE TABLE `votacion`;
+--
 -- Volcado de datos para la tabla `votacion`
 --
 
@@ -267,17 +324,23 @@ CREATE TABLE `voto` (
   `ID` int(5) NOT NULL,
   `SIGLA` varchar(12) NOT NULL,
   `RUN` int(8) NOT NULL,
+  `NOMBRE` varchar(60) NOT NULL,
   `OPCION_VOTADA` varchar(100) NOT NULL,
   `CARRERA` varchar(60) NOT NULL,
   `CORREO` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Truncar tablas antes de insertar `voto`
+--
+
+TRUNCATE TABLE `voto`;
+--
 -- Volcado de datos para la tabla `voto`
 --
 
-INSERT INTO `voto` (`ID`, `SIGLA`, `RUN`, `OPCION_VOTADA`, `CARRERA`, `CORREO`) VALUES
-(42, 'VTA-374', 20603622, 'Miercoles - Jueves', 'Ingeniería en informática', 'ange.meza@duocuc.cl');
+INSERT INTO `voto` (`ID`, `SIGLA`, `RUN`, `NOMBRE`, `OPCION_VOTADA`, `CARRERA`, `CORREO`) VALUES
+(42, 'VTA-374', 20603622, '', 'Miercoles - Jueves', 'Ingeniería en informática', 'ange.meza@duocuc.cl');
 
 --
 -- Índices para tablas volcadas
