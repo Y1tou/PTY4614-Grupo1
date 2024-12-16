@@ -16,42 +16,49 @@
         @include('admin.partials.navegation')
 
 
-        <table class="sec2">
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Tipo cuenta</th>
-                <th>Modificar</th>
-                <th>Eliminar</th>
-            </tr>
-            @foreach ($admins as $admin)
-            <tr>
-                <td>{{ $admin->ID }}</td>
-                <td>{{ $admin->NOMBRE }}</td>
-                <td>{{ $admin->CORREO }}</td>
-                <td>{{ $admin->TIPO == \App\Models\Admin::TIPO_SUPERADMIN ? 'Tipo 1' : 'Tipo 2' }}</td>
-                <td>
-                    <div class="btn1"  method="GET">
-                        <button type="button" class="edit-button" data-id="{{ $admin->ID }}" data-nombre="{{ $admin->NOMBRE }}" data-correo="{{ $admin->CORREO }}">
-                            Modificar
-                        </button>
-
-                    </div>
-                </td>
-                <td>
-                    <form class="btn2" action="{{ route('admin.eliminar-cuenta-admin', $admin->ID) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta cuenta?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">
-                            Eliminar
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-
-        </table>
+        <div class="overflow-x-auto w-full max-w-6xl mx-auto">
+            <table class="sec2">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border border-gray-300 px-4 py-2">ID</th>
+                        <th class="border border-gray-300 px-4 py-2">Nombre</th>
+                        <th class="border border-gray-300 px-4 py-2">Correo</th>
+                        <th class="border border-gray-300 px-4 py-2">Tipo cuenta</th>
+                        <th class="border border-gray-300 px-4 py-2">Modificar</th>
+                        <th class="border border-gray-300 px-4 py-2">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($admins as $admin)
+                    <tr class="odd:bg-white even:bg-gray-100">
+                        <td class="border border-gray-300 px-4 py-2">{{ $admin->ID }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $admin->NOMBRE }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $admin->CORREO }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $admin->TIPO == \App\Models\Admin::TIPO_SUPERADMIN ? 'Tipo 1' : 'Tipo 2' }}</td>
+                        <td class="border border-gray-300 px-4 py-2">
+                            <div class="flex justify-center">
+                                <button type="button" class="edit-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" 
+                                    data-id="{{ $admin->ID }}" 
+                                    data-nombre="{{ $admin->NOMBRE }}" 
+                                    data-correo="{{ $admin->CORREO }}">
+                                    Modificar
+                                </button>
+                            </div>
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2">
+                            <form class="flex justify-center" action="{{ route('admin.eliminar-cuenta-admin', $admin->ID) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta cuenta?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                                    Eliminar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
     @if ($errors->any())
@@ -78,21 +85,33 @@
 
 
     <!-- Modal para editar administrador -->
-    <div id="editModal" style="display:none;">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Editar Administrador</h2>
+    <div id="editModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" style="display:none;">
+        <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-semibold text-gray-800">Editar Administrador</h2>
+                <button class="text-gray-500 hover:text-gray-700 focus:outline-none" onclick="document.getElementById('editModal').style.display='none'">
+                    &times;
+                </button>
+            </div>
             <form id="editForm" method="POST" action="{{ route('admin.updateAdmin') }}">
                 @csrf
                 <input type="hidden" name="id" id="admin-id">
-                <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" id="admin-nombre">
-                <label for="correo">Correo:</label>
-                <input type="email" name="correo" id="admin-correo" required>
-                <button type="submit">Actualizar</button>
+                <div class="mb-4">
+                    <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+                    <input type="text" name="nombre" id="admin-nombre" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="correo" class="block text-sm font-medium text-gray-700">Correo</label>
+                    <input type="email" name="correo" id="admin-correo" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <div class="flex justify-end space-x-2">
+                    <button type="button" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none" onclick="document.getElementById('editModal').style.display='none'">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none">Actualizar</button>
+                </div>
             </form>
         </div>
     </div>
+
 </body>
 
 </html>
@@ -177,16 +196,12 @@
         button.addEventListener('click', function() {
             // Rellenar el formulario con los datos del administrador
             document.getElementById('admin-id').value = this.getAttribute('data-id');
-            document.getElementById('admin-nombre').value = this.getAttribute('data-nombre');
-            document.getElementById('admin-correo').value = this.getAttribute('data-correo');
-            // Mostrar el modal
-            document.getElementById('editModal').style.display = 'block';
+        document.getElementById('admin-nombre').value = this.getAttribute('data-nombre');
+        document.getElementById('admin-correo').value = this.getAttribute('data-correo');
+        document.getElementById('editModal').style.display = 'flex';
         });
     });
 
-    document.querySelector('.close-button').addEventListener('click', function() {
-        document.getElementById('editModal').style.display = 'none';
-    });
 
     window.addEventListener('click', function(event) {
         if (event.target === document.getElementById('editModal')) {

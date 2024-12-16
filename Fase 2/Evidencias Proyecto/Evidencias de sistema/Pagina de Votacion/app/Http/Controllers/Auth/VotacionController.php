@@ -95,7 +95,7 @@ class VotacionController extends Controller
             $adminCorreos = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
             
             // Obtener correos de la tabla USERS
-            $userCorreos = DB::table('USERS')->pluck('email');
+            $userCorreos = DB::table('users')->pluck('email');
             
             // Unir ambos arrays de correos y eliminar duplicados
             $todosLosCorreos = $adminCorreos->merge($userCorreos)->unique();
@@ -139,7 +139,7 @@ class VotacionController extends Controller
                 $adminCorreos = DB::table('admin')->where('TIPO', 2)->pluck('CORREO');
                 
                 // Obtener correos de la tabla USERS
-                $userCorreos = DB::table('USERS')->pluck('email');
+                $userCorreos = DB::table('users')->pluck('email');
         
                 // Unir ambos arrays de correos y eliminar duplicados
                 $todosLosCorreos = $adminCorreos->merge($userCorreos)->unique();
