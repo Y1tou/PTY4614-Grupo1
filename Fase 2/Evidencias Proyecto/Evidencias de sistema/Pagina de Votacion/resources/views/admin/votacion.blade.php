@@ -158,14 +158,30 @@
     /* Estilos para el modal */
 
     .fixed {
-    animation: fadeIn 0.3s ease-in-out;
-}
+        animation: fadeIn 0.3s ease-in-out;
+    }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
 
+    /* Responsive */
+        
+    @media (max-width: 768px) {
+        .sec2 {
+            height: auto;
+            width: 100%;
+            margin: 0;
+            padding: 5% 12%;
+            border-radius: 10px;
+            border: none;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #F1F1F1;
+        }
+    }
 </style>
 
 <script>

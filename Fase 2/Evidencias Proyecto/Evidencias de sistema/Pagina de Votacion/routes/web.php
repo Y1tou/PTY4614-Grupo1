@@ -15,8 +15,6 @@ use App\Http\Controllers\Auth\VerificarCorreoController;
 use App\Http\Controllers\Auth\VotoController;
 use App\Http\Controllers\Auth\ConsejeroController;
 
-Route::post('/votar', [VotoController::class, 'storeVote'])->name('voto.store');
-
 // Página de inicio (login)
 Route::get('/', function () {
     return view('welcome'); 
@@ -80,19 +78,12 @@ Route::get('/auth/google/callback', function () {
     }
 });
 
-// Ruta del dashboard
-// Route::get('/dashboard', function () {
-//     return view('/home');
-// })->middleware(['auth', 'verified'])->name('consejero.home');
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [VotoController::class, 'showHomeConsejero'])->name('consejero.home');
     Route::get('/dashboard', [VotoController::class, 'redirectHome']);
     Route::get('/historial', [VotoController::class, 'showHistorialConsejero'])->name('consejero.historial');
-    // Route::get('/consejero/votar', [VotoController::class, 'showVotingForm'])->name('consejero.voto.form');
-    // Route::post('/consejero/voto', [VotoController::class, 'storeVote'])->name('consejero.voto.store');
     Route::get('/votar', [VotoController::class, 'showVotingForm'])->name('voto.form');
-    Route::post('/voto', [VotoController::class, 'storeVote'])->name('voto.store');
+    // Route::post('/voto', [VotoController::class, 'storeVote'])->name('voto.store');
     Route::post('/votar', [VotoController::class, 'storeVote'])->name('voto.store');
 });
 
@@ -108,6 +99,9 @@ require __DIR__ . '/auth.php';
 
 // Página de login para admins
 Route::get('/admin', function () {
+    return view('/admin/login'); 
+});
+Route::get('public/admin', function () {
     return view('/admin/login'); 
 });
 
@@ -141,8 +135,5 @@ Route::prefix('admin')->group(function () {
             Route::post('/admin/finalizar-votacion/{sigla}', [VotacionController::class, 'finalizarVotacion'])->name('admin.finalizar-votacion');
         });
     });
-
-    Route::get('/votar', [VotoController::class, 'showVotingForm'])->name('voto.form');
-    Route::post('/voto', [VotoController::class, 'storeVote'])->name('voto.store');
 });
 

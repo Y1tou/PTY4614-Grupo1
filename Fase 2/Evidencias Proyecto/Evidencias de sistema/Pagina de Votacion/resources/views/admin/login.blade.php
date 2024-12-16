@@ -55,109 +55,162 @@
 </body>
 
 </html>
+    
+    <style>
+        * {
+    
+            padding: 0%;
+            margin: 0%;
+            font-family: 'Roboto';
+        }
+    
+        header {
+            height: 10vh;
+            width: 100%;
+            background-color: #163D64;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        a{
+            color: #FFFFFF;
+            text-decoration: inherit;
+            margin-right:50px;
+        }
+    
+        .logo {
+            width: 22%;
+            height: 100%;
+            display: flex;
+            text-align: start;
+            margin-left: 1vh;
+            align-items: center;
+        }
+        .logo>strong{
+            font-size: 40px;
+            text-decoration: none;
+            font-family: 'Roboto';
+        }
+    
+        .logo>p {
+            font-size: 45px;
+            font-family: 'Brush Script MT', cursive;
+            text-decoration: none;
+        }
+    
+        /*Form */
+        form {
+            border: 3px solid #f1f1f1;
+            background-color: #EBEBEB;
+            margin: 10% 25% 0% 25%;
+            border-radius: 5px;
+            border-color: #ccc;
+        }
+    
+        input[type=email],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 18px;
+        }
+    
+        button {
+            background-color: #FFFFFF;
+            color: #1c1c1c;
+            padding: 14px 20px;
+            margin: 25px 0;
+            border-radius: 10px;
+            border-color: #ccc;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+        }
+    
+        button:hover {
+            opacity: 0.9;
+            background-color: #ffbc58;
+        }
+    
+        .header_form {
+            text-align: center;
+            font-size: 30px;
+            margin: 24px 0 12px 0;
+        }
+    
+        .container {
+            padding: 16px;
+        }
+        b{
+            font-size: 20px;
+        }
 
-<style>
-    * {
-
-        padding: 0%;
-        margin: 0%;
-        font-family: 'Roboto';
-    }
-
-    header {
-        height: 10vh;
-        width: 100%;
-        background-color: #163D64;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    a{
-        color: #FFFFFF;
-        text-decoration: inherit;
-        margin-right:50px;
-    }
-
-    .logo {
-        width: 22%;
-        height: 100%;
-        display: flex;
-        text-align: start;
-        margin-left: 1vh;
-        align-items: center;
-    }
-    .logo>strong{
-        font-size: 40px;
-        text-decoration: none;
-        font-family: 'Roboto';
-    }
-
-    .logo>p {
-        font-size: 45px;
-        font-family: 'Brush Script MT', cursive;
-        text-decoration: none;
-    }
-
-    /*Form */
-    form {
-        border: 3px solid #f1f1f1;
-        background-color: #EBEBEB;
-        margin: 10% 25% 0% 25%;
-        border-radius: 5px;
-        border-color: #ccc;
-    }
-
-    input[type=email],
-    input[type=password] {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-        font-size: 18px;
-    }
-
-    button {
-        background-color: #FFFFFF;
-        color: #1c1c1c;
-        padding: 14px 20px;
-        margin: 25px 0;
-        border-radius: 10px;
-        border-color: #ccc;
-        cursor: pointer;
-        width: 100%;
-        font-size: 18px;
-    }
-
-    button:hover {
-        opacity: 0.9;
-        background-color: #ffbc58;
-    }
-
-    .header_form {
-        text-align: center;
-        font-size: 30px;
-        margin: 24px 0 12px 0;
-    }
-
-    .container {
-        padding: 16px;
-    }
-    b{
-        font-size: 20px;
-    }
-
-    @media (max-width: 700px) {
+        @media (max-width: 700px) {
             form {
 
-                margin: 6% 10% 0% 10%;
+                margin: 15% 10% 0% 10%;
                 border-radius: 5px;
                 border-color: #ccc;
             }
-    }
-</style>
+            
+            button {
+                padding: 10px 16px;
+                margin: 15px 0;
+                font-size: 18px;
+            }
+            
+            input[type=email],
+            input[type=password] {
+                padding: 10px 16px;
+                margin: 6px 0;
+                font-size: 18px;
+            }
+                a {
+                margin-right: 10px;
+                font-size: 12px;
+            }
+            @media (max-width: 1100px) {  
+
+                .btn-log{
+                    display: none;
+                }
+    
+                .logo>strong {
+                    font-size: 35px;
+                    text-decoration: none;
+                    font-family: 'Roboto';
+                }
+    
+                .logo>p {
+                    font-size: 40px;
+                    font-family: 'Brush Script MT', cursive;
+                    text-decoration: none;
+                }
+            }
+    
+            @media (max-width: 400px){
+    
+                header {
+                    height: 8vh;
+                }
+    
+                .logo>strong {
+                    font-size: 30px;
+                    text-decoration: none;
+                    font-family: 'Roboto';
+                }
+    
+                .logo>p {
+                    font-size: 35px;
+                    font-family: 'Brush Script MT', cursive;
+                    text-decoration: none;
+                }
+            }
+    </style>
 
 <script>
     function closeModal() {

@@ -117,6 +117,30 @@
         color: #FFFFFF;
     }
 
+    @media (max-width: 768px) {
+        .sec2 {
+            height: 60%;
+            width: 100%;
+            margin: 5%;
+            padding: 5%;
+            border-radius: 10px;
+            border: none;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #F1F1F1;
+            box-shadow: none;
+        }
+
+        .sec2>b {
+            font-size: 32px;
+        }
+        
+        select option {
+            font-size: 16px;
+        }
+    }
+
 </style>
 
 <script>

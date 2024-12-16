@@ -22,11 +22,15 @@ class CheckAdmin
         // Verificar si el admin es de tipo 2 (TIPO_ADMIN_AE = 2)
         if ($user && $user->TIPO == 2) {
             return $next($request); // Permitir acceso
-        }elseif($user && $user->TIPO == 1) {
+        }
+        elseif($user && $user->TIPO == 1) {
             return redirect('/admin/registrar-cuenta');
         }
+        elseif(Auth::guard('web')->check()) { 
+            return redirect('/home');
+        } 
 
         // Si no es admin tipo 2, redirigir al inicio
-        return redirect('/');
+        return redirect('/login');
     }
 }

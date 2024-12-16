@@ -177,11 +177,69 @@
         @media (max-width: 700px) {
             form {
 
-                margin: 6% 10% 0% 10%;
+                margin: 15% 10% 0% 10%;
                 border-radius: 5px;
                 border-color: #ccc;
             }
+            .header_form img {
+                max-width: 40%; /* Asegura que la imagen no desborde el contenedor */
+                height: auto; /* Mantiene la relación de aspecto */
+                margin: 0 auto; /* Centra la imagen */
+            }
+            
+            button {
+                padding: 10px 16px;
+                margin: 15px 0;
+                font-size: 18px;
+            }
+            
+            input[type=email] {
+                padding: 10px 16px;
+                margin: 6px 0;
+                font-size: 18px;
+            }
+                a {
+                margin-right: 10px;
+                font-size: 12px;
+            }
 
+        @media (max-width: 1100px) {  
+
+            .btn-log{
+                display: none;
+            }
+
+            .logo>strong {
+                font-size: 35px;
+                text-decoration: none;
+                font-family: 'Roboto';
+            }
+
+            .logo>p {
+                font-size: 40px;
+                font-family: 'Brush Script MT', cursive;
+                text-decoration: none;
+            }
+        }
+
+        @media (max-width: 400px){
+
+            header {
+                height: 8vh;
+            }
+
+            .logo>strong {
+                font-size: 30px;
+                text-decoration: none;
+                font-family: 'Roboto';
+            }
+
+            .logo>p {
+                font-size: 35px;
+                font-family: 'Brush Script MT', cursive;
+                text-decoration: none;
+            }
+        }
     }
     </style>
 
