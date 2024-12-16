@@ -24,9 +24,15 @@
                             </div>
                         </div>
                         <p class="text-gray-700 my-4">Descripción: {{ $votacion->DESCRIPCION }}</p>
-                        <div class="flex items-center space-x-4">
-                            <label class="text-gray-700">Opción Seleccionada:</label>
-                            <span class="text-gray-700">{{ $votacion->opcion_votada }}</span>
+                        <div class="flex justify-between items-center space-x-4">
+                            <div class="mt-4">
+                                <label class="text-gray-700">Opción Seleccionada:</label>
+                                <span class="text-gray-700">{{ $votacion->opcion_votada }}</span>
+                            </div>
+                            <div class="mt-4">
+                                <strong class="text-gray-700">Opción Ganadora:</strong>
+                                <span class="text-green-600">{{ $votacion->opcion_ganadora }}</span>
+                            </div>
                         </div>
                     </div>
                 @endforeach

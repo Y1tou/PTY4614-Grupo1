@@ -125,19 +125,6 @@
             text-align:center;
         }
 
-        @media (max-width: 600px) {  
-            .content {
-                padding: 20px;
-                margin: 20px;
-                border: none;
-                border-radius: 10px;
-                background-color: #ffffff;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                text-align:center;
-            }
-        }
-
-
         .content>strong{
             font-size: 30px;
         }
@@ -283,7 +270,23 @@
             justify-content: space-around;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {  
+            .content {
+                padding: 5px;
+                margin: 5px;
+                border: none;
+                border-radius: none;
+                background-color: #ffffff;
+                box-shadow: none;
+                text-align:center;
+            }
+            #graficoBarras{
+                max-width: 60%;
+            }
+            #graficoBarras{
+                max-width: 80%;
+            }
+
             .section {
                 width: 100%; 
             }
@@ -292,9 +295,31 @@
                 flex-direction: column;
             }
 
+            .buttons{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
             .buttons > a, .buttons > form > button {
                 margin: 10px 0;
             }
+
+            /* Ajustar orde de aparición de .buttons */
+
+            .buttons form {
+                order: 1;
+            }
+
+            .buttons a {
+                order: 2;
+            }
+
+            .buttons .finalizar {
+                order: 3;
+            }
+
         }
 
     </style>

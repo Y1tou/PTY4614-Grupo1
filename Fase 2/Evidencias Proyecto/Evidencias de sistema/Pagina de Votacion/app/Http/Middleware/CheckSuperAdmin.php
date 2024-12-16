@@ -22,11 +22,14 @@ class CheckSuperAdmin
         // Verificar si el admin es de tipo superadmin (TIPO_SUPERADMIN = 1)
         if ($user && $user->TIPO == 1) {
             return $next($request); // Permitir acceso
-        }elseif($user && $user->TIPO == 2) {
+        }
+        elseif($user && $user->TIPO == 2) {
             return redirect('/admin/ae-home');
         }
-
+        elseif(Auth::guard('web')->check()) { 
+            return redirect('/home');
+        } 
         // Si no es superadmin, redirigir al inicio
-        return redirect('/');
+        return redirect('/login');
     }
 }

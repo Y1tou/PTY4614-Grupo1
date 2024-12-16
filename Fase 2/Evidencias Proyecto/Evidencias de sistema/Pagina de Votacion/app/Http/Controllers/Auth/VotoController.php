@@ -33,19 +33,22 @@ class VotoController extends Controller
     
     public function showHistorialConsejero()
     {
-        $votaciones = Votacion::where('ESTADO', 0)->get();
+        $votaciones = Votacion::where('ESTADO', 0)->get(); // Solo votaciones finalizadas
         $votosUsuario = Voto::where('RUN', Auth::user()->run)->get();
-
+    
         $votacionesConVotos = $votaciones->filter(function ($votacion) use ($votosUsuario) {
             return $votosUsuario->contains('SIGLA', $votacion->SIGLA);
         })->map(function ($votacion) use ($votosUsuario) {
             $votoRealizado = $votosUsuario->firstWhere('SIGLA', $votacion->SIGLA);
             $votacion->opcion_votada = $votoRealizado->OPCION_VOTADA ?? null;
+            $votacion->opcion_ganadora = $votacion->GANADOR;
+    
             return $votacion;
         });
-
+    
         return view('consejero.historial', compact('votacionesConVotos'));
     }
+
 
     public function showVotingForm()
     {

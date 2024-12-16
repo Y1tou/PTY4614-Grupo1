@@ -251,6 +251,19 @@
         #editForm button:hover {
             background-color: #ff9d3f;
         }
+
+        
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 20px;
+                border: 1px solid #ccc;
+                width: 80%;
+                margin: auto;
+                margin-top: 12%;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+        }
     </style>
 
     <script>
